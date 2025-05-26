@@ -1,8 +1,8 @@
 import { tryLoadImage } from './imageLoader';
 
 // Portland Timbers brand colors
-export const TIMBERS_GREEN = '#004225';
-export const TIMBERS_GOLD = '#d69a00';
+export const TIMBERS_GREEN = '#004812'; // Updated green to match gradient
+export const TIMBERS_GOLD = '#EAE827'; // Updated gold to match gradient
 export const TIMBERS_WHITE = '#FFFFFF';
 
 /**
@@ -24,9 +24,9 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
       } catch (error) {
         console.log('Failed to load Timber Jim background, falling back to classic theme:', error);
         // Fallback to classic theme if image fails to load
-        const classicGradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width);
-        classicGradient.addColorStop(0, TIMBERS_GREEN);
-        classicGradient.addColorStop(1, '#000000');
+        const classicGradient = ctx.createLinearGradient(0, 0, 0, height);
+        classicGradient.addColorStop(0, '#EAE827'); // Timbers gold
+        classicGradient.addColorStop(1, '#004812'); // Timbers green
         return classicGradient;
       }
     }
@@ -77,10 +77,10 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
     }
     case 'classic':
     default: {
-      // Classic theme - Original Timbers colors
-      const classicGradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width);
-      classicGradient.addColorStop(0, TIMBERS_GREEN);
-      classicGradient.addColorStop(1, '#000000');
+      // Classic theme - Timbers gold to Timbers green gradient
+      const classicGradient = ctx.createLinearGradient(0, 0, 0, height);
+      classicGradient.addColorStop(0, '#EAE827'); // Timbers gold
+      classicGradient.addColorStop(1, '#004812'); // Timbers green
       return classicGradient;
     }
   }

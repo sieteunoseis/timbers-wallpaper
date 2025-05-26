@@ -6,3 +6,27 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Another Danger';
+  src: url('/fonts/Another Danger.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Rose';
+  src: url('/fonts/Rose.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Urban Jungle';
+  src: url('/fonts/UrbanJungle.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

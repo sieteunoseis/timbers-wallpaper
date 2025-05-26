@@ -9,14 +9,25 @@ import { Text, Type } from 'lucide-react';
  * @param {Function} props.setCustomText - Function to update custom text
  * @param {string} props.selectedFont - Currently selected font
  * @param {Function} props.setSelectedFont - Function to update selected font
+ * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
+ * @param {Function} props.setFontSizeMultiplier - Function to update font size multiplier
  * @returns {JSX.Element} Text customizer component
  */
-const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFont }) => {
+const TextCustomizer = ({ 
+  customText, 
+  setCustomText, 
+  selectedFont, 
+  setSelectedFont,
+  fontSizeMultiplier,
+  setFontSizeMultiplier
+}) => {
   const MAX_LENGTH = 50;
 
   // Font options
   const fontOptions = [
-    { value: 'Arial', label: 'Arial (Bold)', className: 'font-sans font-bold' },
+    { value: 'Another Danger', label: 'ANOTHER DANGER', className: '' },
+    { value: 'Rose', label: 'ROSE', className: '' },
+    { value: 'Urban Jungle', label: 'URBAN JUNGLE', className: '' },
     { value: 'Avenir', label: 'Avenir', className: 'font-sans' },
     { value: 'Verdana', label: 'Verdana', className: 'font-sans' },
     { value: 'Lethal Slime', label: 'LETHAL SLIME', className: '' },
@@ -31,6 +42,11 @@ const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFo
 
   const handleFontChange = (e) => {
     setSelectedFont(e.target.value);
+  };
+
+  // Handle font size slider change
+  const handleFontSizeChange = (e) => {
+    setFontSizeMultiplier(parseFloat(e.target.value));
   };
 
   return (
@@ -68,7 +84,7 @@ const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFo
               <label 
                 key={font.value}
                 className={`
-                  flex items-center justify-between border rounded-lg px-3 py-2 cursor-pointer
+                  flex items-center justify-between border rounded-lg px-2 py-3 cursor-pointer
                   ${selectedFont === font.value 
                     ? 'bg-[#00482B] border-yellow-400 text-white' 
                     : 'bg-white/10 border-white/30 text-white/80'}
@@ -76,7 +92,13 @@ const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFo
               >
                 <span 
                   className={font.className}
-                  style={{ fontFamily: font.value }}
+                  style={{ 
+                    fontFamily: font.value,
+                    fontSize: '0.9rem',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                  }}
                 >
                   {font.label}
                 </span>
@@ -98,8 +120,32 @@ const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFo
           </div>
         </div>
 
+        {/* Font Size Slider */}
+        <div>
+          <div className="flex items-center justify-between">
+            <label className="block text-white flex items-center gap-2">
+              <span className="text-sm">Font Size</span>
+            </label>
+            <span className="text-white/80 text-xs">{Math.round(fontSizeMultiplier * 100)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0.7"
+            max="1.5"
+            step="0.05"
+            value={fontSizeMultiplier}
+            onChange={handleFontSizeChange}
+            className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-yellow-400"
+          />
+          <div className="flex justify-between text-xs text-white/50 mt-1">
+            <span>Small</span>
+            <span>Default</span>
+            <span>Large</span>
+          </div>
+        </div>
+
         {/* Text Preview */}
-        <div className="mt-4">
+        <div>
           <label className="block text-white mb-2 text-sm opacity-75">
             Preview
           </label>
@@ -116,14 +162,18 @@ const TextCustomizer = ({ customText, setCustomText, selectedFont, setSelectedFo
               className="text-white text-lg"
               style={{ 
                 fontFamily: selectedFont,
-                fontWeight: ['Arial', 'Verdana'].includes(selectedFont) ? 'bold' : 'normal',
-                fontSize: selectedFont === 'Lethal Slime' ? '24px' : 'inherit',
-                letterSpacing: selectedFont === 'Lethal Slime' ? '1px' : 'normal',
-                textTransform: selectedFont === 'Lethal Slime' ? 'uppercase' : 'none',
+                fontWeight: ['Verdana'].includes(selectedFont) ? 'bold' : 'normal',
+                fontSize: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
+                  ? `${24 * fontSizeMultiplier}px` 
+                  : `${18 * fontSizeMultiplier}px`,
+                letterSpacing: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '1px' : 'normal',
+                textTransform: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? 'uppercase' : 'none',
                 textShadow: '1px 1px 3px rgba(0,0,0,0.5)'
               }}
             >
-              {selectedFont === 'Lethal Slime' ? (customText || 'PORTLAND TIMBERS').toUpperCase() : (customText || 'PORTLAND TIMBERS')}
+              {['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
+                ? (customText || 'PORTLAND TIMBERS').toUpperCase() 
+                : (customText || 'PORTLAND TIMBERS')}
             </span>
           </div>
         </div>

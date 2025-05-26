@@ -16,7 +16,8 @@ import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBE
  * @param {boolean} props.showPatchImage - Whether to show the patch image
  * @param {string} props.customText - Custom text to display instead of "PORTLAND TIMBERS"
  * @param {string} props.selectedFont - Font family to use for the custom text. 
- *                                      Available options: "Arial" (bold), "Avenir", "Verdana" (bold), or "Lethal Slime"
+ *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), or "Lethal Slime" (caps only)
+ * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -28,7 +29,8 @@ const WallpaperCanvas = ({
   includeDateTime = true,
   showPatchImage = true,
   customText = "PORTLAND TIMBERS",
-  selectedFont = "Arial"
+  selectedFont = "Arial",
+  fontSizeMultiplier = 1.0
 }) => {
   const generateWallpaper = useCallback(async () => {
     const canvas = canvasRef.current;
@@ -164,9 +166,81 @@ const WallpaperCanvas = ({
       } else {
         fontSize = 24; // Very small for long text
       }
+      
+      // Apply font size multiplier
+      fontSize = Math.round(fontSize * fontSizeMultiplier);
+    } else if (selectedFont === 'Another Danger') {
+      // Special handling for Another Danger font
+      fontWeight = 'normal';
+      
+      // Scaling for Another Danger which is also wide but different proportions
+      if (customText.length <= 8) {
+        fontSize = 65; // Very short text can be larger
+      } else if (customText.length <= 12) {
+        fontSize = 55;
+      } else if (customText.length <= 16) {
+        fontSize = 48;
+      } else if (customText.length <= 20) {
+        fontSize = 42;
+      } else if (customText.length <= 25) {
+        fontSize = 36;
+      } else if (customText.length <= 30) {
+        fontSize = 32;
+      } else {
+        fontSize = 28; // Very small for long text
+      }
+      
+      // Apply font size multiplier
+      fontSize = Math.round(fontSize * fontSizeMultiplier);
+    } else if (selectedFont === 'Rose') {
+      // Special handling for Rose font
+      fontWeight = 'normal';
+      
+      // Scaling for Rose font which has unique proportions
+      if (customText.length <= 8) {
+        fontSize = 58; // Very short text can be larger
+      } else if (customText.length <= 12) {
+        fontSize = 52;
+      } else if (customText.length <= 16) {
+        fontSize = 46;
+      } else if (customText.length <= 20) {
+        fontSize = 40;
+      } else if (customText.length <= 25) {
+        fontSize = 34;
+      } else if (customText.length <= 30) {
+        fontSize = 30;
+      } else {
+        fontSize = 26; // Very small for long text
+      }
+      
+      // Apply font size multiplier
+      fontSize = Math.round(fontSize * fontSizeMultiplier);
+    } else if (selectedFont === 'Urban Jungle') {
+      // Special handling for Urban Jungle font
+      fontWeight = 'normal';
+      
+      // Scaling for Urban Jungle which can be thinner
+      if (customText.length <= 8) {
+        fontSize = 62; // Very short text can be larger
+      } else if (customText.length <= 12) {
+        fontSize = 54;
+      } else if (customText.length <= 16) {
+        fontSize = 48;
+      } else if (customText.length <= 20) {
+        fontSize = 42;
+      } else if (customText.length <= 25) {
+        fontSize = 36;
+      } else if (customText.length <= 30) {
+        fontSize = 32;
+      } else {
+        fontSize = 28; // Very small for long text
+      }
+      
+      // Apply font size multiplier
+      fontSize = Math.round(fontSize * fontSizeMultiplier);
     } else {
       // Normal handling for system fonts
-      fontWeight = ['Arial', 'Verdana'].includes(selectedFont) ? 'bold' : 'normal';
+      fontWeight = ['Verdana'].includes(selectedFont) ? 'bold' : 'normal';
       fontSize = 48;
       if (customText.length > 30) {
         fontSize = 42;
@@ -174,21 +248,24 @@ const WallpaperCanvas = ({
       if (customText.length > 40) {
         fontSize = 38;
       }
+      
+      // Apply font size multiplier
+      fontSize = Math.round(fontSize * fontSizeMultiplier);
     }
     
     // Use the font
-    const fallbackFonts = selectedFont === 'Lethal Slime' ? '' : ', sans-serif';
+    const fallbackFonts = ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '' : ', sans-serif';
     ctx.font = `${fontWeight} ${fontSize}px "${selectedFont}"${fallbackFonts}`;
     ctx.textAlign = 'center';
     
     // Adjust text position if no patch image is shown
-    const textY = showPatchImage ? logoY + 400 : logoY + 200;
+    const textY = showPatchImage ? logoY + 380 : logoY + 100;
     
     // Ensure text doesn't get too long and wrap
     let displayText = customText.length > 50 ? customText.substring(0, 50) : customText;
     
-    // Ensure Lethal Slime is always uppercase
-    if (selectedFont === 'Lethal Slime') {
+    // Ensure caps-only fonts are always uppercase
+    if (['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont)) {
       displayText = displayText.toUpperCase();
     }
     
@@ -361,19 +438,54 @@ const WallpaperCanvas = ({
       ctx.fillText(timeText, dateTimeX, matchY + 15);
     }
 
+
+
     // Footer
     ctx.fillStyle = TIMBERS_WHITE;
-    ctx.font = '24px Arial';
+    
+    // Set footer font to match selected font
+    const footerFontSize = Math.round(24 * fontSizeMultiplier);
+    const footerFallbackFonts = ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '' : ', sans-serif';
+    const footerFontWeight = ['Verdana'].includes(selectedFont) ? 'bold' : 'normal';
+    ctx.font = `${footerFontWeight} ${footerFontSize}px "${selectedFont}"${footerFallbackFonts}`;
+    
+    // Handle special fonts for the footer text
+    let footerText = 'Rose City Till I Die! 🌹⚽';
+    
+    // Ensure caps-only fonts are always uppercase
+    if (['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont)) {
+      footerText = footerText.toUpperCase();
+    }
+    
+    // Add text shadow for better readability
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    
+    // Add subtle gold border around text for extra pop against dark backgrounds
+    if (selectedTheme === 'night' || selectedTheme === 'forest') {
+      ctx.strokeStyle = TIMBERS_GOLD;
+      ctx.lineWidth = 1;
+      ctx.strokeText(footerText, width / 2, height - 140);
+    }
+    
     ctx.textAlign = 'center';
-    ctx.fillText('Rose City Till I Die! 🌹⚽', width / 2, height - 140);
-  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont]);
+    ctx.fillText(footerText, width / 2, height - 140);
+    
+    // Reset shadow and other text effects
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
 
   useEffect(() => {
     if (canvasRef.current) {
-      console.log('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont });
+      console.log('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont, fontSizeMultiplier });
       generateWallpaper();
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont]);
+  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
 
   return null;
 };

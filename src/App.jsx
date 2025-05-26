@@ -21,7 +21,8 @@ const TimbersWallpaperGenerator = () => {
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [showPatchImage, setShowPatchImage] = useState(true);
   const [customText, setCustomText] = useState("PORTLAND TIMBERS");
-  const [selectedFont, setSelectedFont] = useState("Arial");
+  const [selectedFont, setSelectedFont] = useState("Another Danger");
+  const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1.0);
 
   // iPhone size options including iPhone 16 series
   const iPhoneSizes = [
@@ -190,6 +191,7 @@ const TimbersWallpaperGenerator = () => {
               showPatchImage={showPatchImage}
               customText={customText}
               selectedFont={selectedFont}
+              fontSizeMultiplier={fontSizeMultiplier}
             />
           </div>
 
@@ -210,6 +212,8 @@ const TimbersWallpaperGenerator = () => {
               setCustomText={setCustomText}
               selectedFont={selectedFont}
               setSelectedFont={setSelectedFont}
+              fontSizeMultiplier={fontSizeMultiplier}
+              setFontSizeMultiplier={setFontSizeMultiplier}
             />
 
             {/* Schedule Preview */}
