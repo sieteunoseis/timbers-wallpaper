@@ -1,22 +1,5 @@
 import React from 'react';
 import { Download } from 'lucide-react';
-import { formatDateForWallpaper, formatTime } from '../utils/dateFormatters';
-import { getNext4Matches } from '../utils/scheduleUtils';
-
-/**
- * Component for handling schedule data processing and extraction
- * 
- * @returns {Object} Schedule data and helper functions
- */
-const useScheduleData = () => {
-  const nextMatches = getNext4Matches();
-
-  return {
-    nextMatches,
-    formatDateForWallpaper,
-    formatTime
-  };
-};
 
 /**
  * Component for download button and handling download functionality
@@ -28,7 +11,7 @@ const useScheduleData = () => {
  * @param {Function} props.generateWallpaper - Function to generate the wallpaper
  * @returns {JSX.Element} Download button component
  */
-const DownloadButton = ({ canvasRef, isGenerating, setIsGenerating, onDownload }) => {
+const DownloadButton = ({ isGenerating, onDownload }) => {
   return (
     <button
       onClick={onDownload}
@@ -117,4 +100,4 @@ const Footer = () => {
   );
 };
 
-export { useScheduleData, DownloadButton, Instructions, Footer };
+export { DownloadButton, Instructions, Footer };

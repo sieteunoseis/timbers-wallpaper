@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 // Import components
 import DeviceSelector from './components/DeviceSelector';
@@ -7,7 +7,8 @@ import ThemeSelector from './components/ThemeSelector';
 import SchedulePreview from './components/SchedulePreview';
 import CanvasPreview from './components/CanvasPreview';
 import WallpaperCanvas from './components/WallpaperCanvas';
-import { useScheduleData, DownloadButton, Instructions, Footer } from './components/UIComponents';
+import { DownloadButton, Instructions, Footer } from './components/UIComponents';
+import useScheduleData from './hooks/useScheduleData';
 
 const TimbersWallpaperGenerator = () => {
 	const canvasRef = useRef(null);
@@ -17,6 +18,7 @@ const TimbersWallpaperGenerator = () => {
 	const [selectediPhoneSize, setSelectediPhoneSize] = useState('iphone15');
 	const [availableImages, setAvailableImages] = useState([]);
 	const [isLoadingImages, setIsLoadingImages] = useState(true);
+	const [showPatchImage, setShowPatchImage] = useState(true);
 
 	// iPhone size options including iPhone 16 series
 	const iPhoneSizes = [
@@ -48,9 +50,15 @@ const TimbersWallpaperGenerator = () => {
 	const { nextMatches } = useScheduleData();
 
 	// Function to dynamically load images from patches folder using manifest
-	const loadAvailableImages = async () => {
+	const loadAvailableImages = useCallback(async () => {
 		setIsLoadingImages(true);
 		const detectedImages = [];
+
+		// Skip loading if patch images are disabled
+		if (!showPatchImage) {
+			setIsLoadingImages(false);
+			return;
+		}
 
 		try {
 			console.log('Loading patches from manifest...');
@@ -107,7 +115,7 @@ description: patch.description || '',
 		}
 
 		setIsLoadingImages(false);
-	};
+	}, [selectedBackground, showPatchImage]);
 
 	// Download function to exclude date/time
 	const downloadWallpaper = async () => {
@@ -147,9 +155,11 @@ description: patch.description || '',
 	};
 	
 	useEffect(() => {
-		// Load available images on component mount
-		loadAvailableImages();
-	}, []);
+		// Load available images on component mount or when showPatchImage changes
+		if (showPatchImage) {
+			loadAvailableImages();
+		}
+	}, [loadAvailableImages, showPatchImage]);
 
 	return (
 <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-900 p-4">
@@ -177,6 +187,7 @@ description: patch.description || '',
 							dimensions={getCurrentDimensions()}
 							nextMatches={nextMatches}
 							includeDateTime={true}
+							showPatchImage={showPatchImage}
 						/>
 					</div>
 
@@ -196,6 +207,8 @@ description: patch.description || '',
 							availableImages={availableImages}
 							isLoadingImages={isLoadingImages}
 							loadAvailableImages={loadAvailableImages}
+							showPatchImage={showPatchImage}
+							setShowPatchImage={setShowPatchImage}
 						/>
 
 						{/* Theme Selector */}

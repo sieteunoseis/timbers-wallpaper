@@ -10,6 +10,8 @@ import { ImageIcon } from 'lucide-react';
  * @param {Array} props.availableImages - Available patch images
  * @param {boolean} props.isLoadingImages - Loading state for images
  * @param {Function} props.loadAvailableImages - Function to refresh available images
+ * @param {boolean} props.showPatchImage - Whether to show the patch image
+ * @param {Function} props.setShowPatchImage - Function to update show patch image state
  * @returns {JSX.Element} Patch selector component
  */
 const PatchSelector = ({ 
@@ -17,7 +19,9 @@ const PatchSelector = ({
   setSelectedBackground, 
   availableImages, 
   isLoadingImages, 
-  loadAvailableImages 
+  loadAvailableImages,
+  showPatchImage,
+  setShowPatchImage
 }) => {
   return (
     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
@@ -29,7 +33,22 @@ const PatchSelector = ({
         )}
       </h3>
 
-      {isLoadingImages ? (
+      <div className="flex items-center mb-4">
+        <input
+          id="show-patch-toggle"
+          type="checkbox"
+          checked={showPatchImage}
+          onChange={(e) => setShowPatchImage(e.target.checked)}
+          className="w-4 h-4 text-yellow-600 bg-white/20 border-white/30 rounded focus:ring-yellow-500"
+        />
+        <label htmlFor="show-patch-toggle" className="ml-2 text-sm text-white">
+          Show patch image
+        </label>
+      </div>
+
+      {!showPatchImage ? (
+        <div className="text-green-200 text-sm">Patch image disabled. No image will be displayed in the center.</div>
+      ) : isLoadingImages ? (
         <div className="text-green-200 text-sm">Loading available images...</div>
       ) : availableImages.length > 0 ? (
         <>

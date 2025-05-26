@@ -1,19 +1,298 @@
 {
   "patches": [
     {
-      "filename": "seattle-bonfire-feat.jpg",
-      "label": "Seattle Bonfire", 
-      "description": "Smokey the Bear with bonfire"
+      "filename": "hello-pity-thorns-temp-feat.jpg",
+      "label": "Hellno Pity – Thorns",
+      "year": "2025",
+      "id": "19120"
     },
     {
-      "filename": "smokey-bear-temp-feat.jpg",
-      "label": "Smokey Bear",
-      "description": "Classic Smokey Bear patch"
+      "filename": "daruma-thorns-feat.jpg",
+      "label": "Daruma – Thorns",
+      "year": "2025",
+      "id": "19128"
     },
     {
-      "filename": "pdx-empire-feat.jpg",
-      "label": "PDX Empire",
-      "description": "PDX Empire"
+      "filename": "daruma-timbers-feat.jpg",
+      "label": "Daruma – Timbers",
+      "year": "2025",
+      "id": "19124"
+    },
+    {
+      "filename": "102nd-airborne-reserved-feat.jpg",
+      "label": "102nd Airborne Reserved",
+      "year": "2025",
+      "id": "19179"
+    },
+    {
+      "filename": "rain-or-shine-pooh-feat.jpg",
+      "label": "Pooh Rain or Shine",
+      "year": "2025",
+      "id": "19158"
+    },
+    {
+      "filename": "forever-not-long-enough-pooh-feat.jpg",
+      "label": "Forever Is Not Long Enough",
+      "year": "2025",
+      "id": "19156"
+    },
+    {
+      "filename": "rctid-forever-pooh-feat.jpg",
+      "label": "RCTID Means Forever",
+      "year": "2025",
+      "id": "19153"
+    },
+    {
+      "filename": "timbers-sth-2025-feat.jpg",
+      "label": "Season Ticket Holder – 2025",
+      "year": "2025",
+      "id": "19172"
+    },
+    {
+      "filename": "rctid-pdx-sports-feat.jpg",
+      "label": "Portland Sports RCTID",
+      "year": "2025",
+      "id": "19164"
+    },
+    {
+      "filename": "winterhawks-sunflowers-feat.jpg",
+      "label": "Winterhawk Sunflowers",
+      "year": "2025",
+      "id": "19161"
+    },
+    {
+      "filename": "sinclair-baon-temp-feat.jpg",
+      "label": "Sinclair BAON",
+      "year": "2024",
+      "id": "19150"
+    },
+    {
+      "filename": "roe-city-coffin-feat.jpg",
+      "label": "Rose City Coffin",
+      "year": "2025",
+      "id": "19147"
+    },
+    {
+      "filename": "civil-disobedience-feat.jpg",
+      "label": "Civil Disobedience",
+      "year": "2025",
+      "id": "19144"
+    },
+    {
+      "filename": "no-pity-pride-bumper-feat.jpg",
+      "label": "No Pity Bumper – Pride",
+      "year": "2025",
+      "id": "19141"
+    },
+    {
+      "filename": "no-pity-bumber-blacked-feat.jpg",
+      "label": "No Pity Bumper – Blacked Out",
+      "year": "2025",
+      "id": "19138"
+    },
+    {
+      "filename": "ptfc-cheese-goals-temp-feat.jpg",
+      "label": "PTFC Cheese Goals",
+      "year": "2025",
+      "id": "19134"
+    },
+    {
+      "filename": "north-end-salty-temp-feat.jpg",
+      "label": "North End Extra Salty",
+      "year": "2025",
+      "id": "19131"
+    },
+    {
+      "filename": "rose-city-hammers-feat.jpg",
+      "label": "Rose City Hammers",
+      "year": "2024",
+      "id": "19108"
+    },
+    {
+      "filename": "we-outside-feat.jpg",
+      "label": "We Outside",
+      "year": "2025",
+      "id": "19111"
+    },
+    {
+      "filename": "year-of-the-snake-feat.jpg",
+      "label": "Year of the Snake",
+      "year": "2025",
+      "id": "19063"
+    },
+    {
+      "filename": "lumberjack-skull-feat.jpg",
+      "label": "Lumberjack Skull",
+      "year": "2025",
+      "id": "17131"
+    },
+    {
+      "filename": "sinclair-mb-feat.jpg",
+      "label": "Sinclair Retirement MB",
+      "year": "2024",
+      "id": "18754"
+    },
+    {
+      "filename": "park-arts-feat.jpg",
+      "label": "Dark Arts",
+      "year": "2024",
+      "id": "18899"
+    },
+    {
+      "filename": "oregon-kit-clive-feat.jpg",
+      "label": "Oregon Kits: 2024 Timbers Alternate",
+      "year": "2024",
+      "id": "18895"
+    },
+    {
+      "filename": "oregon-kit-thorns-24-feat.jpg",
+      "label": "Oregon Kits: 2024 Thorns Primary",
+      "year": "2024",
+      "id": "18891"
+    },
+    {
+      "filename": "scusa-hopper-feat.jpg",
+      "label": "SCUSA Hopper Train Car",
+      "year": "2024",
+      "id": "18723"
+    },
+    {
+      "filename": "aces-fish-tanker-feat.jpg",
+      "label": "ACES Tanker",
+      "year": "2024",
+      "id": "18724"
+    },
+    {
+      "filename": "107st-2025-feat.jpg",
+      "label": "107ist Triangle – 2025",
+      "year": "2025",
+      "id": "19076"
+    },
+    {
+      "filename": "true-supporters-feat.jpg",
+      "label": "True Supporters",
+      "year": "2025",
+      "id": "19072"
+    },
+    {
+      "filename": "ptfc-city-feat.jpg",
+      "label": "PTFC City",
+      "year": "2025",
+      "id": "19066"
+    },
+    {
+      "filename": "portland-tree-feat.jpg",
+      "label": "Portland Tree",
+      "year": "2024",
+      "id": "19017"
+    },
+    {
+      "filename": "Hina-SPOTY-feat.jpg",
+      "label": "Hina SPOTY",
+      "year": "2024",
+      "id": "19027"
+    },
+    {
+      "filename": "san-diego-away-mb-feat.jpg",
+      "label": "San Diego Away MB",
+      "year": "2025",
+      "id": "19059"
+    },
+    {
+      "filename": "patchy2-mb-feat.jpg",
+      "label": "Patchy Award Winner – 2",
+      "year": "2024",
+      "id": "19056"
+    },
+    {
+      "filename": "cascadia-cup-2024-feat.jpg",
+      "label": "Cascadia Cup 2024",
+      "year": "2024",
+      "id": "19053"
+    },
+    {
+      "filename": "goals-santa-feat.jpg",
+      "label": "Santa Goals",
+      "year": "2024",
+      "id": "18878"
+    },
+    {
+      "filename": "c-is-for-cascadia-feat.jpg",
+      "label": "C is For Cascadia AF",
+      "year": "2024",
+      "id": "19039"
+    },
+    {
+      "filename": "103-trash-bomber-feat.jpg",
+      "label": "103 Trash Bomber",
+      "year": "2024",
+      "id": "19037"
+    },
+    {
+      "filename": "knit-sweater-temp-feat.jpg",
+      "label": "Rose City Christmas Sweater",
+      "year": "2024",
+      "id": "19022"
+    },
+    {
+      "filename": "unipiper-feat.jpg",
+      "label": "Unipiper 1",
+      "year": "2024",
+      "id": "18995"
+    },
+    {
+      "filename": "unipiper2-feat.jpg",
+      "label": "Unipiper 2",
+      "year": "2024",
+      "id": "18998"
+    },
+    {
+      "filename": "day-of-dead-sunflowers-feat.jpg",
+      "label": "La Catrina Sunflowers",
+      "year": "2024",
+      "id": "19004"
+    },
+    {
+      "filename": "day-of-dead-roses-feat.jpg",
+      "label": "La Catrina Roses",
+      "year": "2024",
+      "id": "19012"
+    },
+    {
+      "filename": "riveters-muertos-feat.jpg",
+      "label": "Riverters Dia De Los Muertos",
+      "year": "2024",
+      "id": "19001"
+    },
+    {
+      "filename": "goals-sand-trooper-green-feat.jpg",
+      "label": "Sandtrooper Goals: Green",
+      "year": "2024",
+      "id": "18984"
+    },
+    {
+      "filename": "goals-sand-trooper-yellow-feat.jpg",
+      "label": "Sandtrooper Goals: Yellow",
+      "year": "2024",
+      "id": "18981"
+    },
+    {
+      "filename": "goals-sand-trooper-red-feat.jpg",
+      "label": "Sandtrooper Goals: Red",
+      "year": "2024",
+      "id": "18977"
+    },
+    {
+      "filename": "timbers-pic-feat.jpg",
+      "label": "Timbers Pick",
+      "year": "2024",
+      "id": "18852"
+    },
+    {
+      "filename": "rose-city-empire-feat.jpg",
+      "label": "Rose City Empire",
+      "year": "2024",
+      "id": "18968"
     }
   ]
 }

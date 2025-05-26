@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
 import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
@@ -13,6 +13,7 @@ import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBE
  * @param {Object} props.dimensions - Current device dimensions
  * @param {Array} props.nextMatches - Array of upcoming matches
  * @param {boolean} props.includeDateTime - Whether to include date/time on the wallpaper
+ * @param {boolean} props.showPatchImage - Whether to show the patch image
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -21,9 +22,10 @@ const WallpaperCanvas = ({
   selectedTheme, 
   dimensions, 
   nextMatches, 
-  includeDateTime = true
+  includeDateTime = true,
+  showPatchImage = true
 }) => {
-  const generateWallpaper = async () => {
+  const generateWallpaper = useCallback(async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -80,81 +82,65 @@ const WallpaperCanvas = ({
     const logoY = Math.floor(height * 0.4); // 40% down from top
     const circleRadius = Math.floor(Math.min(width, height) * 0.2);
 
-    // Load and draw the selected image in the circular area
-    let selectedImg;
-    try {
-      selectedImg = await tryLoadImage(`/patches/${selectedBackground}`);
-      console.log('Selected image loaded successfully');
+    // Load and draw the selected image in the circular area if enabled
+    if (showPatchImage && selectedBackground) {
+      try {
+        const selectedImg = await tryLoadImage(`/patches/${selectedBackground}`);
+        console.log('Selected image loaded successfully');
 
-      // Create circular clipping path for the selected image
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
-      ctx.clip();
-
-      // Calculate dimensions to fit image in circle while maintaining aspect ratio
-      const scaleFactor = 1.0; // Adjust this value between 0 and 1 to scale the image
-      const imgAspect = selectedImg.width / selectedImg.height;
-      const circleSize = circleRadius * 2;
-      const scaledCircleSize = circleSize * scaleFactor;
-
-      let imgWidth, imgHeight, imgX, imgY;
-
-      if (imgAspect > 1) {
-        // Image is wider than tall
-        imgWidth = scaledCircleSize;
-        imgHeight = scaledCircleSize / imgAspect;
-        imgX = width / 2 - (scaledCircleSize / 2);
-        imgY = logoY - imgHeight / 2;
-      } else {
-        // Image is taller than wide
-        imgHeight = scaledCircleSize;
-        imgWidth = scaledCircleSize * imgAspect;
-        imgX = width / 2 - imgWidth / 2;
-        imgY = logoY - (scaledCircleSize / 2);
-      }
-
-      // Draw the image
-      ctx.drawImage(selectedImg, imgX, imgY, imgWidth, imgHeight);
-      ctx.restore();
-
-      // Add a subtle border around the circular image
-      ctx.beginPath();
-      ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
-      ctx.strokeStyle = TIMBERS_GOLD;
-      ctx.lineWidth = 4;
-      ctx.stroke();
-    } catch (error) {
-      console.log('Failed to load selected image:', error);
-      // Fallback: Create the original circular logo area
-      ctx.beginPath();
-      ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
-      ctx.fillStyle = TIMBERS_GREEN;
-      ctx.fill();
-
-      // Add rose symbol (simplified representation)
-      ctx.fillStyle = '#FF0000';
-      ctx.beginPath();
-      ctx.arc(width / 2, logoY, 25, 0, 2 * Math.PI);
-      ctx.fill();
-
-      // Add leaves around (simplified)
-      ctx.fillStyle = TIMBERS_GREEN;
-      for (let i = 0; i < 8; i++) {
-        const angle = (i * Math.PI * 2) / 8;
-        const x = width / 2 + Math.cos(angle) * 60;
-        const y = logoY + Math.sin(angle) * 60;
+        // Create circular clipping path for the selected image
+        ctx.save();
         ctx.beginPath();
-        ctx.ellipse(x, y, 20, 35, angle + Math.PI / 2, 0, 2 * Math.PI);
-        ctx.fill();
+        ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
+        ctx.clip();
+
+        // Calculate dimensions to fit image in circle while maintaining aspect ratio
+        const scaleFactor = 1.0; // Adjust this value between 0 and 1 to scale the image
+        const imgAspect = selectedImg.width / selectedImg.height;
+        const circleSize = circleRadius * 2;
+        const scaledCircleSize = circleSize * scaleFactor;
+
+        let imgWidth, imgHeight, imgX, imgY;
+
+        if (imgAspect > 1) {
+          // Image is wider than tall
+          imgWidth = scaledCircleSize;
+          imgHeight = scaledCircleSize / imgAspect;
+          imgX = width / 2 - (scaledCircleSize / 2);
+          imgY = logoY - imgHeight / 2;
+        } else {
+          // Image is taller than wide
+          imgHeight = scaledCircleSize;
+          imgWidth = scaledCircleSize * imgAspect;
+          imgX = width / 2 - imgWidth / 2;
+          imgY = logoY - (scaledCircleSize / 2);
+        }
+
+        // Draw the image
+        ctx.drawImage(selectedImg, imgX, imgY, imgWidth, imgHeight);
+        ctx.restore();
+
+        // Add a subtle border around the circular image
+        ctx.beginPath();
+        ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
+        ctx.strokeStyle = TIMBERS_GOLD;
+        ctx.lineWidth = 4;
+        ctx.stroke();
+      } catch (error) {
+        console.log('Failed to load selected image:', error);
+        // Don't draw anything if loading fails
       }
     }
+    // No else block - we don't draw anything if the patch image is disabled
 
     // "TIMBERS" text
     ctx.fillStyle = TIMBERS_WHITE;
     ctx.font = 'bold 48px Arial';
     ctx.textAlign = 'center';
-    ctx.fillText('PORTLAND TIMBERS', width / 2, logoY + 400);
+    
+    // Adjust text position if no patch image is shown
+    const textY = showPatchImage ? logoY + 400 : logoY + 200;
+    ctx.fillText('PORTLAND TIMBERS', width / 2, textY);
 
     // Include date/time if requested
     if (includeDateTime) {
@@ -162,7 +148,8 @@ const WallpaperCanvas = ({
     }
 
     // Schedule section - Vertical layout below content
-    const scheduleStartY = logoY + 540;
+    // Adjust schedule position if no patch image is shown
+    const scheduleStartY = showPatchImage ? logoY + 540 : logoY + 340;
 
     // Load Portland Timbers logo with fallback
     let timbersLogo;
@@ -307,14 +294,14 @@ const WallpaperCanvas = ({
     ctx.font = '24px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('Rose City Till I Die! 🌹⚽', width / 2, height - 140);
-  };
+  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage]);
 
   useEffect(() => {
-    if (selectedBackground && canvasRef.current) {
+    if (canvasRef.current) {
       console.log('Generating wallpaper with:', { selectedBackground, selectedTheme });
       generateWallpaper();
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime]);
+  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage]);
 
   return null;
 };
