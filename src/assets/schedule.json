@@ -1,0 +1,5149 @@
+[
+  {
+    "id": 77475720,
+    "sport_id": 1,
+    "league_id": 3211,
+    "season_id": 25191,
+    "type_id": 223,
+    "name": "Group Stage",
+    "sort_order": 1,
+    "finished": false,
+    "is_current": false,
+    "starting_at": "2025-07-28",
+    "ending_at": "2025-08-06",
+    "games_in_current_week": false,
+    "tie_breaker_rule_id": null,
+    "aggregates": [],
+    "rounds": [
+      {
+        "id": 367605,
+        "sport_id": 1,
+        "league_id": 3211,
+        "season_id": 25191,
+        "stage_id": 77475720,
+        "name": "2",
+        "finished": false,
+        "is_current": false,
+        "starting_at": "2025-07-31",
+        "ending_at": "2025-08-02",
+        "games_in_current_week": false,
+        "fixtures": [
+          {
+            "id": 19387584,
+            "sport_id": 1,
+            "league_id": 3211,
+            "season_id": 25191,
+            "stage_id": 77475720,
+            "group_id": null,
+            "aggregate_id": null,
+            "round_id": 367605,
+            "state_id": 1,
+            "venue_id": null,
+            "name": "Portland Timbers vs Querétaro",
+            "starting_at": "2025-08-01 22:00:00",
+            "result_info": null,
+            "leg": "1/1",
+            "details": null,
+            "length": 90,
+            "placeholder": false,
+            "has_odds": false,
+            "has_premium_odds": false,
+            "starting_at_timestamp": 1754085600,
+            "participants": [
+              {
+                "id": 607,
+                "sport_id": 1,
+                "country_id": 3483,
+                "venue_id": 139,
+                "gender": "male",
+                "name": "Portland Timbers",
+                "short_code": "POT",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+                "founded": 2009,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-05-24 23:30:00",
+                "meta": {
+                  "location": "home",
+                  "winner": null,
+                  "position": null
+                }
+              },
+              {
+                "id": 538,
+                "sport_id": 1,
+                "country_id": 458,
+                "venue_id": 94,
+                "gender": "male",
+                "name": "Querétaro",
+                "short_code": "QUE",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/26/538.png",
+                "founded": 1950,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-04-21 03:00:00",
+                "meta": {
+                  "location": "away",
+                  "winner": null,
+                  "position": null
+                }
+              }
+            ],
+            "scores": []
+          }
+        ]
+      },
+      {
+        "id": 367606,
+        "sport_id": 1,
+        "league_id": 3211,
+        "season_id": 25191,
+        "stage_id": 77475720,
+        "name": "3",
+        "finished": false,
+        "is_current": false,
+        "starting_at": "2025-08-04",
+        "ending_at": "2025-08-06",
+        "games_in_current_week": false,
+        "fixtures": [
+          {
+            "id": 19387601,
+            "sport_id": 1,
+            "league_id": 3211,
+            "season_id": 25191,
+            "stage_id": 77475720,
+            "group_id": null,
+            "aggregate_id": null,
+            "round_id": 367606,
+            "state_id": 1,
+            "venue_id": null,
+            "name": "América vs Portland Timbers",
+            "starting_at": "2025-08-05 22:00:00",
+            "result_info": null,
+            "leg": "1/1",
+            "details": null,
+            "length": 90,
+            "placeholder": false,
+            "has_odds": false,
+            "has_premium_odds": false,
+            "starting_at_timestamp": 1754431200,
+            "participants": [
+              {
+                "id": 2687,
+                "sport_id": 1,
+                "country_id": 458,
+                "venue_id": 1599,
+                "gender": "male",
+                "name": "América",
+                "short_code": "AME",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/2687.png",
+                "founded": 1916,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-05-23 02:00:00",
+                "meta": {
+                  "location": "home",
+                  "winner": null,
+                  "position": null
+                }
+              },
+              {
+                "id": 607,
+                "sport_id": 1,
+                "country_id": 3483,
+                "venue_id": 139,
+                "gender": "male",
+                "name": "Portland Timbers",
+                "short_code": "POT",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+                "founded": 2009,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-05-24 23:30:00",
+                "meta": {
+                  "location": "away",
+                  "winner": null,
+                  "position": null
+                }
+              }
+            ],
+            "scores": []
+          }
+        ]
+      },
+      {
+        "id": 367604,
+        "sport_id": 1,
+        "league_id": 3211,
+        "season_id": 25191,
+        "stage_id": 77475720,
+        "name": "1",
+        "finished": false,
+        "is_current": false,
+        "starting_at": "2025-07-28",
+        "ending_at": "2025-07-30",
+        "games_in_current_week": false,
+        "fixtures": [
+          {
+            "id": 19387566,
+            "sport_id": 1,
+            "league_id": 3211,
+            "season_id": 25191,
+            "stage_id": 77475720,
+            "group_id": null,
+            "aggregate_id": null,
+            "round_id": 367604,
+            "state_id": 1,
+            "venue_id": null,
+            "name": "Portland Timbers vs Atlético San Luis",
+            "starting_at": "2025-07-29 22:00:00",
+            "result_info": null,
+            "leg": "1/1",
+            "details": null,
+            "length": 90,
+            "placeholder": false,
+            "has_odds": false,
+            "has_premium_odds": false,
+            "starting_at_timestamp": 1753826400,
+            "participants": [
+              {
+                "id": 607,
+                "sport_id": 1,
+                "country_id": 3483,
+                "venue_id": 139,
+                "gender": "male",
+                "name": "Portland Timbers",
+                "short_code": "POT",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+                "founded": 2009,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-05-24 23:30:00",
+                "meta": {
+                  "location": "home",
+                  "winner": null,
+                  "position": null
+                }
+              },
+              {
+                "id": 15522,
+                "sport_id": 1,
+                "country_id": 458,
+                "venue_id": 6105,
+                "gender": "male",
+                "name": "Atlético San Luis",
+                "short_code": "ASL",
+                "image_path": "https://cdn.sportmonks.com/images/soccer/teams/2/15522.png",
+                "founded": 2013,
+                "type": "domestic",
+                "placeholder": false,
+                "last_played_at": "2025-04-21 01:00:00",
+                "meta": {
+                  "location": "away",
+                  "winner": null,
+                  "position": null
+                }
+              }
+            ],
+            "scores": []
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 77475053,
+    "sport_id": 1,
+    "league_id": 779,
+    "season_id": 24962,
+    "type_id": 223,
+    "name": "Regular Season",
+    "sort_order": 1,
+    "finished": false,
+    "is_current": true,
+    "starting_at": "2025-02-22",
+    "ending_at": "2025-10-19",
+    "games_in_current_week": true,
+    "tie_breaker_rule_id": null,
+    "fixtures": [
+      {
+        "id": 19352962,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs New England",
+        "starting_at": "2025-07-06 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1751769000,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 641,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 160,
+            "gender": "male",
+            "name": "New England",
+            "short_code": "NER",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/1/641.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19353132,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Dallas",
+        "starting_at": "2025-09-28 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1759026600,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 583,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 25823,
+            "gender": "male",
+            "name": "Dallas",
+            "short_code": "DAL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/7/583.png",
+            "founded": 1996,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 19:00:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352648,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 11573,
+        "name": "Colorado Rapids vs Portland Timbers",
+        "starting_at": "2025-03-23 01:30:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1742693400,
+        "participants": [
+          {
+            "id": 179,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 11573,
+            "gender": "male",
+            "name": "Colorado Rapids",
+            "short_code": "CLR",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/19/179.png",
+            "founded": 1996,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 4
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 12
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16109796,
+            "fixture_id": 19352648,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16109798,
+            "fixture_id": 19352648,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16109799,
+            "fixture_id": 19352648,
+            "type_id": 2,
+            "participant_id": 179,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16109800,
+            "fixture_id": 19352648,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16109797,
+            "fixture_id": 19352648,
+            "type_id": 1,
+            "participant_id": 179,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16109795,
+            "fixture_id": 19352648,
+            "type_id": 1525,
+            "participant_id": 179,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16110533,
+            "fixture_id": 19352648,
+            "type_id": 48996,
+            "participant_id": 179,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16110534,
+            "fixture_id": 19352648,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19352771,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 11577,
+        "name": "Sporting KC vs Portland Timbers",
+        "starting_at": "2025-04-13 18:15:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1744568100,
+        "participants": [
+          {
+            "id": 323,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 11577,
+            "gender": "male",
+            "name": "Sporting KC",
+            "short_code": "SKC",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/323.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 14
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 7
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16247695,
+            "fixture_id": 19352771,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16248501,
+            "fixture_id": 19352771,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16247694,
+            "fixture_id": 19352771,
+            "type_id": 2,
+            "participant_id": 323,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16247692,
+            "fixture_id": 19352771,
+            "type_id": 1,
+            "participant_id": 323,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16248500,
+            "fixture_id": 19352771,
+            "type_id": 48996,
+            "participant_id": 323,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16247691,
+            "fixture_id": 19352771,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16247690,
+            "fixture_id": 19352771,
+            "type_id": 1525,
+            "participant_id": 323,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16247693,
+            "fixture_id": 19352771,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          }
+        ]
+      },
+      {
+        "id": 19353066,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 343369,
+        "name": "San Diego vs Portland Timbers",
+        "starting_at": "2025-08-24 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1756002600,
+        "participants": [
+          {
+            "id": 275650,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": null,
+            "gender": "male",
+            "name": "San Diego",
+            "short_code": "SDL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/2/275650.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 20:45:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19353161,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs San Diego",
+        "starting_at": "2025-10-19 01:00:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1760835600,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 275650,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": null,
+            "gender": "male",
+            "name": "San Diego",
+            "short_code": "SDL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/2/275650.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 20:45:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352912,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs SJ Earthquakes",
+        "starting_at": "2025-06-14 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1749868200,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 287,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 31429,
+            "gender": "male",
+            "name": "SJ Earthquakes",
+            "short_code": "SJE",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/287.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352802,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 338706,
+        "name": "LA Galaxy vs Portland Timbers",
+        "starting_at": "2025-04-28 01:00:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1745802000,
+        "participants": [
+          {
+            "id": 413,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 338706,
+            "gender": "male",
+            "name": "LA Galaxy",
+            "short_code": "LAG",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/29/413.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 20:45:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 15
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 5
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16327413,
+            "fixture_id": 19352802,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16327411,
+            "fixture_id": 19352802,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16327412,
+            "fixture_id": 19352802,
+            "type_id": 2,
+            "participant_id": 413,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16327410,
+            "fixture_id": 19352802,
+            "type_id": 1,
+            "participant_id": 413,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16327408,
+            "fixture_id": 19352802,
+            "type_id": 1525,
+            "participant_id": 413,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16328298,
+            "fixture_id": 19352802,
+            "type_id": 48996,
+            "participant_id": 413,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16327409,
+            "fixture_id": 19352802,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16328299,
+            "fixture_id": 19352802,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19353113,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 64,
+        "name": "Houston Dynamo vs Portland Timbers",
+        "starting_at": "2025-09-21 00:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1758414600,
+        "participants": [
+          {
+            "id": 478,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 64,
+            "gender": "male",
+            "name": "Houston Dynamo",
+            "short_code": "HOU",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/30/478.png",
+            "founded": 2005,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352787,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Los Angeles FC",
+        "starting_at": "2025-04-20 02:15:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1745115300,
+        "participants": [
+          {
+            "id": 147671,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 219232,
+            "gender": "male",
+            "name": "Los Angeles FC",
+            "short_code": "LAF",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/147671.png",
+            "founded": 2014,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 8
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 5
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16280108,
+            "fixture_id": 19352787,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16280107,
+            "fixture_id": 19352787,
+            "type_id": 1525,
+            "participant_id": 147671,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16280110,
+            "fixture_id": 19352787,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16280109,
+            "fixture_id": 19352787,
+            "type_id": 1,
+            "participant_id": 147671,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16280112,
+            "fixture_id": 19352787,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16280111,
+            "fixture_id": 19352787,
+            "type_id": 2,
+            "participant_id": 147671,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16280311,
+            "fixture_id": 19352787,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16280312,
+            "fixture_id": 19352787,
+            "type_id": 48996,
+            "participant_id": 147671,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19352843,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 411,
+        "name": "Real Salt Lake vs Portland Timbers",
+        "starting_at": "2025-05-15 01:30:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1747272600,
+        "participants": [
+          {
+            "id": 1062,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 411,
+            "gender": "male",
+            "name": "Real Salt Lake",
+            "short_code": "RSL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/6/1062.png",
+            "founded": 2004,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 11
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 3
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16415025,
+            "fixture_id": 19352843,
+            "type_id": 48996,
+            "participant_id": 1062,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16415026,
+            "fixture_id": 19352843,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16414681,
+            "fixture_id": 19352843,
+            "type_id": 1,
+            "participant_id": 1062,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16414679,
+            "fixture_id": 19352843,
+            "type_id": 1525,
+            "participant_id": 1062,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16414684,
+            "fixture_id": 19352843,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16414680,
+            "fixture_id": 19352843,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16414682,
+            "fixture_id": 19352843,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16414683,
+            "fixture_id": 19352843,
+            "type_id": 2,
+            "participant_id": 1062,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          }
+        ]
+      },
+      {
+        "id": 19353031,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 25823,
+        "name": "Dallas vs Portland Timbers",
+        "starting_at": "2025-08-10 00:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1754785800,
+        "participants": [
+          {
+            "id": 583,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 25823,
+            "gender": "male",
+            "name": "Dallas",
+            "short_code": "DAL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/7/583.png",
+            "founded": 1996,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 19:00:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352667,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Houston Dynamo",
+        "starting_at": "2025-03-30 23:00:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1743375600,
+        "participants": [
+          {
+            "id": 478,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 64,
+            "gender": "male",
+            "name": "Houston Dynamo",
+            "short_code": "HOU",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/30/478.png",
+            "founded": 2005,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 13
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 10
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16159361,
+            "fixture_id": 19352667,
+            "type_id": 1525,
+            "participant_id": 478,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16159365,
+            "fixture_id": 19352667,
+            "type_id": 2,
+            "participant_id": 478,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16159607,
+            "fixture_id": 19352667,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16159364,
+            "fixture_id": 19352667,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16159366,
+            "fixture_id": 19352667,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16159363,
+            "fixture_id": 19352667,
+            "type_id": 1,
+            "participant_id": 478,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16159362,
+            "fixture_id": 19352667,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16159608,
+            "fixture_id": 19352667,
+            "type_id": 48996,
+            "participant_id": 478,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19353147,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 1579,
+        "name": "Seattle Sounders vs Portland Timbers",
+        "starting_at": "2025-10-05 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1759631400,
+        "participants": [
+          {
+            "id": 2649,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 28,
+            "gender": "male",
+            "name": "Seattle Sounders",
+            "short_code": "SEA",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/25/2649.png",
+            "founded": 2007,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 19:00:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352942,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 11542,
+        "name": "Toronto vs Portland Timbers",
+        "starting_at": "2025-06-28 23:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1751153400,
+        "participants": [
+          {
+            "id": 111,
+            "sport_id": 1,
+            "country_id": 1004,
+            "venue_id": 11542,
+            "gender": "male",
+            "name": "Toronto",
+            "short_code": "TOR",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/15/111.png",
+            "founded": 2006,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19353079,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 316588,
+        "name": "Minnesota United vs Portland Timbers",
+        "starting_at": "2025-08-31 00:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1756600200,
+        "participants": [
+          {
+            "id": 3639,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 316588,
+            "gender": "male",
+            "name": "Minnesota United",
+            "short_code": "MIN",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/3639.png",
+            "founded": 2010,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352618,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 343372,
+        "name": "Nashville SC vs Portland Timbers",
+        "starting_at": "2025-03-09 01:30:00",
+        "result_info": "Nashville SC won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1741483800,
+        "participants": [
+          {
+            "id": 148048,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343372,
+            "gender": "male",
+            "name": "Nashville SC",
+            "short_code": "NSH",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/16/148048.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 14
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 10
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16031378,
+            "fixture_id": 19352618,
+            "type_id": 2,
+            "participant_id": 148048,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16031379,
+            "fixture_id": 19352618,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16031376,
+            "fixture_id": 19352618,
+            "type_id": 1,
+            "participant_id": 148048,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16031377,
+            "fixture_id": 19352618,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16031374,
+            "fixture_id": 19352618,
+            "type_id": 1525,
+            "participant_id": 148048,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16031375,
+            "fixture_id": 19352618,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16032480,
+            "fixture_id": 19352618,
+            "type_id": 48996,
+            "participant_id": 148048,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16032481,
+            "fixture_id": 19352618,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19352637,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs LA Galaxy",
+        "starting_at": "2025-03-16 20:45:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1742157900,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 12
+            }
+          },
+          {
+            "id": 413,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 338706,
+            "gender": "male",
+            "name": "LA Galaxy",
+            "short_code": "LAG",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/29/413.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 20:45:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 15
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16083777,
+            "fixture_id": 19352637,
+            "type_id": 2,
+            "participant_id": 413,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16083773,
+            "fixture_id": 19352637,
+            "type_id": 1525,
+            "participant_id": 413,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16083776,
+            "fixture_id": 19352637,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16083772,
+            "fixture_id": 19352637,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16083774,
+            "fixture_id": 19352637,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16083775,
+            "fixture_id": 19352637,
+            "type_id": 1,
+            "participant_id": 413,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16084266,
+            "fixture_id": 19352637,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16084267,
+            "fixture_id": 19352637,
+            "type_id": 48996,
+            "participant_id": 413,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19352592,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Vancouver Whitecaps",
+        "starting_at": "2025-02-23 21:00:00",
+        "result_info": "Vancouver Whitecaps won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1740344400,
+        "participants": [
+          {
+            "id": 292,
+            "sport_id": 1,
+            "country_id": 1004,
+            "venue_id": 11554,
+            "gender": "male",
+            "name": "Vancouver Whitecaps",
+            "short_code": "VAN",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/4/292.png",
+            "founded": 1986,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 9
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 11
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15969061,
+            "fixture_id": 19352592,
+            "type_id": 48996,
+            "participant_id": 292,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15969060,
+            "fixture_id": 19352592,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15968549,
+            "fixture_id": 19352592,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15968546,
+            "fixture_id": 19352592,
+            "type_id": 1,
+            "participant_id": 292,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15968547,
+            "fixture_id": 19352592,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15968544,
+            "fixture_id": 19352592,
+            "type_id": 1525,
+            "participant_id": 292,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15968548,
+            "fixture_id": 19352592,
+            "type_id": 2,
+            "participant_id": 292,
+            "score": {
+              "goals": 4,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15968545,
+            "fixture_id": 19352592,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          }
+        ]
+      },
+      {
+        "id": 19352993,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Real Salt Lake",
+        "starting_at": "2025-07-17 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1752719400,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 1062,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 411,
+            "gender": "male",
+            "name": "Real Salt Lake",
+            "short_code": "RSL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/6/1062.png",
+            "founded": 2004,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352815,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 339092,
+        "name": "SJ Earthquakes vs Portland Timbers",
+        "starting_at": "2025-05-04 02:30:00",
+        "result_info": "SJ Earthquakes won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1746325800,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          },
+          {
+            "id": 287,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 31429,
+            "gender": "male",
+            "name": "SJ Earthquakes",
+            "short_code": "SJE",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/287.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 11
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16357311,
+            "fixture_id": 19352815,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16357314,
+            "fixture_id": 19352815,
+            "type_id": 1,
+            "participant_id": 287,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16357316,
+            "fixture_id": 19352815,
+            "type_id": 2,
+            "participant_id": 287,
+            "score": {
+              "goals": 4,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16357315,
+            "fixture_id": 19352815,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16357312,
+            "fixture_id": 19352815,
+            "type_id": 1525,
+            "participant_id": 287,
+            "score": {
+              "goals": 4,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16357313,
+            "fixture_id": 19352815,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16357476,
+            "fixture_id": 19352815,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16357475,
+            "fixture_id": 19352815,
+            "type_id": 48996,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19353014,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 219232,
+        "name": "Los Angeles FC vs Portland Timbers",
+        "starting_at": "2025-07-26 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1753497000,
+        "participants": [
+          {
+            "id": 147671,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 219232,
+            "gender": "male",
+            "name": "Los Angeles FC",
+            "short_code": "LAF",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/147671.png",
+            "founded": 2014,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352832,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Sporting KC",
+        "starting_at": "2025-05-11 02:30:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1746930600,
+        "participants": [
+          {
+            "id": 323,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 11577,
+            "gender": "male",
+            "name": "Sporting KC",
+            "short_code": "SKC",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/323.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 12
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 3
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16396625,
+            "fixture_id": 19352832,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16396626,
+            "fixture_id": 19352832,
+            "type_id": 1,
+            "participant_id": 323,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16396627,
+            "fixture_id": 19352832,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16396629,
+            "fixture_id": 19352832,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16396628,
+            "fixture_id": 19352832,
+            "type_id": 2,
+            "participant_id": 323,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16396624,
+            "fixture_id": 19352832,
+            "type_id": 1525,
+            "participant_id": 323,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16396801,
+            "fixture_id": 19352832,
+            "type_id": 48996,
+            "participant_id": 323,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16396800,
+            "fixture_id": 19352832,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19352858,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Seattle Sounders",
+        "starting_at": "2025-05-18 01:30:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1747531800,
+        "participants": [
+          {
+            "id": 2649,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 28,
+            "gender": "male",
+            "name": "Seattle Sounders",
+            "short_code": "SEA",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/25/2649.png",
+            "founded": 2007,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 19:00:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 6
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 4
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16517960,
+            "fixture_id": 19352858,
+            "type_id": 1525,
+            "participant_id": 2649,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16517961,
+            "fixture_id": 19352858,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16517963,
+            "fixture_id": 19352858,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16517964,
+            "fixture_id": 19352858,
+            "type_id": 2,
+            "participant_id": 2649,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16518618,
+            "fixture_id": 19352858,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16518619,
+            "fixture_id": 19352858,
+            "type_id": 48996,
+            "participant_id": 2649,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16517962,
+            "fixture_id": 19352858,
+            "type_id": 1,
+            "participant_id": 2649,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16517965,
+            "fixture_id": 19352858,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          }
+        ]
+      },
+      {
+        "id": 19352671,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 343370,
+        "name": "Austin vs Portland Timbers",
+        "starting_at": "2025-04-05 23:45:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1743896700,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 6
+            }
+          },
+          {
+            "id": 254172,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343370,
+            "gender": "male",
+            "name": "Austin",
+            "short_code": "ATX",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/28/254172.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16189236,
+            "fixture_id": 19352671,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16189239,
+            "fixture_id": 19352671,
+            "type_id": 2,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16189238,
+            "fixture_id": 19352671,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16189235,
+            "fixture_id": 19352671,
+            "type_id": 1525,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16189234,
+            "fixture_id": 19352671,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16190075,
+            "fixture_id": 19352671,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16190074,
+            "fixture_id": 19352671,
+            "type_id": 48996,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16189237,
+            "fixture_id": 19352671,
+            "type_id": 1,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          }
+        ]
+      },
+      {
+        "id": 19352908,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs St. Louis City",
+        "starting_at": "2025-06-08 23:00:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1749423600,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 267299,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343367,
+            "gender": "male",
+            "name": "St. Louis City",
+            "short_code": "LOU",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/267299.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352901,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 11554,
+        "name": "Vancouver Whitecaps vs Portland Timbers",
+        "starting_at": "2025-09-25 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1758767400,
+        "participants": [
+          {
+            "id": 292,
+            "sport_id": 1,
+            "country_id": 1004,
+            "venue_id": 11554,
+            "gender": "male",
+            "name": "Vancouver Whitecaps",
+            "short_code": "VAN",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/4/292.png",
+            "founded": 1986,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352605,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Austin",
+        "starting_at": "2025-03-02 03:30:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1740886200,
+        "participants": [
+          {
+            "id": 254172,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343370,
+            "gender": "male",
+            "name": "Austin",
+            "short_code": "ATX",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/28/254172.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 5
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 15
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15995318,
+            "fixture_id": 19352605,
+            "type_id": 1,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15995321,
+            "fixture_id": 19352605,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15995319,
+            "fixture_id": 19352605,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15995316,
+            "fixture_id": 19352605,
+            "type_id": 1525,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15995320,
+            "fixture_id": 19352605,
+            "type_id": 2,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15995561,
+            "fixture_id": 19352605,
+            "type_id": 48996,
+            "participant_id": 254172,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15995560,
+            "fixture_id": 19352605,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15995317,
+            "fixture_id": 19352605,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          }
+        ]
+      },
+      {
+        "id": 19352889,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Colorado Rapids",
+        "starting_at": "2025-05-29 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1748485800,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": 6
+            }
+          },
+          {
+            "id": 179,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 11573,
+            "gender": "male",
+            "name": "Colorado Rapids",
+            "short_code": "CLR",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/19/179.png",
+            "founded": 1996,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": 7
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352867,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 284700,
+        "name": "Orlando City vs Portland Timbers",
+        "starting_at": "2025-05-24 23:30:00",
+        "result_info": "Orlando City won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1748129400,
+        "participants": [
+          {
+            "id": 204,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 31395,
+            "gender": "male",
+            "name": "Orlando City",
+            "short_code": "ORL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/12/204.png",
+            "founded": 2008,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 4
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 4
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16552173,
+            "fixture_id": 19352867,
+            "type_id": 48996,
+            "participant_id": 204,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16551782,
+            "fixture_id": 19352867,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16551781,
+            "fixture_id": 19352867,
+            "type_id": 2,
+            "participant_id": 204,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16551774,
+            "fixture_id": 19352867,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16551777,
+            "fixture_id": 19352867,
+            "type_id": 1,
+            "participant_id": 204,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16552174,
+            "fixture_id": 19352867,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16551779,
+            "fixture_id": 19352867,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16551772,
+            "fixture_id": 19352867,
+            "type_id": 1525,
+            "participant_id": 204,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          }
+        ]
+      },
+      {
+        "id": 19353101,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs New York RB",
+        "starting_at": "2025-09-14 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1757817000,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 383,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 2320,
+            "gender": "male",
+            "name": "New York RB",
+            "short_code": "NYR",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/383.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19353008,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Minnesota United",
+        "starting_at": "2025-07-20 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1752978600,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 3639,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 316588,
+            "gender": "male",
+            "name": "Minnesota United",
+            "short_code": "MIN",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/3639.png",
+            "founded": 2010,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 00:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19352981,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 343367,
+        "name": "St. Louis City vs Portland Timbers",
+        "starting_at": "2025-07-13 23:00:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1752447600,
+        "participants": [
+          {
+            "id": 267299,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343367,
+            "gender": "male",
+            "name": "St. Louis City",
+            "short_code": "LOU",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/267299.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      },
+      {
+        "id": 19353051,
+        "sport_id": 1,
+        "league_id": 779,
+        "season_id": 24962,
+        "stage_id": 77475053,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 1,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Cincinnati",
+        "starting_at": "2025-08-17 02:30:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1755397800,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": null
+            }
+          },
+          {
+            "id": 3636,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343371,
+            "gender": "male",
+            "name": "Cincinnati",
+            "short_code": "CIN",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/20/3636.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-17 23:15:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": null
+            }
+          }
+        ],
+        "scores": []
+      }
+    ],
+    "rounds": []
+  },
+  {
+    "id": 77474823,
+    "sport_id": 1,
+    "league_id": 2451,
+    "season_id": 24893,
+    "type_id": 224,
+    "name": "Club Friendlies 3",
+    "sort_order": 2,
+    "finished": false,
+    "is_current": true,
+    "starting_at": "2024-12-28",
+    "ending_at": "2025-09-16",
+    "games_in_current_week": true,
+    "tie_breaker_rule_id": null,
+    "fixtures": [
+      {
+        "id": 19354443,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs San Diego",
+        "starting_at": "2025-02-12 21:30:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1739395800,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 1
+            }
+          },
+          {
+            "id": 275650,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": null,
+            "gender": "male",
+            "name": "San Diego",
+            "short_code": "SDL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/2/275650.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 20:45:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15910838,
+            "fixture_id": 19354443,
+            "type_id": 1525,
+            "participant_id": 275650,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15910837,
+            "fixture_id": 19354443,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          }
+        ]
+      },
+      {
+        "id": 19367494,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 319286,
+        "name": "Orange County vs Portland Timbers",
+        "starting_at": "2025-01-25 19:00:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1737831600,
+        "participants": [
+          {
+            "id": 238,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 319286,
+            "gender": "male",
+            "name": "Orange County",
+            "short_code": null,
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/14/238.png",
+            "founded": 2010,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:00:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15467999,
+            "fixture_id": 19367494,
+            "type_id": 1525,
+            "participant_id": 238,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15468000,
+            "fixture_id": 19367494,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15468002,
+            "fixture_id": 19367494,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15468003,
+            "fixture_id": 19367494,
+            "type_id": 2,
+            "participant_id": 238,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15468001,
+            "fixture_id": 19367494,
+            "type_id": 1,
+            "participant_id": 238,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15468004,
+            "fixture_id": 19367494,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15877318,
+            "fixture_id": 19367494,
+            "type_id": 48996,
+            "participant_id": 238,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15877319,
+            "fixture_id": 19367494,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19382704,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs SJ Earthquakes",
+        "starting_at": "2025-02-05 20:30:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1738787400,
+        "participants": [
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 1
+            }
+          },
+          {
+            "id": 287,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 31429,
+            "gender": "male",
+            "name": "SJ Earthquakes",
+            "short_code": "SJE",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/287.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15506462,
+            "fixture_id": 19382704,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15506465,
+            "fixture_id": 19382704,
+            "type_id": 1,
+            "participant_id": 287,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15506466,
+            "fixture_id": 19382704,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15506467,
+            "fixture_id": 19382704,
+            "type_id": 2,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15506464,
+            "fixture_id": 19382704,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15506463,
+            "fixture_id": 19382704,
+            "type_id": 1525,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15506736,
+            "fixture_id": 19382704,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15506737,
+            "fixture_id": 19382704,
+            "type_id": 48996,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19367511,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 219232,
+        "name": "Los Angeles FC vs Portland Timbers",
+        "starting_at": "2025-01-29 20:30:00",
+        "result_info": "Los Angeles FC won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1738182600,
+        "participants": [
+          {
+            "id": 147671,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 219232,
+            "gender": "male",
+            "name": "Los Angeles FC",
+            "short_code": "LAF",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/147671.png",
+            "founded": 2014,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15463306,
+            "fixture_id": 19367511,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15463303,
+            "fixture_id": 19367511,
+            "type_id": 1,
+            "participant_id": 147671,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15463305,
+            "fixture_id": 19367511,
+            "type_id": 2,
+            "participant_id": 147671,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15463301,
+            "fixture_id": 19367511,
+            "type_id": 1525,
+            "participant_id": 147671,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15463304,
+            "fixture_id": 19367511,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15463302,
+            "fixture_id": 19367511,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15877333,
+            "fixture_id": 19367511,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15877332,
+            "fixture_id": 19367511,
+            "type_id": 48996,
+            "participant_id": 147671,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19354425,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 12,
+        "venue_id": 343367,
+        "name": "St. Louis City vs Portland Timbers",
+        "starting_at": "2025-02-05 18:00:00",
+        "result_info": null,
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1738778400,
+        "participants": [
+          {
+            "id": 267299,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 343367,
+            "gender": "male",
+            "name": "St. Louis City",
+            "short_code": "LOU",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/3/267299.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 01:30:00",
+            "meta": {
+              "location": "home",
+              "winner": null,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": null,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15506095,
+            "fixture_id": 19354425,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15506093,
+            "fixture_id": 19354425,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15506092,
+            "fixture_id": 19354425,
+            "type_id": 1525,
+            "participant_id": 267299,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15506096,
+            "fixture_id": 19354425,
+            "type_id": 2,
+            "participant_id": 267299,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15506097,
+            "fixture_id": 19354425,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15506094,
+            "fixture_id": 19354425,
+            "type_id": 1,
+            "participant_id": 267299,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          }
+        ]
+      },
+      {
+        "id": 19354437,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 139,
+        "name": "Portland Timbers vs Chicago Fire",
+        "starting_at": "2025-02-08 22:30:00",
+        "result_info": "Game ended in draw.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1739053800,
+        "participants": [
+          {
+            "id": 75,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 11575,
+            "gender": "male",
+            "name": "Chicago Fire",
+            "short_code": "CHI",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/11/75.png",
+            "founded": 1997,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 19:00:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 1
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15891308,
+            "fixture_id": 19354437,
+            "type_id": 2,
+            "participant_id": 75,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15891307,
+            "fixture_id": 19354437,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15891309,
+            "fixture_id": 19354437,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15891304,
+            "fixture_id": 19354437,
+            "type_id": 1525,
+            "participant_id": 75,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15891306,
+            "fixture_id": 19354437,
+            "type_id": 1,
+            "participant_id": 75,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15891305,
+            "fixture_id": 19354437,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15891571,
+            "fixture_id": 19354437,
+            "type_id": 48996,
+            "participant_id": 75,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15891570,
+            "fixture_id": 19354437,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      },
+      {
+        "id": 19354449,
+        "sport_id": 1,
+        "league_id": 2451,
+        "season_id": 24893,
+        "stage_id": 77474823,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 14651,
+        "name": "Charlotte vs Portland Timbers",
+        "starting_at": "2025-02-15 18:00:00",
+        "result_info": "Charlotte won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": false,
+        "has_premium_odds": false,
+        "starting_at_timestamp": 1739642400,
+        "participants": [
+          {
+            "id": 260119,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 14651,
+            "gender": "male",
+            "name": "Charlotte",
+            "short_code": "CHL",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/23/260119.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 15922737,
+            "fixture_id": 19354449,
+            "type_id": 2,
+            "participant_id": 260119,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15922734,
+            "fixture_id": 19354449,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15922735,
+            "fixture_id": 19354449,
+            "type_id": 1,
+            "participant_id": 260119,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 15922738,
+            "fixture_id": 19354449,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 15924228,
+            "fixture_id": 19354449,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15922733,
+            "fixture_id": 19354449,
+            "type_id": 1525,
+            "participant_id": 260119,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 15924227,
+            "fixture_id": 19354449,
+            "type_id": 48996,
+            "participant_id": 260119,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 15922736,
+            "fixture_id": 19354449,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          }
+        ]
+      }
+    ],
+    "rounds": []
+  },
+  {
+    "id": 77475656,
+    "sport_id": 1,
+    "league_id": 782,
+    "season_id": 25166,
+    "type_id": 224,
+    "name": "Round of 32",
+    "sort_order": 4,
+    "finished": true,
+    "is_current": false,
+    "starting_at": "2025-05-06",
+    "ending_at": "2025-05-08",
+    "games_in_current_week": false,
+    "tie_breaker_rule_id": null,
+    "fixtures": [
+      {
+        "id": 19415827,
+        "sport_id": 1,
+        "league_id": 782,
+        "season_id": 25166,
+        "stage_id": 77475656,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 5,
+        "venue_id": 11639,
+        "name": "Tacoma Defiance vs Portland Timbers",
+        "starting_at": "2025-05-07 02:00:00",
+        "result_info": "Portland Timbers won after full-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1746583200,
+        "participants": [
+          {
+            "id": 4466,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 225298,
+            "gender": "male",
+            "name": "Tacoma Defiance",
+            "short_code": "SEA",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/18/4466.png",
+            "founded": null,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-19 02:30:00",
+            "meta": {
+              "location": "home",
+              "winner": false,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": true,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16375767,
+            "fixture_id": 19415827,
+            "type_id": 1,
+            "participant_id": 4466,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16375765,
+            "fixture_id": 19415827,
+            "type_id": 1525,
+            "participant_id": 4466,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16375768,
+            "fixture_id": 19415827,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 1,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16375770,
+            "fixture_id": 19415827,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16375769,
+            "fixture_id": 19415827,
+            "type_id": 2,
+            "participant_id": 4466,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16375766,
+            "fixture_id": 19415827,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 3,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16375851,
+            "fixture_id": 19415827,
+            "type_id": 48996,
+            "participant_id": 4466,
+            "score": {
+              "goals": 2,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16375852,
+            "fixture_id": 19415827,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 2,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          }
+        ]
+      }
+    ],
+    "rounds": []
+  },
+  {
+    "id": 77475655,
+    "sport_id": 1,
+    "league_id": 782,
+    "season_id": 25166,
+    "type_id": 224,
+    "name": "Round of 16",
+    "sort_order": 5,
+    "finished": true,
+    "is_current": false,
+    "starting_at": "2025-05-20",
+    "ending_at": "2025-05-22",
+    "games_in_current_week": true,
+    "tie_breaker_rule_id": null,
+    "fixtures": [
+      {
+        "id": 19420425,
+        "sport_id": 1,
+        "league_id": 782,
+        "season_id": 25166,
+        "stage_id": 77475655,
+        "group_id": null,
+        "aggregate_id": null,
+        "round_id": null,
+        "state_id": 7,
+        "venue_id": 31429,
+        "name": "SJ Earthquakes vs Portland Timbers",
+        "starting_at": "2025-05-21 02:30:00",
+        "result_info": "SJ Earthquakes won after extra-time.",
+        "leg": "1/1",
+        "details": null,
+        "length": 90,
+        "placeholder": false,
+        "has_odds": true,
+        "has_premium_odds": true,
+        "starting_at_timestamp": 1747794600,
+        "participants": [
+          {
+            "id": 287,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 31429,
+            "gender": "male",
+            "name": "SJ Earthquakes",
+            "short_code": "SJE",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/287.png",
+            "founded": 1995,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-25 02:30:00",
+            "meta": {
+              "location": "home",
+              "winner": true,
+              "position": 1
+            }
+          },
+          {
+            "id": 607,
+            "sport_id": 1,
+            "country_id": 3483,
+            "venue_id": 139,
+            "gender": "male",
+            "name": "Portland Timbers",
+            "short_code": "POT",
+            "image_path": "https://cdn.sportmonks.com/images/soccer/teams/31/607.png",
+            "founded": 2009,
+            "type": "domestic",
+            "placeholder": false,
+            "last_played_at": "2025-05-24 23:30:00",
+            "meta": {
+              "location": "away",
+              "winner": false,
+              "position": 2
+            }
+          }
+        ],
+        "scores": [
+          {
+            "id": 16533249,
+            "fixture_id": 19420425,
+            "type_id": 2,
+            "participant_id": 287,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16533245,
+            "fixture_id": 19420425,
+            "type_id": 1525,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16533247,
+            "fixture_id": 19420425,
+            "type_id": 1,
+            "participant_id": 287,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16533248,
+            "fixture_id": 19420425,
+            "type_id": 1,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "1ST_HALF"
+          },
+          {
+            "id": 16533250,
+            "fixture_id": 19420425,
+            "type_id": 2,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF"
+          },
+          {
+            "id": 16533273,
+            "fixture_id": 19420425,
+            "type_id": 48996,
+            "participant_id": 287,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16533274,
+            "fixture_id": 19420425,
+            "type_id": 48996,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "2ND_HALF_ONLY"
+          },
+          {
+            "id": 16533246,
+            "fixture_id": 19420425,
+            "type_id": 1525,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "CURRENT"
+          },
+          {
+            "id": 16533280,
+            "fixture_id": 19420425,
+            "type_id": 3,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "ET"
+          },
+          {
+            "id": 16533281,
+            "fixture_id": 19420425,
+            "type_id": 5314,
+            "participant_id": 287,
+            "score": {
+              "goals": 0,
+              "participant": "home"
+            },
+            "description": "ET_1ST_HALF"
+          },
+          {
+            "id": 16533282,
+            "fixture_id": 19420425,
+            "type_id": 5314,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "ET_1ST_HALF"
+          },
+          {
+            "id": 16533279,
+            "fixture_id": 19420425,
+            "type_id": 3,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "ET"
+          },
+          {
+            "id": 16533283,
+            "fixture_id": 19420425,
+            "type_id": 39,
+            "participant_id": 287,
+            "score": {
+              "goals": 1,
+              "participant": "home"
+            },
+            "description": "ET_2ND_HALF"
+          },
+          {
+            "id": 16533284,
+            "fixture_id": 19420425,
+            "type_id": 39,
+            "participant_id": 607,
+            "score": {
+              "goals": 0,
+              "participant": "away"
+            },
+            "description": "ET_2ND_HALF"
+          }
+        ]
+      }
+    ],
+    "rounds": []
+  }
+]

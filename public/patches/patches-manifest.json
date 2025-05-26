@@ -1,0 +1,19 @@
+{
+  "patches": [
+    {
+      "filename": "seattle-bonfire-feat.jpg",
+      "label": "Seattle Bonfire", 
+      "description": "Smokey the Bear with bonfire"
+    },
+    {
+      "filename": "smokey-bear-temp-feat.jpg",
+      "label": "Smokey Bear",
+      "description": "Classic Smokey Bear patch"
+    },
+    {
+      "filename": "pdx-empire-feat.jpg",
+      "label": "PDX Empire",
+      "description": "PDX Empire"
+    }
+  ]
+}
