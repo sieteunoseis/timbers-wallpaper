@@ -73,6 +73,12 @@ const PatchSelector = ({
             isLoading={isLoadingImages}
             placeholder="Select a patch..."
             noOptionsMessage={() => "No patches found"}
+            filterOption={(option, inputValue) => {
+              const label = option.data.label.toLowerCase();
+              const id = option.data.id?.toLowerCase() || '';
+              const searchValue = inputValue.toLowerCase();
+              return label.includes(searchValue) || id.includes(searchValue);
+            }}
             formatOptionLabel={(option) => (
               <div className="flex justify-between items-center">
                 <span>{option.label}</span>

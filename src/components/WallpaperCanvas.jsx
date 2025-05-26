@@ -14,6 +14,9 @@ import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBE
  * @param {Array} props.nextMatches - Array of upcoming matches
  * @param {boolean} props.includeDateTime - Whether to include date/time on the wallpaper
  * @param {boolean} props.showPatchImage - Whether to show the patch image
+ * @param {string} props.customText - Custom text to display instead of "PORTLAND TIMBERS"
+ * @param {string} props.selectedFont - Font family to use for the custom text. 
+ *                                      Available options: "Arial" (bold), "Avenir", "Verdana" (bold), or "Lethal Slime"
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -23,7 +26,9 @@ const WallpaperCanvas = ({
   dimensions, 
   nextMatches, 
   includeDateTime = true,
-  showPatchImage = true
+  showPatchImage = true,
+  customText = "PORTLAND TIMBERS",
+  selectedFont = "Arial"
 }) => {
   const generateWallpaper = useCallback(async () => {
     const canvas = canvasRef.current;
@@ -133,14 +138,81 @@ const WallpaperCanvas = ({
     }
     // No else block - we don't draw anything if the patch image is disabled
 
-    // "TIMBERS" text
+    // Custom text 
     ctx.fillStyle = TIMBERS_WHITE;
-    ctx.font = 'bold 48px Arial';
+    
+    // Set font size and weight based on selected font
+    let fontSize, fontWeight;
+    
+    if (selectedFont === 'Lethal Slime') {
+      // Special handling for Lethal Slime font
+      fontWeight = 'normal';
+      
+      // More aggressive scaling for Lethal Slime since it's wider
+      if (customText.length <= 8) {
+        fontSize = 60; // Very short text can be larger
+      } else if (customText.length <= 12) {
+        fontSize = 50;
+      } else if (customText.length <= 16) {
+        fontSize = 44;
+      } else if (customText.length <= 20) {
+        fontSize = 38;
+      } else if (customText.length <= 25) {
+        fontSize = 32;
+      } else if (customText.length <= 30) {
+        fontSize = 28;
+      } else {
+        fontSize = 24; // Very small for long text
+      }
+    } else {
+      // Normal handling for system fonts
+      fontWeight = ['Arial', 'Verdana'].includes(selectedFont) ? 'bold' : 'normal';
+      fontSize = 48;
+      if (customText.length > 30) {
+        fontSize = 42;
+      }
+      if (customText.length > 40) {
+        fontSize = 38;
+      }
+    }
+    
+    // Use the font
+    const fallbackFonts = selectedFont === 'Lethal Slime' ? '' : ', sans-serif';
+    ctx.font = `${fontWeight} ${fontSize}px "${selectedFont}"${fallbackFonts}`;
     ctx.textAlign = 'center';
     
     // Adjust text position if no patch image is shown
     const textY = showPatchImage ? logoY + 400 : logoY + 200;
-    ctx.fillText('PORTLAND TIMBERS', width / 2, textY);
+    
+    // Ensure text doesn't get too long and wrap
+    let displayText = customText.length > 50 ? customText.substring(0, 50) : customText;
+    
+    // Ensure Lethal Slime is always uppercase
+    if (selectedFont === 'Lethal Slime') {
+      displayText = displayText.toUpperCase();
+    }
+    
+    // Add text shadow for better readability
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    
+    // Add subtle gold border around text for extra pop against dark backgrounds
+    if (selectedTheme === 'night' || selectedTheme === 'forest') {
+      ctx.strokeStyle = TIMBERS_GOLD;
+      ctx.lineWidth = 1;
+      ctx.strokeText(displayText, width / 2, textY);
+    }
+    
+    // Draw the text
+    ctx.fillText(displayText, width / 2, textY);
+    
+    // Reset shadow and other text effects for other elements
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
 
     // Include date/time if requested
     if (includeDateTime) {
@@ -294,14 +366,14 @@ const WallpaperCanvas = ({
     ctx.font = '24px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('Rose City Till I Die! 🌹⚽', width / 2, height - 140);
-  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage]);
+  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont]);
 
   useEffect(() => {
     if (canvasRef.current) {
-      console.log('Generating wallpaper with:', { selectedBackground, selectedTheme });
+      console.log('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont });
       generateWallpaper();
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage]);
+  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont]);
 
   return null;
 };

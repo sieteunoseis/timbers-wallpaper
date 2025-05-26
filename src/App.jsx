@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import DeviceSelector from "./components/DeviceSelector";
 import PatchSelector from "./components/PatchSelector";
 import ThemeSelector from "./components/ThemeSelector";
+import TextCustomizer from "./components/TextCustomizer";
 import SchedulePreview from "./components/SchedulePreview";
 import CanvasPreview from "./components/CanvasPreview";
 import WallpaperCanvas from "./components/WallpaperCanvas";
@@ -19,6 +20,8 @@ const TimbersWallpaperGenerator = () => {
   const [availableImages, setAvailableImages] = useState([]);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [showPatchImage, setShowPatchImage] = useState(true);
+  const [customText, setCustomText] = useState("PORTLAND TIMBERS");
+  const [selectedFont, setSelectedFont] = useState("Arial");
 
   // iPhone size options including iPhone 16 series
   const iPhoneSizes = [
@@ -173,15 +176,25 @@ const TimbersWallpaperGenerator = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 items-start">
           {/* iPhone Mockup */}
-          <div className="flex justify-center order-2 lg:order-1">
+          <div className="flex justify-center order-1 lg:order-1">
             <CanvasPreview canvasRef={canvasRef} />
 
             {/* Canvas for rendering the wallpaper */}
-            <WallpaperCanvas canvasRef={canvasRef} selectedBackground={selectedBackground} selectedTheme={selectedTheme} dimensions={getCurrentDimensions()} nextMatches={nextMatches} includeDateTime={true} showPatchImage={showPatchImage} />
+            <WallpaperCanvas 
+              canvasRef={canvasRef} 
+              selectedBackground={selectedBackground} 
+              selectedTheme={selectedTheme} 
+              dimensions={getCurrentDimensions()} 
+              nextMatches={nextMatches} 
+              includeDateTime={true} 
+              showPatchImage={showPatchImage}
+              customText={customText}
+              selectedFont={selectedFont}
+            />
           </div>
 
           {/* Controls and Info */}
-          <div className="space-y-6 order-1 lg:order-2">
+          <div className="space-y-6 order-2 lg:order-2">
             {/* iPhone Size Selector */}
             <DeviceSelector selectediPhoneSize={selectediPhoneSize} setSelectediPhoneSize={setSelectediPhoneSize} iPhoneSizes={iPhoneSizes} />
 
@@ -190,6 +203,14 @@ const TimbersWallpaperGenerator = () => {
 
             {/* Theme Selector */}
             <ThemeSelector selectedTheme={selectedTheme} setSelectedTheme={setSelectedTheme} themeOptions={themeOptions} />
+            
+            {/* Text Customizer */}
+            <TextCustomizer 
+              customText={customText} 
+              setCustomText={setCustomText}
+              selectedFont={selectedFont}
+              setSelectedFont={setSelectedFont}
+            />
 
             {/* Schedule Preview */}
             <SchedulePreview nextMatches={nextMatches} />
