@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageIcon } from 'lucide-react';
+import Select from 'react-select';
 
 /**
- * Component for selecting the patch image
+ * Component for selecting the patch image with search functionality
  * 
  * @param {Object} props - Component props
  * @param {string} props.selectedBackground - Current selected background
@@ -52,17 +53,88 @@ const PatchSelector = ({
         <div className="text-green-200 text-sm">Loading available images...</div>
       ) : availableImages.length > 0 ? (
         <>
-          <select
-            value={selectedBackground}
-            onChange={(e) => setSelectedBackground(e.target.value)}
-            className="w-full bg-white/20 border border-white/30 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          >
-            {availableImages.map((img) => (
-              <option key={img.value} value={img.value} className="bg-gray-800">
-                {img.label}
-              </option>
-            ))}
-          </select>
+          <Select
+            value={availableImages.find(img => img.value === selectedBackground)}
+            onChange={(option) => setSelectedBackground(option.value)}
+            options={availableImages.map(img => ({
+              ...img,
+              id: img.id || '',
+              content: (
+                <div className="flex justify-between items-center">
+                  <span>{img.label}</span>
+                  {img.id && (
+                    <span className="text-xs bg-[#00482B] text-white px-2 py-1 rounded-full ml-2">
+                      ID: {img.id}
+                    </span>
+                  )}
+                </div>
+              )
+            }))}
+            isLoading={isLoadingImages}
+            placeholder="Select a patch..."
+            noOptionsMessage={() => "No patches found"}
+            formatOptionLabel={(option) => (
+              <div className="flex justify-between items-center">
+                <span>{option.label}</span>
+                {option.id && (
+                  <span className="text-xs bg-[#00482B] text-white px-2 py-1 rounded-full ml-2">
+                    ID: {option.id}
+                  </span>
+                )}
+              </div>
+            )}
+            menuPortalTarget={document.body}
+            menuPosition={'fixed'}
+            styles={{
+              control: (base) => ({
+                ...base,
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                boxShadow: 'none',
+                '&:hover': {
+                  borderColor: 'rgba(255, 255, 255, 0.5)',
+                },
+              }),
+              menuPortal: (base) => ({ 
+                ...base, 
+                zIndex: 9999 
+              }),
+              menu: (base) => ({
+                ...base,
+                backgroundColor: '#d69a00', // dark green
+              }),
+              option: (base, { isFocused, isSelected }) => ({
+                ...base,
+                backgroundColor: isSelected 
+                  ? 'rgba(217, 119, 6, 0.2)' // yellow-600/20
+                  : isFocused 
+                    ? 'rgba(255, 255, 255, 0.1)' // white/10 
+                    : undefined,
+                ':active': {
+                  backgroundColor: 'rgba(217, 119, 6, 0.3)', // yellow-600/30
+                },
+              }),
+              singleValue: (base) => ({
+                ...base,
+                color: 'white',
+              }),
+              input: (base) => ({
+                ...base,
+                color: 'white',
+              }),
+              dropdownIndicator: (base) => ({
+                ...base,
+                color: 'rgba(255, 255, 255, 0.6)',
+                ':hover': {
+                  color: 'rgba(255, 255, 255, 0.8)',
+                },
+              }),
+              placeholder: (base) => ({
+                ...base,
+                color: 'rgba(255, 255, 255, 0.6)',
+              }),
+            }}
+          />
           <button
             onClick={loadAvailableImages}
             className="mt-2 text-sm text-green-200 hover:text-green-100 underline"

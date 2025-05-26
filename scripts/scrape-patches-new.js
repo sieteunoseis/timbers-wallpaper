@@ -1,8 +1,9 @@
 /**
  * PatchPatrol.com Patch Scraper
  * 
- * This script scrapes patch images and metadata from PatchPatrol.com/patches/page/2/
- * and saves them to the public/patches folder with a manifest file.
+ * This script scrapes patch images and metadata from PatchPatrol.com/patches/page/3/
+ * and saves them to the public/patches folder. If a patches-manifest.json file exists,
+ * the script will append to it rather than overwrite it.
  */
 
 import axios from 'axios';
@@ -19,7 +20,7 @@ const __dirname = dirname(__filename);
 
 // Configuration
 const BASE_URL = 'https://patchpatrol.com';
-const PATCHES_URL = `${BASE_URL}/patches/page/2/`;
+const PATCHES_URL = `${BASE_URL}/patches/page/4/`;
 const OUTPUT_DIR = path.join(__dirname, '../public/patches');
 const MANIFEST_PATH = path.join(OUTPUT_DIR, 'patches-manifest.json');
 const DELAY_MS = 1000; // Delay between requests to be respectful
@@ -169,13 +170,35 @@ async function scrapePatches() {
       }
     }
     
-    // Create manifest file
+    // Check if manifest file already exists
+    let existingPatches = [];
+    let allPatches = [];
+    
+    if (fs.existsSync(MANIFEST_PATH)) {
+      try {
+        const existingManifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, 'utf8'));
+        if (existingManifest && existingManifest.patches && Array.isArray(existingManifest.patches)) {
+          existingPatches = existingManifest.patches;
+          console.log(`Found existing manifest with ${existingPatches.length} patches.`);
+        }
+      } catch (err) {
+        console.error(`Error reading existing manifest: ${err.message}`);
+      }
+    }
+    
+    // Combine existing patches with new ones, avoiding duplicates
+    const existingFilenames = new Set(existingPatches.map(p => p.filename));
+    const newUniquePatches = patches.filter(p => !existingFilenames.has(p.filename));
+    
+    allPatches = [...existingPatches, ...newUniquePatches];
+    
+    // Create or update manifest file
     const manifest = {
-      patches
+      patches: allPatches
     };
     
     fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2));
-    console.log(`Created manifest file with ${patches.length} patches at ${MANIFEST_PATH}`);
+    console.log(`Updated manifest file with ${patches.length} new patches (total: ${allPatches.length}) at ${MANIFEST_PATH}`);
     
   } catch (error) {
     console.error('Error scraping patches:', error.message);
