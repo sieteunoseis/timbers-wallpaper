@@ -87,7 +87,7 @@ const TextCustomizer = ({
             <Type className="w-4 h-4" />
             Font Style
           </label>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3">
             {fontOptions.map((font) => (
               <label 
                 key={font.value}
@@ -107,11 +107,13 @@ const TextCustomizer = ({
                         case 'Lethal Slime':
                           return '0.9rem';
                         case 'Another Danger':
-                          return '0.95rem';
+                          return '1.25rem';
                         case 'Urban Jungle':
-                          return '0.95rem';
+                          return '1.25rem';
+                        case 'Rose':
+                          return '1.30rem';
                         default:
-                          return '1.15rem';
+                          return '1.25rem';
                       }
                     })(),
                     whiteSpace: 'nowrap',

@@ -1,3 +1,4 @@
+import { debugLog } from './debug';
 /**
  * Helper function to load images with CORS support and iOS-specific handling
  * @param {string} src - The image source URL
@@ -20,23 +21,23 @@ export const tryLoadImage = src => {
     // Do not use crossOrigin for iOS browsers, local files, or data URLs
     if (!isIOSBrowser && !isSameOrigin && !isDataUrl) {
       img.crossOrigin = 'anonymous';
-      console.log(`Loading with CORS: ${src}`);
+      debugLog(`Loading with CORS: ${src}`);
     } else if (isIOSBrowser) {
-      console.log(`Loading on iOS (without CORS): ${src}`);
+      debugLog(`Loading on iOS (without CORS): ${src}`);
     }
     
     img.onload = () => {
-      console.log(`Successfully loaded: ${src}`);
+      debugLog(`Successfully loaded: ${src}`);
       resolve(img);
     };
     
     img.onerror = () => {
       // If loading fails and we tried with crossOrigin, try again without it
       if (img.crossOrigin) {
-        console.log(`CORS failed for ${src}, trying without crossOrigin`);
+        debugLog(`CORS failed for ${src}, trying without crossOrigin`);
         const fallbackImg = new Image();
         fallbackImg.onload = () => {
-          console.log(`Fallback loaded (tainted canvas): ${src}`);
+          debugLog(`Fallback loaded (tainted canvas): ${src}`);
           resolve(fallbackImg);
         };
         fallbackImg.onerror = () => {
