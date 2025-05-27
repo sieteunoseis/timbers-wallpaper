@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
 import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
+import { clearTextEffects, resetCanvas } from '../utils/textEffects';
 import { debugLog, debugWarn } from '../utils/debug';
 
 /**
@@ -39,12 +40,27 @@ const WallpaperCanvas = ({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    // Get a fresh context with alpha false - helps with clearing
+    const ctx = canvas.getContext('2d', { alpha: false });
     const width = dimensions.width;
     const height = dimensions.height;
 
-    canvas.width = width;
+    // Force a complete canvas reset by resizing
+    canvas.width = 1;  // First set to minimal size
+    canvas.height = 1;
+    canvas.width = width;  // Then set to desired dimensions
     canvas.height = height;
+    
+    // Apply our thorough canvas reset utility
+    resetCanvas(ctx, width, height);
+    
+    // Ensure the transformation matrix is set to identity
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    
+    // Fill with black to start fresh
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
+    resetCanvas(ctx, width, height);
 
     // Create themed background
     ctx.fillStyle = '#000000';
@@ -143,7 +159,9 @@ const WallpaperCanvas = ({
     }
     // No else block - we don't draw anything if the patch image is disabled
 
-    // Custom text 
+    // Custom text - clear all previous effects first
+    clearTextEffects(ctx);
+    
     ctx.fillStyle = TIMBERS_WHITE;
     
     // Set font size and weight based on selected font
@@ -281,6 +299,13 @@ const WallpaperCanvas = ({
       ctx.letterSpacing = '0px';
     }
     
+    // Before adding any text effects, make sure we have a clean slate
+    clearTextEffects(ctx);
+    
+    // Setup text properties
+    ctx.textAlign = 'center';
+    ctx.fillStyle = TIMBERS_WHITE;
+    
     // Add text shadow for better readability
     ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
     ctx.shadowBlur = 4;
@@ -297,11 +322,8 @@ const WallpaperCanvas = ({
     // Draw the text
     ctx.fillText(displayText, width / 2, textY);
     
-    // Reset shadow and other text effects for other elements
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
+    // Immediately reset shadow and other text effects
+    clearTextEffects(ctx);
 
     // Include date/time if requested
     if (includeDateTime) {
@@ -414,6 +436,9 @@ const WallpaperCanvas = ({
       ctx.restore();
 
       // VS or @ text (center)
+      // Clear any shadows before drawing VS/@
+      clearTextEffects(ctx);
+      
       ctx.fillStyle = TIMBERS_GOLD;
       const vsFont = Math.floor(width * 0.026);
       ctx.font = `bold ${vsFont}px "Avenir Next"`;
@@ -424,6 +449,9 @@ const WallpaperCanvas = ({
       const dateTimeX = centerX + logoSpacing + logoSize / 2 + Math.floor(width * 0.046);
 
       // Match date
+      // Clear any shadows before drawing match date
+      clearTextEffects(ctx);
+      
       ctx.fillStyle = TIMBERS_WHITE;
       const matchDateFont = Math.floor(width * 0.026);
       ctx.font = `bold ${matchDateFont}px "Avenir Next"`;
@@ -437,6 +465,9 @@ const WallpaperCanvas = ({
       ctx.fillText(formattedDate.replace(',', ''), dateTimeX, matchY - 20);
 
       // Match time below date
+      // Clear any shadows before drawing match time
+      clearTextEffects(ctx);
+      
       ctx.fillStyle = TIMBERS_GOLD;
       const matchTimeFont = Math.floor(width * 0.024);
       ctx.font = `${matchTimeFont}px "Avenir Next"`;
@@ -450,6 +481,9 @@ const WallpaperCanvas = ({
       ctx.fillText(timeText, dateTimeX, matchY + 15);
       
       // Add home/away status below time
+      // Clear any shadows before drawing status
+      clearTextEffects(ctx);
+      
       const statusFont = Math.floor(width * 0.024);
       ctx.font = `${statusFont}px "Avenir Next"`;
       ctx.fillStyle = match.isHome ? 'rgba(214, 175, 59, 0.9)' : 'rgba(252, 253, 253, 0.9)';
@@ -476,33 +510,83 @@ const WallpaperCanvas = ({
       footerText = footerText.toUpperCase();
     }
     
-    // Add text shadow for better readability
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-    ctx.shadowBlur = 4;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
+    // Clear all shadow effects before drawing footer text
+    clearTextEffects(ctx);
     
-    // Add subtle gold border around text for extra pop against dark backgrounds
+    // Prepare to draw footer text
+    ctx.textAlign = 'center';
+    
+    // For dark themes, add a gold outline without shadows
     if (selectedTheme === 'night' || selectedTheme === 'forest') {
       ctx.strokeStyle = TIMBERS_GOLD;
       ctx.lineWidth = 1;
       ctx.strokeText(footerText, width / 2, height - 140);
     }
     
-    ctx.textAlign = 'center';
+    // Draw the text without shadow effects
     ctx.fillText(footerText, width / 2, height - 140);
     
-    // Reset shadow and other text effects
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
+    // Keep shadow effects disabled
+    clearTextEffects(ctx);
   }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
 
+  // Effect to reset canvas on page unload/refresh
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (canvasRef.current) {
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext('2d', { alpha: false });
+        if (ctx) {
+          // Force clean reset before page unloads
+          canvas.width = 1;
+          canvas.height = 1;
+        }
+      }
+    };
+    
+    // Add event listener for page unloads
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [canvasRef]);
+
+  // Main effect to handle rendering
   useEffect(() => {
     if (canvasRef.current) {
       debugLog('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont, fontSizeMultiplier });
-      generateWallpaper();
+      
+      // Handle resetting the canvas before redrawing
+      const canvas = canvasRef.current;
+      // Get a fresh context - this can help prevent persistent state issues
+      const ctx = canvas.getContext('2d', { alpha: false });
+      
+      if (ctx) {
+        // Store dimensions
+        const width = dimensions.width;
+        const height = dimensions.height;
+        
+        // The most reliable way to clear the canvas is to modify its dimensions
+        // This completely resets the canvas and all context states
+        canvas.width = 1;
+        canvas.height = 1;
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Apply additional cleaning steps
+        resetCanvas(ctx, width, height);
+        
+        // Triple check we've cleared all transformations and paths
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.beginPath();
+      }
+      
+      // Short timeout to ensure DOM updates before redrawing
+      // This can help prevent ghost effects during rapid changes
+      setTimeout(() => {
+        generateWallpaper();
+      }, 10);
     }
   }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
 
