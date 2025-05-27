@@ -55,3 +55,13 @@ debugError('Failed to load resource:', error);
 ```
 
 Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug messages.
+
+## Version History
+
+### v2.4.0 (May 27, 2025)
+
+- Fixed ghost effect/shadow issues on text elements when refreshing the page
+- Fixed shadow artifacts when selecting different patches
+- Added comprehensive canvas context reset utility
+- Improved text rendering to prevent shadow persistence
+- Added page refresh handling to ensure clean canvas state
