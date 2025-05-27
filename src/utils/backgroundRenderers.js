@@ -24,9 +24,17 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
     try {
       // Import from assets instead of public folder
       const backgroundImgPath = new URL(`../assets/background/${theme.filename}`, import.meta.url).href;
+      
+      // iOS Safari compatibility mode - force image to be fully decoded before rendering
       const backgroundImg = await tryLoadImage(backgroundImgPath);
-      debugLog(`${theme.label} background loaded successfully`);
-      return backgroundImg;
+      
+      // Verify that the image actually loaded - this helps prevent iOS issues
+      if (backgroundImg && backgroundImg.complete && backgroundImg.naturalWidth !== 0) {
+        debugLog(`${theme.label} background loaded successfully (${backgroundImg.naturalWidth}x${backgroundImg.naturalHeight})`);
+        return backgroundImg;
+      } else {
+        throw new Error('Image loaded but dimensions are invalid');
+      }
     } catch (error) {
       debugWarn(`Failed to load ${theme.label} background, falling back to classic theme:`, error);
       // Fallback to classic theme if image fails to load
@@ -47,9 +55,17 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
       try {
         // Use Vite's asset handling for better iOS compatibility
         const timberJimPath = new URL('../assets/background/timber_jim.webp', import.meta.url).href;
+        
+        // Special handling for iOS Safari compatibility
         const timberJimImg = await tryLoadImage(timberJimPath);
-        debugLog('Timber Jim background loaded successfully');
-        return timberJimImg;
+        
+        // Check that the image is valid before returning
+        if (timberJimImg && timberJimImg.complete && timberJimImg.naturalWidth !== 0) {
+          debugLog(`Timber Jim background loaded successfully (${timberJimImg.naturalWidth}x${timberJimImg.naturalHeight})`);
+          return timberJimImg;
+        } else {
+          throw new Error('Timber Jim image loaded but has invalid dimensions');
+        }
       } catch (error) {
         debugWarn('Failed to load Timber Jim background, falling back to classic theme:', error);
         return createFallbackGradient(ctx, width, height);

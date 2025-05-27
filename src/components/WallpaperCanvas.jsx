@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
-import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
+import { getThemeBackground, addThemeEffects, createFallbackGradient, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
 import { clearTextEffects, resetCanvas } from '../utils/textEffects';
 import { debugLog, debugWarn } from '../utils/debug';
 
@@ -69,32 +69,47 @@ const WallpaperCanvas = ({
     // Apply theme-specific background
     const themeBackground = await getThemeBackground(selectedTheme, ctx, width, height, backgroundThemes);
     if (themeBackground instanceof HTMLImageElement) {
-      // Handle static image background (Timber Jim)
-      // Scale and center the image to cover the entire canvas
-      const imgAspect = themeBackground.width / themeBackground.height;
-      const canvasAspect = width / height;
-      
-      let drawWidth, drawHeight, drawX, drawY;
-      
-      if (imgAspect > canvasAspect) {
-        // Image is wider than canvas aspect ratio
-        drawHeight = height;
-        drawWidth = height * imgAspect;
-        drawX = (width - drawWidth) / 2;
-        drawY = 0;
-      } else {
-        // Image is taller than canvas aspect ratio
-        drawWidth = width;
-        drawHeight = width / imgAspect;
-        drawX = 0;
-        drawY = (height - drawHeight) / 2;
+      try {
+        // Handle static image background (Timber Jim)
+        // Scale and center the image to cover the entire canvas
+        const imgAspect = themeBackground.width / themeBackground.height;
+        const canvasAspect = width / height;
+        
+        let drawWidth, drawHeight, drawX, drawY;
+        
+        if (imgAspect > canvasAspect) {
+          // Image is wider than canvas aspect ratio
+          drawHeight = height;
+          drawWidth = height * imgAspect;
+          drawX = (width - drawWidth) / 2;
+          drawY = 0;
+        } else {
+          // Image is taller than canvas aspect ratio
+          drawWidth = width;
+          drawHeight = width / imgAspect;
+          drawX = 0;
+          drawY = (height - drawHeight) / 2;
+        }
+        
+        // Draw the image using a more cautious approach for iOS
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, width, height);
+        ctx.clip();
+        ctx.drawImage(themeBackground, drawX, drawY, drawWidth, drawHeight);
+        ctx.restore();
+        
+        // Add a subtle dark overlay to ensure text readability
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+        ctx.fillRect(0, 0, width, height);
+        
+        debugLog('Successfully drew image background');
+      } catch (error) {
+        // In case of drawing error, fall back to a gradient
+        debugWarn('Error drawing image background:', error);
+        ctx.fillStyle = createFallbackGradient(ctx, width, height);
+        ctx.fillRect(0, 0, width, height);
       }
-      
-      ctx.drawImage(themeBackground, drawX, drawY, drawWidth, drawHeight);
-      
-      // Add a subtle dark overlay to ensure text readability
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-      ctx.fillRect(0, 0, width, height);
     } else {
       // Handle gradient background
       ctx.fillStyle = themeBackground;

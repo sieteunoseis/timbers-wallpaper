@@ -58,6 +58,14 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.6.1 (May 27, 2025)
+
+- Fixed remaining iOS image background download issue
+- Improved Canvas-to-Blob conversion for iOS Safari compatibility
+- Enhanced image loading with decode() API to ensure images are properly processed
+- Added better error handling for image backgrounds on iOS devices
+- Fixed download functionality to work reliably with image backgrounds
+
 ### v2.6.0 (May 27, 2025)
 
 - Moved background and patch images from public folder to assets folder
