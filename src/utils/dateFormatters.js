@@ -23,14 +23,42 @@ export const formatDate = dateTimeString => {
  * @returns {string} - Formatted time string
  */
 export const formatTime = dateTimeString => {
-  // Convert UTC datetime to Pacific time
-  const utcDate = new Date(dateTimeString + ' UTC'); // Explicitly mark as UTC
-  return utcDate.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'America/Los_Angeles',
-  });
+  try {
+    // Handle time in a cross-browser compatible way
+    // Format: YYYY-MM-DD HH:MM:SS
+    const parts = dateTimeString.split(' ');
+    
+    if (parts.length < 2) {
+      return 'TBD';
+    }
+    
+    const dateParts = parts[0].split('-');
+    const timeParts = parts[1].split(':');
+    
+    if (dateParts.length !== 3 || timeParts.length < 2) {
+      return 'TBD';
+    }
+    
+    // Create date using individual components for better cross-browser support
+    const matchDateTime = new Date(Date.UTC(
+      parseInt(dateParts[0], 10),  // year
+      parseInt(dateParts[1], 10) - 1,  // month (0-based)
+      parseInt(dateParts[2], 10),  // day
+      parseInt(timeParts[0], 10),  // hour
+      parseInt(timeParts[1], 10),  // minute
+      parseInt(timeParts[2] || 0, 10)  // second (default to 0)
+    ));
+    
+    return matchDateTime.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Los_Angeles',
+    });
+  } catch (e) {
+    console.error('Error formatting match time:', e);
+    return 'TBD';
+  }
 };
 
 /**
@@ -39,14 +67,34 @@ export const formatTime = dateTimeString => {
  * @returns {string} - Formatted date string for wallpaper
  */
 export const formatDateForWallpaper = dateTimeString => {
-  // Convert UTC datetime to Pacific time for wallpaper display
-  const utcDate = new Date(dateTimeString + ' UTC'); // Explicitly mark as UTC
-  return utcDate.toLocaleDateString('en-US', {
-    weekday: 'short',
-    month: 'short',
-    day: 'numeric',
-    timeZone: 'America/Los_Angeles',
-  });
+  try {
+    // Handle date in a cross-browser compatible way
+    // Format: YYYY-MM-DD HH:MM:SS or YYYY-MM-DD
+    const parts = dateTimeString.split(' ');
+    const dateParts = parts[0].split('-');
+    
+    if (dateParts.length !== 3) {
+      return 'TBD';
+    }
+    
+    // Create date using individual components (year, month-1, day)
+    // This approach is more compatible across browsers, especially on iOS/Safari
+    const matchDate = new Date(Date.UTC(
+      parseInt(dateParts[0], 10),  // year
+      parseInt(dateParts[1], 10) - 1,  // month (0-based)
+      parseInt(dateParts[2], 10)   // day
+    ));
+    
+    return matchDate.toLocaleDateString('en-US', {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'America/Los_Angeles',
+    }).replace(',', ''); // Remove comma for cleaner display
+  } catch (e) {
+    console.error('Error formatting match date:', e);
+    return 'TBD';
+  }
 };
 
 /**
