@@ -70,6 +70,10 @@ const TimbersWallpaperGenerator = () => {
         console.error("Canvas not found");
         return;
       }
+
+      // Wait for the next render cycle to ensure the canvas is updated
+      // when isGenerating becomes true
+      await new Promise(resolve => setTimeout(resolve, 100));
       
       const dataUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
