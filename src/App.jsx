@@ -113,17 +113,19 @@ const TimbersWallpaperGenerator = () => {
         theme.value === selectedTheme && theme.type === 'image'
       );
       
-      // For iOS with image backgrounds, skip trying to download and go straight to screenshot instructions
-      if (isIOSBrowser && (hasImageBackground || selectedBackground)) {
+      // For iOS with image backgrounds ONLY, show screenshot instructions
+      // This is needed because image backgrounds can cause CORS issues on iOS
+      if (isIOSBrowser && hasImageBackground) {
         // Optimize the canvas for screenshot
         prepareCanvasForScreenshot();
         
-        // Show enhanced instructions for iOS users
-        const screenshotMsg = "To save this wallpaper on your iPhone:\n\n" +
-          "1. Take a screenshot by pressing the side button + volume up\n" +
-          "2. Crop the image to remove any browser elements\n" +
-          "3. Save to your photos and set as wallpaper\n\n" +
-          "The preview has been optimized for screenshots.";
+        // Show enhanced instructions for iOS users with image backgrounds
+        const screenshotMsg = "For image backgrounds on iPhone, download isn't available due to iOS restrictions.\n\n" +
+          "Please save this wallpaper by taking a screenshot:\n" +
+          "1. Press side button + volume up\n" +
+          "2. Crop the image to remove browser elements\n" +
+          "3. Save to your photos\n\n" +
+          "Note: Using gradient backgrounds instead of images allows direct downloads.";
         
         alert(screenshotMsg);
         
@@ -153,7 +155,14 @@ const TimbersWallpaperGenerator = () => {
           
           // Fallback for unexpected security errors
           if (isIOSBrowser) {
-            alert("To save this wallpaper on your iPhone: Take a screenshot of the preview, then crop as needed.");
+            // Check if this is likely due to an image background
+            if (hasImageBackground) {
+              alert("This image background can't be downloaded directly on iOS. Please take a screenshot or switch to a gradient background theme instead.");
+            } else if (selectedBackground) {
+              alert("The patch image may be causing download issues. Please try a different patch or take a screenshot as a workaround.");
+            } else {
+              alert("Unable to download the wallpaper. As a workaround, you can take a screenshot of the preview.");
+            }
             
             // Scroll to the preview to make it easy for the user to screenshot
             const previewElement = document.querySelector('.canvas-preview-container');
@@ -161,8 +170,8 @@ const TimbersWallpaperGenerator = () => {
               previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
           } else {
-            // For non-iOS browsers, show a more generic error
-            alert("Unable to download the wallpaper due to browser security restrictions. Please try a different background theme.");
+            // For non-iOS browsers, show a more specific error
+            alert("Unable to download the wallpaper due to security restrictions. Try using a gradient background theme instead of an image.");
           }
         }
       }      } catch (error) {
