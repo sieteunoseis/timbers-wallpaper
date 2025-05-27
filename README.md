@@ -80,7 +80,7 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 - Added visual indicators for screenshot capture
 - Improved error messaging and user guidance
 
-### v2.4.3 (May 27, 2025)
+### v2.4.4 (May 27, 2025)
 
 - Improved download functionality on iOS to only show screenshot instructions when using image backgrounds
 - Fixed direct download for gradient backgrounds and patch images on iOS
