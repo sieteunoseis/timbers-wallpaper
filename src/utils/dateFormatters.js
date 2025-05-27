@@ -1,3 +1,5 @@
+import { clearTextEffects } from './textEffects';
+
 /**
  * Format a date string for display in the UI
  * @param {string} dateTimeString - The date/time string from the API
@@ -55,65 +57,52 @@ export const formatDateForWallpaper = dateTimeString => {
  * @param {number} circleRadius - Radius of the circular logo
  */
 export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
+  if (!ctx) return;
+  
   const TIMBERS_WHITE = '#FFFFFF';
   
-  // Clear the date/time area first
-  ctx.save();
-  ctx.fillStyle = 'transparent';
-  ctx.clearRect(0, logoY - circleRadius - 500, width, 400);
+  // Get current date/time
+  const now = new Date();
   
-  try {
-    // Reset any transformations
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    
-    // Get current date/time in Pacific timezone
-    const pacificDate = new Date();
-    
-    const currentTime = pacificDate.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-      timeZone: 'America/Los_Angeles'
-    }).replace(/\s?(AM|PM)$/i, '');
+  const currentTime = now.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'America/Los_Angeles'
+  }).replace(/\s?(AM|PM)$/i, '');
 
-    const currentDate = new Intl.DateTimeFormat('en-US', {
-      weekday: 'long',
-      month: 'short',
-      day: 'numeric',
-      timeZone: 'America/Los_Angeles'
-    }).format(pacificDate);
+  const currentDate = now.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'America/Los_Angeles'
+  });
 
-    // Reset any existing canvas transformations
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    
-    // Draw date
-    ctx.fillStyle = TIMBERS_WHITE;
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'center';
-    
-    const dateFont = Math.floor(width * 0.045);
-    ctx.font = `${dateFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
-    ctx.fillText(currentDate, width / 2, logoY - circleRadius - 400);
+  // Completely reset all text effects and context state before drawing anything
+  clearTextEffects(ctx);
+  
+  // Draw date
+  ctx.fillStyle = TIMBERS_WHITE;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  
+  const dateFont = Math.floor(width * 0.045);
+  ctx.font = `${dateFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
+  ctx.fillText(currentDate, width / 2, logoY - circleRadius - 400);
 
-    // Draw time
-    const timeFont = Math.floor(width * 0.18);
-    ctx.font = `bold ${timeFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
-    
-    // Add text shadow for better readability
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-    ctx.shadowBlur = 4;
-    ctx.shadowOffsetX = 2;
-    ctx.shadowOffsetY = 2;
-    
-    ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
-    
-    // Reset shadow effects
-    ctx.shadowColor = 'transparent';
-    ctx.shadowBlur = 0;
-    ctx.shadowOffsetX = 0;
-    ctx.shadowOffsetY = 0;
-  } finally {
-    // Always restore the canvas state
-    ctx.restore();
-  }
+  // Reset effects completely before drawing the time
+  clearTextEffects(ctx);
+  
+  // Set up time text properties
+  ctx.fillStyle = TIMBERS_WHITE;
+  ctx.textBaseline = 'middle';
+  ctx.textAlign = 'center';
+  const timeFont = Math.floor(width * 0.18);
+  ctx.font = `bold ${timeFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
+  
+  // Draw time
+  ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
+  
+  // Make sure all effects are cleared before we exit the function
+  clearTextEffects(ctx);
 };
