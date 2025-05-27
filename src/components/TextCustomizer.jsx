@@ -102,7 +102,9 @@ const TextCustomizer = ({
                   className={font.className}
                   style={{ 
                     fontFamily: font.value,
-                    fontSize: '0.9rem',
+                    fontSize: font.value === 'Lethal Slime' 
+                      ? '0.9rem'  // Keep Lethal Slime the same
+                      : '1.15rem', // Increase size for all other fonts
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis'
@@ -172,9 +174,10 @@ const TextCustomizer = ({
                 fontFamily: selectedFont,
                 fontWeight: ['Verdana'].includes(selectedFont) ? 'bold' : 'normal',
                 fontSize: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
-                  ? `${24 * fontSizeMultiplier}px` 
-                  : `${18 * fontSizeMultiplier}px`,
-                letterSpacing: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '2px' : 'normal',
+                  ? `${32 * fontSizeMultiplier}px` 
+                  : `${24 * fontSizeMultiplier}px`,
+                letterSpacing: selectedFont === 'Another Danger' ? '4px' : 
+                             ['Lethal Slime', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '2px' : 'normal',
                 textTransform: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? 'uppercase' : 'none',
                 textShadow: '1px 1px 3px rgba(0,0,0,0.5)'
               }}

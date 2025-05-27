@@ -150,7 +150,7 @@ const WallpaperCanvas = ({
     let fontSize, fontWeight;
     
     if (selectedFont === 'Lethal Slime') {
-      // Special handling for Lethal Slime font
+      // Special handling for Lethal Slime font - keeping original sizes
       fontWeight = 'normal';
       
       // More aggressive scaling for Lethal Slime since it's wider
@@ -176,21 +176,21 @@ const WallpaperCanvas = ({
       // Special handling for Another Danger font
       fontWeight = 'normal';
       
-      // Scaling for Another Danger which is also wide but different proportions
+      // Increased scaling for Another Danger
       if (customText.length <= 8) {
-        fontSize = 65; // Very short text can be larger
+        fontSize = 75; // Very short text can be larger
       } else if (customText.length <= 12) {
-        fontSize = 55;
+        fontSize = 65;
       } else if (customText.length <= 16) {
-        fontSize = 48;
+        fontSize = 58;
       } else if (customText.length <= 20) {
-        fontSize = 42;
+        fontSize = 52;
       } else if (customText.length <= 25) {
-        fontSize = 36;
+        fontSize = 46;
       } else if (customText.length <= 30) {
-        fontSize = 32;
+        fontSize = 42;
       } else {
-        fontSize = 28; // Very small for long text
+        fontSize = 38; // Very small for long text
       }
       
       // Apply font size multiplier
@@ -199,21 +199,21 @@ const WallpaperCanvas = ({
       // Special handling for Rose font
       fontWeight = 'normal';
       
-      // Scaling for Rose font which has unique proportions
+      // Increased scaling for Rose font
       if (customText.length <= 8) {
-        fontSize = 58; // Very short text can be larger
+        fontSize = 78; // Very short text can be larger
       } else if (customText.length <= 12) {
-        fontSize = 52;
+        fontSize = 72;
       } else if (customText.length <= 16) {
-        fontSize = 46;
+        fontSize = 66;
       } else if (customText.length <= 20) {
-        fontSize = 40;
+        fontSize = 60;
       } else if (customText.length <= 25) {
-        fontSize = 34;
+        fontSize = 54;
       } else if (customText.length <= 30) {
-        fontSize = 30;
+        fontSize = 50;
       } else {
-        fontSize = 26; // Very small for long text
+        fontSize = 46; // Very small for long text
       }
       
       // Apply font size multiplier
@@ -222,34 +222,34 @@ const WallpaperCanvas = ({
       // Special handling for Urban Jungle font
       fontWeight = 'normal';
       
-      // Scaling for Urban Jungle which can be thinner
+      // Increased scaling for Urban Jungle
       if (customText.length <= 8) {
-        fontSize = 62; // Very short text can be larger
+        fontSize = 82; // Very short text can be larger
       } else if (customText.length <= 12) {
-        fontSize = 54;
+        fontSize = 74;
       } else if (customText.length <= 16) {
-        fontSize = 48;
+        fontSize = 68;
       } else if (customText.length <= 20) {
-        fontSize = 42;
+        fontSize = 62;
       } else if (customText.length <= 25) {
-        fontSize = 36;
+        fontSize = 56;
       } else if (customText.length <= 30) {
-        fontSize = 32;
+        fontSize = 52;
       } else {
-        fontSize = 28; // Very small for long text
+        fontSize = 48; // Very small for long text
       }
       
       // Apply font size multiplier
       fontSize = Math.round(fontSize * fontSizeMultiplier);
     } else {
-      // Normal handling for system fonts
+      // Normal handling for system fonts - increased sizes
       fontWeight = ['Verdana'].includes(selectedFont) ? 'bold' : 'normal';
-      fontSize = 48;
+      fontSize = 68; // Increased from 58
       if (customText.length > 30) {
-        fontSize = 42;
+        fontSize = 62; // Increased from 52
       }
       if (customText.length > 40) {
-        fontSize = 38;
+        fontSize = 58; // Increased from 48
       }
       
       // Apply font size multiplier
@@ -270,6 +270,15 @@ const WallpaperCanvas = ({
     // Ensure caps-only fonts are always uppercase
     if (['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont)) {
       displayText = displayText.toUpperCase();
+      
+      // Apply letter spacing if needed
+      if (selectedFont === 'Another Danger') {
+        ctx.letterSpacing = '4px';
+      } else {
+        ctx.letterSpacing = '2px';
+      }
+    } else {
+      ctx.letterSpacing = '0px';
     }
     
     // Add text shadow for better readability
