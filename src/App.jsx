@@ -75,16 +75,39 @@ const TimbersWallpaperGenerator = () => {
       // when isGenerating becomes true
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      const dataUrl = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.download = "timbers-wallpaper.png";
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // For iOS Safari compatibility, use blob instead of dataURL
+      canvas.toBlob(async (blob) => {
+        if (!blob) {
+          console.error("Failed to create blob from canvas");
+          setIsGenerating(false);
+          return;
+        }
+        
+        try {
+          // Create a blob URL which works better on iOS
+          const blobUrl = URL.createObjectURL(blob);
+          
+          // Create a download link
+          const link = document.createElement("a");
+          link.download = "timbers-wallpaper.png";
+          link.href = blobUrl;
+          
+          // Append, click, and clean up
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          // Revoke the blob URL after a short delay to ensure download completes
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+          
+          setIsGenerating(false);
+        } catch (error) {
+          console.error("Error in blob download:", error);
+          setIsGenerating(false);
+        }
+      }, "image/png");
     } catch (error) {
       console.error("Error generating wallpaper:", error);
-    } finally {
       setIsGenerating(false);
     }
   };

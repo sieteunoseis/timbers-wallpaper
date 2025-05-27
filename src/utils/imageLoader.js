@@ -7,12 +7,31 @@ export const tryLoadImage = src => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = 'anonymous'; // Enable CORS from the start
-    img.onload = () => resolve(img);
+    
+    // For iOS Safari compatibility, explicitly wait for image to load completely
+    img.onload = () => {
+      // Make sure the image is fully loaded and decoded before using it
+      if (img.decode) {
+        // Use the modern decode() API to ensure image is fully processed
+        img.decode().then(() => {
+          resolve(img);
+        }).catch(err => {
+          console.warn('Image decode failed, but continuing:', err);
+          // Still resolve with the image if decode fails, as it might still work
+          resolve(img);
+        });
+      } else {
+        // Fallback for browsers without decode() support
+        resolve(img);
+      }
+    };
+    
     img.onerror = () => {
-      // If CORS fails, try without crossOrigin (but this will taint the canvas)
-      console.log(`CORS failed for ${src}, using fallback`);
+      console.log(`Failed to load image: ${src}`);
       reject(new Error(`Failed to load: ${src}`));
     };
+    
+    // Set src after attaching event handlers
     img.src = src;
   });
 };
