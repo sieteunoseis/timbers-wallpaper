@@ -57,15 +57,17 @@ export const formatDateForWallpaper = dateTimeString => {
 export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
   const TIMBERS_WHITE = '#FFFFFF';
   
-  // Save the current canvas state
+  // Clear the date/time area first
   ctx.save();
+  ctx.fillStyle = 'transparent';
+  ctx.clearRect(0, logoY - circleRadius - 500, width, 400);
   
   try {
+    // Reset any transformations
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    
     // Get current date/time in Pacific timezone
-    const currentDateTime = new Date().toLocaleString('en-US', {
-      timeZone: 'America/Los_Angeles'
-    });
-    const pacificDate = new Date(currentDateTime);
+    const pacificDate = new Date();
     
     const currentTime = pacificDate.toLocaleTimeString('en-US', {
       hour: 'numeric',
@@ -74,12 +76,12 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
       timeZone: 'America/Los_Angeles'
     }).replace(/\s?(AM|PM)$/i, '');
 
-    const currentDate = pacificDate.toLocaleDateString('en-US', {
+    const currentDate = new Intl.DateTimeFormat('en-US', {
       weekday: 'long',
       month: 'short',
       day: 'numeric',
       timeZone: 'America/Los_Angeles'
-    });
+    }).format(pacificDate);
 
     // Reset any existing canvas transformations
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -96,7 +98,20 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
     // Draw time
     const timeFont = Math.floor(width * 0.18);
     ctx.font = `bold ${timeFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
+    
+    // Add text shadow for better readability
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    ctx.shadowBlur = 4;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+    
     ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
+    
+    // Reset shadow effects
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
   } finally {
     // Always restore the canvas state
     ctx.restore();
