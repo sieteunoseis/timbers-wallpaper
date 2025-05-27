@@ -1,5 +1,5 @@
 import { tryLoadImage } from './imageLoader';
-import { debugLog, debugWarn, debugError } from './debug';
+import { debugLog, debugWarn } from './debug';
 
 // Portland Timbers brand colors
 export const TIMBERS_GREEN = '#004812'; // Updated green to match gradient

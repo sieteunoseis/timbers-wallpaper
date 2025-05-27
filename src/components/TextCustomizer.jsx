@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Text, Type } from 'lucide-react';
 import { debounce } from '../utils/debounce';
 

@@ -11,7 +11,7 @@ import WallpaperCanvas from "./components/WallpaperCanvas";
 import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
 import useScheduleData from "./hooks/useScheduleData";
 import useBackgroundThemes from "./hooks/useBackgroundThemes";
-import { debugLog, debugWarn, debugError } from "./utils/debug";
+import { usePatchImages } from './hooks/usePatchImages';
 
 const TimbersWallpaperGenerator = () => {
   const canvasRef = useRef(null);
@@ -20,12 +20,30 @@ const TimbersWallpaperGenerator = () => {
   // Background themes now come from the hook instead of hardcoded
   const { backgroundThemes, selectedTheme, setSelectedTheme, isLoadingBackgrounds } = useBackgroundThemes();
   const [selectediPhoneSize, setSelectediPhoneSize] = useState("iphone15");
-  const [availableImages, setAvailableImages] = useState([]);
-  const [isLoadingImages, setIsLoadingImages] = useState(true);
   const [showPatchImage, setShowPatchImage] = useState(true);
   const [customText, setCustomText] = useState("PORTLAND TIMBERS");
   const [selectedFont, setSelectedFont] = useState("Another Danger");
   const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1.0);
+  
+  // Use the new hook for patch images
+  const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
+
+  // Only load images once on mount
+  useEffect(() => {
+    if (showPatchImage) {
+      loadAvailableImages().then(images => {
+        if (images.length > 0 && !selectedBackground) {
+          const randomIndex = Math.floor(Math.random() * images.length);
+          setSelectedBackground(images[randomIndex].value);
+        }
+      });
+    }
+  }, [showPatchImage, loadAvailableImages]); // Only reload when showPatchImage changes
+
+  // Remove the old effects that were causing reloads
+  useEffect(() => {
+    setSelectedBackground("");
+  }, []); // Only run once on mount
 
   // iPhone size options including iPhone 16 series
   const iPhoneSizes = [
@@ -154,24 +172,12 @@ const TimbersWallpaperGenerator = () => {
     }
   };
 
-  // Effect to select a random patch when component mounts
+  // Load patches on initial mount
   useEffect(() => {
-    // Clear the selected background so that a random one gets chosen
-    setSelectedBackground("");
-  }, []);
-
-  // Effect to select a random patch when component mounts
-  useEffect(() => {
-    // Clear the selected background so that a random one gets chosen
-    setSelectedBackground("");
-  }, []);
-
-  useEffect(() => {
-    // Load available images on component mount or when showPatchImage changes
     if (showPatchImage) {
       loadAvailableImages();
     }
-  }, [loadAvailableImages, showPatchImage]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-900 p-4">

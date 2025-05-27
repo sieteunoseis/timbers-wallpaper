@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { ImageIcon } from 'lucide-react';
 import Select from 'react-select';
+
+const ITEMS_PER_PAGE = 50;
 
 /**
  * Component for selecting the patch image with search functionality
@@ -15,7 +17,7 @@ import Select from 'react-select';
  * @param {Function} props.setShowPatchImage - Function to update show patch image state
  * @returns {JSX.Element} Patch selector component
  */
-const PatchSelector = ({ 
+const PatchSelector = React.memo(({ 
   selectedBackground, 
   setSelectedBackground, 
   availableImages, 
@@ -74,20 +76,10 @@ const PatchSelector = ({
           <Select
             value={availableImages.find(img => img.value === selectedBackground)}
             onChange={(option) => setSelectedBackground(option.value)}
-            options={availableImages.map(img => ({
-              ...img,
-              id: img.id || '',
-              content: (
-                <div className="flex justify-between items-center">
-                  <span>{img.label}</span>
-                  {img.id && (
-                    <span className="text-xs bg-[#00482B] text-white px-2 py-1 rounded-full ml-2">
-                      ID: {img.id}
-                    </span>
-                  )}
-                </div>
-              )
-            }))}
+            options={availableImages}
+            defaultOptions={availableImages.slice(0, ITEMS_PER_PAGE)}
+            isSearchable
+            isClearable
             isLoading={isLoadingImages}
             placeholder="Select a patch..."
             noOptionsMessage={() => "No patches found"}
@@ -207,5 +199,7 @@ const PatchSelector = ({
     </div>
   );
 };
+
+})
 
 export default PatchSelector;

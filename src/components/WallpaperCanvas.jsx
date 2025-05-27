@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
 import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
-import { debugLog, debugWarn, debugError } from '../utils/debug';
+import { debugLog, debugWarn } from '../utils/debug';
 
 /**
  * Component responsible for rendering the wallpaper on canvas
