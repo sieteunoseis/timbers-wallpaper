@@ -342,8 +342,8 @@ const WallpaperCanvas = ({
       );
       ctx.fill();
 
-      // Add subtle border with rounded corners
-      ctx.strokeStyle = 'rgba(214, 175, 59, 0.5)';
+      // Add border with rounded corners - gold for home, green for away
+      ctx.strokeStyle = match.isHome ? 'rgba(214, 175, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)';
       ctx.lineWidth = 2;
       ctx.beginPath();
       ctx.roundRect(
@@ -416,7 +416,7 @@ const WallpaperCanvas = ({
 
       // Match date
       ctx.fillStyle = TIMBERS_WHITE;
-      const matchDateFont = Math.floor(width * 0.022);
+      const matchDateFont = Math.floor(width * 0.026);
       ctx.font = `bold ${matchDateFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
       const formattedDate = match.date ? new Date(match.date + ' UTC').toLocaleDateString('en-US', {
@@ -425,11 +425,11 @@ const WallpaperCanvas = ({
         day: 'numeric',
         timeZone: 'America/Los_Angeles',
       }) : 'TBD';
-      ctx.fillText(formattedDate.replace(',', ''), dateTimeX, matchY - 10);
+      ctx.fillText(formattedDate.replace(',', ''), dateTimeX, matchY - 20);
 
       // Match time below date
       ctx.fillStyle = TIMBERS_GOLD;
-      const matchTimeFont = Math.floor(width * 0.019);
+      const matchTimeFont = Math.floor(width * 0.024);
       ctx.font = `${matchTimeFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
       const timeText = match.time ? new Date(match.time + ' UTC').toLocaleTimeString('en-US', {
@@ -439,6 +439,13 @@ const WallpaperCanvas = ({
         timeZone: 'America/Los_Angeles',
       }) : 'TBD';
       ctx.fillText(timeText, dateTimeX, matchY + 15);
+      
+      // Add home/away status below time
+      const statusFont = Math.floor(width * 0.024);
+      ctx.font = `${statusFont}px "Avenir Next"`;
+      ctx.fillStyle = match.isHome ? 'rgba(214, 175, 59, 0.9)' : 'rgba(252, 253, 253, 0.9)';
+      const statusText = match.isHome ? 'HOME' : 'AWAY';
+      ctx.fillText(statusText, dateTimeX, matchY + 50);
     }
 
 

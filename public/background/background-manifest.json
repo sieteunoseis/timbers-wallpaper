@@ -1,5 +1,12 @@
 {
   "backgrounds": [
+        {
+      "id": "chara",
+      "filename": "chara.jpg",
+      "label": "Diego Chara",
+      "description": "Diego Chara in action",
+      "type": "image"
+    },
     {
       "id": "timber_jim",
       "filename": "timber_jim.webp",
@@ -85,33 +92,6 @@
         }
       ],
       "effects": "night"
-    },
-    {
-      "id": "providence",
-      "label": "Providence Park", 
-      "description": "Stadium lights and atmosphere",
-      "type": "gradient",
-      "gradientType": "radial",
-      "gradientDirection": "top-center",
-      "colorStops": [
-        {
-          "color": "#ffffff", 
-          "position": 0
-        },
-        {
-          "color": "#004225", 
-          "position": 0.2
-        },
-        {
-          "color": "#002815", 
-          "position": 0.6
-        },
-        {
-          "color": "#001a0d", 
-          "position": 1
-        }
-      ],
-      "effects": "providence"
     },
     {
       "id": "rose",

@@ -174,7 +174,7 @@ const TextCustomizer = ({
                 fontSize: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
                   ? `${24 * fontSizeMultiplier}px` 
                   : `${18 * fontSizeMultiplier}px`,
-                letterSpacing: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '1px' : 'normal',
+                letterSpacing: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '2px' : 'normal',
                 textTransform: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? 'uppercase' : 'none',
                 textShadow: '1px 1px 3px rgba(0,0,0,0.5)'
               }}
