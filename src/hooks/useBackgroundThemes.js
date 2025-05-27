@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { debugLog, debugWarn, debugError } from '../utils/debug';
 
 /**
  * Custom hook to fetch and manage backgrounds from manifest
@@ -15,14 +16,14 @@ const useBackgroundThemes = () => {
     const detectedBackgrounds = [];
 
     try {
-      console.log("Loading backgrounds from manifest...");
+      debugLog("Loading backgrounds from manifest...");
 
       // Try to load the backgrounds manifest file
       const response = await fetch("/background/background-manifest.json");
 
       if (response.ok) {
         const manifest = await response.json();
-        console.log("Background manifest loaded successfully:", manifest);
+        debugLog("Background manifest loaded successfully:", manifest);
 
         // Validate and process the manifest
         if (manifest.backgrounds && Array.isArray(manifest.backgrounds)) {
@@ -44,12 +45,12 @@ const useBackgroundThemes = () => {
                       colorStops: background.colorStops || [],
                       effects: background.effects || ""
                     });
-                    console.log(`✓ Found background: ${background.filename}`);
+                    debugLog(`✓ Found background: ${background.filename}`);
                   } else {
-                    console.warn(`✗ Background image listed in manifest but not found: ${background.filename}`);
+                    debugWarn(`✗ Background image listed in manifest but not found: ${background.filename}`);
                   }
                 } catch (error) {
-                  console.warn(`✗ Could not verify background image: ${background.filename}`, error);
+                  debugWarn(`✗ Could not verify background image: ${background.filename}`, error);
                 }
               } else {
                 // For gradient backgrounds, just add them
@@ -64,19 +65,19 @@ const useBackgroundThemes = () => {
                   colorStops: background.colorStops || [],
                   effects: background.effects || ""
                 });
-                console.log(`✓ Added gradient background: ${background.id}`);
+                debugLog(`✓ Added gradient background: ${background.id}`);
               }
             } else {
-              console.warn("Invalid background entry (missing id or label):", background);
+              debugWarn("Invalid background entry (missing id or label):", background);
             }
           }
         } else {
-          console.error("Invalid background manifest format: backgrounds array not found or not an array");
+          debugError("Invalid background manifest format: backgrounds array not found or not an array");
         }
 
-        console.log(`Successfully loaded ${detectedBackgrounds.length} backgrounds from manifest`);
+        debugLog(`Successfully loaded ${detectedBackgrounds.length} backgrounds from manifest`);
       } else {
-        console.log("No background-manifest.json found. Using default themes.");
+        debugLog("No background-manifest.json found. Using default themes.");
         // Fallback to default themes if file not found
         detectedBackgrounds.push(
           { value: "classic", label: "Classic", description: "Traditional dark gradient", type: "gradient" },
@@ -89,7 +90,7 @@ const useBackgroundThemes = () => {
         );
       }
     } catch (error) {
-      console.error("Error loading background manifest:", error);
+      debugError("Error loading background manifest:", error);
       // Fall back to defaults on error
       detectedBackgrounds.push(
         { value: "classic", label: "Classic", description: "Traditional dark gradient", type: "gradient" },

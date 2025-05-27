@@ -2,6 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
 import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
+import { debugLog, debugWarn, debugError } from '../utils/debug';
 
 /**
  * Component responsible for rendering the wallpaper on canvas
@@ -95,7 +96,7 @@ const WallpaperCanvas = ({
     if (showPatchImage && selectedBackground) {
       try {
         const selectedImg = await tryLoadImage(`/patches/${selectedBackground}`);
-        console.log('Selected image loaded successfully');
+        debugLog('Selected image loaded successfully');
 
         // Create circular clipping path for the selected image
         ctx.save();
@@ -136,7 +137,7 @@ const WallpaperCanvas = ({
         ctx.lineWidth = 4;
         ctx.stroke();
       } catch (error) {
-        console.log('Failed to load selected image:', error);
+        debugWarn('Failed to load selected image:', error);
         // Don't draw anything if loading fails
       }
     }
@@ -307,9 +308,9 @@ const WallpaperCanvas = ({
     const timbersLogoUrl = 'https://cdn.sportmonks.com/images/soccer/teams/31/607.png';
     try {
       timbersLogo = await tryLoadImage(timbersLogoUrl);
-      console.log('Timbers logo loaded successfully');
+      debugLog('Timbers logo loaded successfully');
     } catch (error) {
-      console.log('Failed to load Timbers logo, using fallback:', error);
+      debugWarn('Failed to load Timbers logo, using fallback:', error);
       timbersLogo = createFallbackLogo('POR', true);
     }
 
@@ -406,7 +407,7 @@ const WallpaperCanvas = ({
       // VS or @ text (center)
       ctx.fillStyle = TIMBERS_GOLD;
       const vsFont = Math.floor(width * 0.026);
-      ctx.font = `bold ${vsFont}px Arial`;
+      ctx.font = `bold ${vsFont}px "Avenir Next"`;
       ctx.textAlign = 'center';
       ctx.fillText(match.isHome ? 'VS' : '@', centerX, matchY + 8);
 
@@ -416,7 +417,7 @@ const WallpaperCanvas = ({
       // Match date
       ctx.fillStyle = TIMBERS_WHITE;
       const matchDateFont = Math.floor(width * 0.022);
-      ctx.font = `bold ${matchDateFont}px Arial`;
+      ctx.font = `bold ${matchDateFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
       const formattedDate = match.date ? new Date(match.date + ' UTC').toLocaleDateString('en-US', {
         weekday: 'short',
@@ -429,7 +430,7 @@ const WallpaperCanvas = ({
       // Match time below date
       ctx.fillStyle = TIMBERS_GOLD;
       const matchTimeFont = Math.floor(width * 0.019);
-      ctx.font = `${matchTimeFont}px Arial`;
+      ctx.font = `${matchTimeFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
       const timeText = match.time ? new Date(match.time + ' UTC').toLocaleTimeString('en-US', {
         hour: 'numeric',
@@ -484,7 +485,7 @@ const WallpaperCanvas = ({
 
   useEffect(() => {
     if (canvasRef.current) {
-      console.log('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont, fontSizeMultiplier });
+      debugLog('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont, fontSizeMultiplier });
       generateWallpaper();
     }
   }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);

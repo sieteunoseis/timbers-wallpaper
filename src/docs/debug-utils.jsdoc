@@ -1,0 +1,76 @@
+/**
+ * @fileoverview Debug Logging Utility Documentation
+ * 
+ * This file provides documentation for the debug logging utility used in
+ * the Portland Timbers Wallpaper Generator application.
+ * 
+ * The utility provides a consistent way to log debug information throughout the application
+ * while respecting an environment variable to control whether debug logs are displayed.
+ */
+
+/**
+ * # Debug Logging Utility
+ * 
+ * The debug logging utility provides functions for logging debug information in a way that can be
+ * easily enabled or disabled through an environment variable.
+ * 
+ * ## Setup
+ * 
+ * 1. Create a `.env` file in your project root with:
+ *    ```
+ *    VITE_DEBUG_MODE=true  # Enable debug logs
+ *    ```
+ *    or
+ *    ```
+ *    VITE_DEBUG_MODE=false  # Disable debug logs
+ *    ```
+ *
+ * 2. Import the debug functions in your component or utility file:
+ *    ```javascript
+ *    import { debugLog, debugWarn, debugError } from './utils/debug';
+ *    ```
+ * 
+ * ## Usage
+ * 
+ * The utility provides four main functions:
+ * 
+ * ### debugLog
+ * 
+ * For standard informational logs:
+ * ```javascript
+ * debugLog('Component mounted');
+ * debugLog('Data received:', data);
+ * ```
+ * 
+ * ### debugWarn
+ * 
+ * For warning messages:
+ * ```javascript
+ * debugWarn('Image not found, using fallback');
+ * debugWarn('Missing configuration:', configName);
+ * ```
+ * 
+ * ### debugError
+ * 
+ * For error messages:
+ * ```javascript
+ * debugError('Failed to load resource');
+ * debugError('API call failed:', error);
+ * ```
+ * 
+ * ### debugInfo
+ * 
+ * For informational messages (similar to debugLog but uses console.info):
+ * ```javascript
+ * debugInfo('Initialization complete');
+ * debugInfo('System status:', status);
+ * ```
+ * 
+ * ## Implementation Details
+ * 
+ * - All debug functions check the `VITE_DEBUG_MODE` environment variable before logging
+ * - Messages are prefixed with `[DEBUG]` for easy identification
+ * - Functions accept an optional second parameter for data objects
+ * 
+ * @module debug
+ */

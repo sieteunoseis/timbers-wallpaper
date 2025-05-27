@@ -1,4 +1,5 @@
 import { tryLoadImage } from './imageLoader';
+import { debugLog, debugWarn, debugError } from './debug';
 
 // Portland Timbers brand colors
 export const TIMBERS_GREEN = '#004812'; // Updated green to match gradient
@@ -22,10 +23,10 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
   if (theme && theme.type === 'image' && theme.filename) {
     try {
       const backgroundImg = await tryLoadImage(`/background/${theme.filename}`);
-      console.log(`${theme.label} background loaded successfully`);
+      debugLog(`${theme.label} background loaded successfully`);
       return backgroundImg;
     } catch (error) {
-      console.log(`Failed to load ${theme.label} background, falling back to classic theme:`, error);
+      debugWarn(`Failed to load ${theme.label} background, falling back to classic theme:`, error);
       // Fallback to classic theme if image fails to load
       return createFallbackGradient(ctx, width, height);
     }
@@ -43,10 +44,10 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
       // Load and return the static Timber Jim background
       try {
         const timberJimImg = await tryLoadImage('/background/timber_jim.webp');
-        console.log('Timber Jim background loaded successfully');
+        debugLog('Timber Jim background loaded successfully');
         return timberJimImg;
       } catch (error) {
-        console.log('Failed to load Timber Jim background, falling back to classic theme:', error);
+        debugWarn('Failed to load Timber Jim background, falling back to classic theme:', error);
         return createFallbackGradient(ctx, width, height);
       }
     }

@@ -11,7 +11,17 @@ import WallpaperCanvas from "./components/WallpaperCanvas";
 import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
 import useScheduleData from "./hooks/useScheduleData";
 import useBackgroundThemes from "./hooks/useBackgroundThemes";
-import { debugLog, debugWarn, debugError } from "./utils/debug";
+import { debugLog, debugError, debugWarn } from "./utils/debug";
+import PatchSelector from "./components/PatchSelector";
+import ThemeSelector from "./components/ThemeSelector";
+import TextCustomizer from "./components/TextCustomizer";
+import SchedulePreview from "./components/SchedulePreview";
+import CanvasPreview from "./components/CanvasPreview";
+import WallpaperCanvas from "./components/WallpaperCanvas";
+import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
+import useScheduleData from "./hooks/useScheduleData";
+import useBackgroundThemes from "./hooks/useBackgroundThemes";
+import { debugLog, debugError, debugWarn } from "./utils/debug";
 
 const TimbersWallpaperGenerator = () => {
   const canvasRef = useRef(null);
@@ -122,13 +132,12 @@ const TimbersWallpaperGenerator = () => {
     setIsGenerating(true);
 
     try {
-      setTimeout(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) {
-          debugError("Canvas not found");
-          setIsGenerating(false);
-          return;
-        }
+      setTimeout(() => {      const canvas = canvasRef.current;
+      if (!canvas) {
+        debugError("Canvas not found");
+        setIsGenerating(false);
+        return;
+      }
 
         try {
           // Create download link

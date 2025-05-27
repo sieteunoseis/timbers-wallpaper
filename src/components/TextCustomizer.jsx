@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text, Type } from 'lucide-react';
+import { debounce } from '../utils/debounce';
 
 /**
  * Component for customizing display text on the wallpaper
@@ -44,9 +45,16 @@ const TextCustomizer = ({
     setSelectedFont(e.target.value);
   };
 
+  // Create a debounced version of setFontSizeMultiplier
+  const debouncedSetFontSize = React.useMemo(
+    () => debounce((value) => setFontSizeMultiplier(value), 50),
+    [setFontSizeMultiplier]
+  );
+
   // Handle font size slider change
   const handleFontSizeChange = (e) => {
-    setFontSizeMultiplier(parseFloat(e.target.value));
+    const value = parseFloat(e.target.value);
+    debouncedSetFontSize(value);
   };
 
   return (
