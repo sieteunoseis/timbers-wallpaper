@@ -195,7 +195,7 @@ const TimbersWallpaperGenerator = () => {
               backgroundThemes={backgroundThemes}
               dimensions={getCurrentDimensions()} 
               nextMatches={nextMatches} 
-              includeDateTime={true} 
+              includeDateTime={!isGenerating} 
               showPatchImage={showPatchImage}
               customText={customText}
               selectedFont={selectedFont}

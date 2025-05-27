@@ -153,41 +153,6 @@ const TextCustomizer = ({
             <span>Large</span>
           </div>
         </div>
-
-        {/* Text Preview */}
-        <div>
-          <label className="block text-white mb-2 text-sm opacity-75">
-            Preview
-          </label>
-          <div 
-            className="bg-[#00482B]/30 border border-white/20 rounded-lg p-3 text-center"
-            style={{ 
-              minHeight: '60px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <span 
-              className="text-white text-lg"
-              style={{ 
-                fontFamily: selectedFont,
-                fontWeight: ['Verdana'].includes(selectedFont) ? 'bold' : 'normal',
-                fontSize: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
-                  ? `${32 * fontSizeMultiplier}px` 
-                  : `${24 * fontSizeMultiplier}px`,
-                letterSpacing: selectedFont === 'Another Danger' ? '4px' : 
-                             ['Lethal Slime', 'Rose', 'Urban Jungle'].includes(selectedFont) ? '2px' : 'normal',
-                textTransform: ['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) ? 'uppercase' : 'none',
-                textShadow: '1px 1px 3px rgba(0,0,0,0.5)'
-              }}
-            >
-              {['Lethal Slime', 'Another Danger', 'Rose', 'Urban Jungle'].includes(selectedFont) 
-                ? (customText || 'PORTLAND TIMBERS').toUpperCase() 
-                : (customText || 'PORTLAND TIMBERS')}
-            </span>
-          </div>
-        </div>
       </div>
     </div>
   );
