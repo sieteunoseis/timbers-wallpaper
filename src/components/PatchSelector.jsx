@@ -160,10 +160,10 @@ const PatchSelector = React.memo(({
         </>
       ) : (
         <div className="text-yellow-200 text-sm space-y-3">
-          <p>No patches-manifest.json found in /public/patches/ folder.</p>
+          <p>No patches-manifest.json found in the assets folder.</p>
 
           <div className="bg-black/20 rounded p-3 text-xs">
-            <p className="text-white font-semibold mb-2">Create /public/patches/patches-manifest.json:</p>
+            <p className="text-white font-semibold mb-2">Create /src/assets/patches/patches-manifest.json:</p>
             <pre className="text-green-200 whitespace-pre-wrap">
 {`{
   "patches": [
@@ -183,7 +183,7 @@ const PatchSelector = React.memo(({
           </div>
 
           <div className="text-xs text-green-200">
-            <p>• Add your image files to /public/patches/</p>
+            <p>• Add your image files to /src/assets/patches/</p>
             <p>• Create the manifest.json file with the structure above</p>
             <p>• Supports .jpg, .jpeg, .png, .webp files</p>
           </div>

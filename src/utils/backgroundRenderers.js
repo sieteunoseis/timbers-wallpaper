@@ -22,7 +22,9 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
   // If we found the theme in the manifest and it's an image type
   if (theme && theme.type === 'image' && theme.filename) {
     try {
-      const backgroundImg = await tryLoadImage(`/background/${theme.filename}`);
+      // Import from assets instead of public folder
+      const backgroundImgPath = new URL(`../assets/background/${theme.filename}`, import.meta.url).href;
+      const backgroundImg = await tryLoadImage(backgroundImgPath);
       debugLog(`${theme.label} background loaded successfully`);
       return backgroundImg;
     } catch (error) {
@@ -43,7 +45,9 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height, back
     case 'timber_jim': {
       // Load and return the static Timber Jim background
       try {
-        const timberJimImg = await tryLoadImage('/background/timber_jim.webp');
+        // Use Vite's asset handling for better iOS compatibility
+        const timberJimPath = new URL('../assets/background/timber_jim.webp', import.meta.url).href;
+        const timberJimImg = await tryLoadImage(timberJimPath);
         debugLog('Timber Jim background loaded successfully');
         return timberJimImg;
       } catch (error) {

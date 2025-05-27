@@ -11,7 +11,9 @@ export const usePatchImages = () => {
 
     try {
       debugLog("Loading patches from manifest...");
-      const response = await fetch("/patches/patches-manifest.json");
+      // Import the patches manifest from assets folder using Vite's import mechanism
+      const manifestUrl = new URL('../assets/patches/patches-manifest.json', import.meta.url).href;
+      const response = await fetch(manifestUrl);
 
       if (response.ok) {
         const manifest = await response.json();

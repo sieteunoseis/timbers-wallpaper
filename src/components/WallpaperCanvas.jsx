@@ -111,7 +111,9 @@ const WallpaperCanvas = ({
     // Load and draw the selected image in the circular area if enabled
     if (showPatchImage && selectedBackground) {
       try {
-        const selectedImg = await tryLoadImage(`/patches/${selectedBackground}`);
+        // Import patch from assets instead of public folder
+        const patchImgPath = new URL(`../assets/patches/${selectedBackground}`, import.meta.url).href;
+        const selectedImg = await tryLoadImage(patchImgPath);
         debugLog('Selected image loaded successfully');
 
         // Create circular clipping path for the selected image

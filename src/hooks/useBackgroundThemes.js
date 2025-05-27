@@ -18,8 +18,10 @@ const useBackgroundThemes = () => {
     try {
       debugLog("Loading backgrounds from manifest...");
 
-      // Try to load the backgrounds manifest file
-      const response = await fetch("/background/background-manifest.json");
+      // Import the background manifest from assets folder using Vite's import mechanism
+      // This uses dynamic import with URL to load the JSON
+      const manifestUrl = new URL('../assets/background/background-manifest.json', import.meta.url).href;
+      const response = await fetch(manifestUrl);
 
       if (response.ok) {
         const manifest = await response.json();
@@ -29,28 +31,25 @@ const useBackgroundThemes = () => {
         if (manifest.backgrounds && Array.isArray(manifest.backgrounds)) {
           for (const background of manifest.backgrounds) {
             if (background.id && background.label) {
-              // For image backgrounds, verify the file exists
+              // For image backgrounds, no need to verify with fetch as they're bundled assets
               if (background.type === 'image' && background.filename) {
                 try {
-                  const imageResponse = await fetch(`/background/${background.filename}`, { method: "HEAD" });
-                  if (imageResponse.ok) {
-                    detectedBackgrounds.push({
-                      value: background.id,
-                      label: background.label,
-                      description: background.description || "",
-                      type: background.type,
-                      filename: background.filename || "",
-                      gradientType: background.gradientType || "",
-                      gradientDirection: background.gradientDirection || "",
-                      colorStops: background.colorStops || [],
-                      effects: background.effects || ""
-                    });
-                    debugLog(`✓ Found background: ${background.filename}`);
-                  } else {
-                    debugWarn(`✗ Background image listed in manifest but not found: ${background.filename}`);
-                  }
+                  // With assets in the src folder, we don't need to fetch to verify
+                  // Vite will handle bundling and imports dynamically
+                  detectedBackgrounds.push({
+                    value: background.id,
+                    label: background.label,
+                    description: background.description || "",
+                    type: background.type,
+                    filename: background.filename || "",
+                    gradientType: background.gradientType || "",
+                    gradientDirection: background.gradientDirection || "",
+                    colorStops: background.colorStops || [],
+                    effects: background.effects || ""
+                  });
+                  debugLog(`✓ Added background: ${background.filename}`);
                 } catch (error) {
-                  debugWarn(`✗ Could not verify background image: ${background.filename}`, error);
+                  debugWarn(`✗ Could not add background image: ${background.filename}`, error);
                 }
               } else {
                 // For gradient backgrounds, just add them
@@ -77,7 +76,7 @@ const useBackgroundThemes = () => {
 
         debugLog(`Successfully loaded ${detectedBackgrounds.length} backgrounds from manifest`);
       } else {
-        debugLog("No background-manifest.json found. Using default themes.");
+        debugLog("No background-manifest.json found in src/assets/background. Using default themes.");
         // Fallback to default themes if file not found
         detectedBackgrounds.push(
           { value: "classic", label: "Classic", description: "Traditional dark gradient", type: "gradient" },

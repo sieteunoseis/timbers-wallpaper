@@ -21,7 +21,7 @@ const __dirname = dirname(__filename);
 // Configuration
 const BASE_URL = 'https://patchpatrol.com';
 const PATCHES_URL = `${BASE_URL}/patches/page/4/`;
-const OUTPUT_DIR = path.join(__dirname, '../public/patches');
+const OUTPUT_DIR = path.join(__dirname, '../src/assets/patches');
 const MANIFEST_PATH = path.join(OUTPUT_DIR, 'patches-manifest.json');
 const DELAY_MS = 1000; // Delay between requests to be respectful
 

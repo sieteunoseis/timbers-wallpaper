@@ -58,6 +58,19 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.6.0 (May 27, 2025)
+
+- Moved background and patch images from public folder to assets folder
+- Fixed iOS image download issues with Vite's asset handling
+- Resolved CORS restrictions for background images
+- Ensured compatibility with iOS Safari for downloaded wallpapers
+- Updated image loading utility to use Vite's URL imports
+
+### v2.5.0 (May 27, 2025)
+
+- Fixed match information not showing in downloaded wallpapers with gradient backgrounds
+- Ensured schedule section always appears in final wallpapers
+
 ### v2.4.0 (May 27, 2025)
 
 - Fixed ghost effect/shadow issues on text elements when refreshing the page
