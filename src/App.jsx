@@ -71,9 +71,9 @@ const TimbersWallpaperGenerator = () => {
         return;
       }
 
-      // Wait for the next render cycle to ensure the canvas is updated
-      // when isGenerating becomes true
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // To ensure match overlays are present during download, we need a small delay
+      // to allow the canvas to fully render with all elements
+      await new Promise(resolve => setTimeout(resolve, 300));
       
       // For iOS Safari compatibility, use blob instead of dataURL
       canvas.toBlob(async (blob) => {
@@ -98,7 +98,7 @@ const TimbersWallpaperGenerator = () => {
           document.body.removeChild(link);
           
           // Revoke the blob URL after a short delay to ensure download completes
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 300);
           
           setIsGenerating(false);
         } catch (error) {
@@ -135,6 +135,7 @@ const TimbersWallpaperGenerator = () => {
               dimensions={getCurrentDimensions()} 
               nextMatches={nextMatches} 
               includeDateTime={!isGenerating} 
+              includeMatches={true} 
               showPatchImage={showPatchImage}
               customText={customText}
               selectedFont={selectedFont}

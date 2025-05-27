@@ -16,6 +16,7 @@ import { debugLog, debugWarn } from '../utils/debug';
  * @param {Object} props.dimensions - Current device dimensions
  * @param {Array} props.nextMatches - Array of upcoming matches
  * @param {boolean} props.includeDateTime - Whether to include date/time on the wallpaper
+ * @param {boolean} props.includeMatches - Whether to show match overlays (defaults to true)
  * @param {boolean} props.showPatchImage - Whether to show the patch image
  * @param {string} props.customText - Custom text to display instead of "PORTLAND TIMBERS"
  * @param {string} props.selectedFont - Font family to use for the custom text. 
@@ -31,6 +32,7 @@ const WallpaperCanvas = ({
   dimensions, 
   nextMatches, 
   includeDateTime = true,
+  includeMatches = true,
   showPatchImage = true,
   customText = "PORTLAND TIMBERS",
   selectedFont = "Arial",
@@ -348,109 +350,110 @@ const WallpaperCanvas = ({
     }
 
     // Schedule section - Vertical layout below content
-    // Adjust schedule position if no patch image is shown
-    const scheduleStartY = showPatchImage ? logoY + 540 : logoY + 340;
+    // Only render matches if includeMatches is true
+    if (includeMatches && nextMatches && nextMatches.length > 0) {
+      // Adjust schedule position if no patch image is shown
+      const scheduleStartY = showPatchImage ? logoY + 540 : logoY + 340;
 
-    // Load Portland Timbers logo with fallback
-    let timbersLogo;
-    const timbersLogoUrl = 'https://cdn.sportmonks.com/images/soccer/teams/31/607.png';
-    try {
-      timbersLogo = await tryLoadImage(timbersLogoUrl);
-      debugLog('Timbers logo loaded successfully');
-    } catch (error) {
-      debugWarn('Failed to load Timbers logo, using fallback:', error);
-      timbersLogo = createFallbackLogo('POR', true);
-    }
+      // Load Portland Timbers logo with fallback
+      let timbersLogo;
+      const timbersLogoUrl = 'https://cdn.sportmonks.com/images/soccer/teams/31/607.png';
+      try {
+        timbersLogo = await tryLoadImage(timbersLogoUrl);
+        debugLog('Timbers logo loaded successfully');
+      } catch (error) {
+        debugWarn('Failed to load Timbers logo, using fallback:', error);
+        timbersLogo = createFallbackLogo('POR', true);
+      }
 
-    // Draw each match with team logos
-    const matchSpacing = Math.floor(height * 0.085); // Tight spacing
-    const logoSize = Math.floor(width * 0.095); // Size of team logos
-    const logoSpacing = Math.floor(width * 0.095); // Spacing between logos
+      // Draw each match with team logos
+      const matchSpacing = Math.floor(height * 0.085); // Tight spacing
+      const logoSize = Math.floor(width * 0.095); // Size of team logos
+      const logoSpacing = Math.floor(width * 0.095); // Spacing between logos
 
-    for (let i = 0; i < Math.min(nextMatches.length, 4); i++) {
-      const match = nextMatches[i];
-      const matchY = scheduleStartY + i * matchSpacing;
-      const centerX = width / 2;
+      for (let i = 0; i < Math.min(nextMatches.length, 4); i++) {
+        const match = nextMatches[i];
+        const matchY = scheduleStartY + i * matchSpacing;
+        const centerX = width / 2;
 
-      // Create background rectangle for each match
-      const matchBgPadding = Math.floor(width * 0.037);
-      const matchBgHeight = Math.floor(matchSpacing * 0.75);
-      const matchBgY = matchY - matchBgHeight / 2;
-      const cornerRadius = Math.floor(matchBgHeight * 0.25); // Rounded corners
+        // Create background rectangle for each match
+        const matchBgPadding = Math.floor(width * 0.037);
+        const matchBgHeight = Math.floor(matchSpacing * 0.75);
+        const matchBgY = matchY - matchBgHeight / 2;
+        const cornerRadius = Math.floor(matchBgHeight * 0.25); // Rounded corners
 
-      // Fill rounded rectangle background
-      ctx.fillStyle = 'rgba(0, 66, 37, 0.3)';
-      ctx.beginPath();
-      ctx.roundRect(
-        matchBgPadding,
-        matchBgY,
-        width - matchBgPadding * 2,
-        matchBgHeight,
-        cornerRadius
-      );
-      ctx.fill();
+        // Fill rounded rectangle background
+        ctx.fillStyle = 'rgba(0, 66, 37, 0.3)';
+        ctx.beginPath();
+        ctx.roundRect(
+          matchBgPadding,
+          matchBgY,
+          width - matchBgPadding * 2,
+          matchBgHeight,
+          cornerRadius
+        );
+        ctx.fill();
 
-      // Add border with rounded corners - gold for home, green for away
-      ctx.strokeStyle = match.isHome ? 'rgba(214, 175, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(
-        matchBgPadding,
-        matchBgY,
-        width - matchBgPadding * 2,
-        matchBgHeight,
-        cornerRadius
-      );
-      ctx.stroke();
+        // Add border with rounded corners - gold for home, green for away
+        ctx.strokeStyle = match.isHome ? 'rgba(214, 175, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.roundRect(
+          matchBgPadding,
+          matchBgY,
+          width - matchBgPadding * 2,
+          matchBgHeight,
+          cornerRadius
+        );
+        ctx.stroke();
 
-      // Draw Portland Timbers logo (left side)
-      if (timbersLogo) {
+        // Draw Portland Timbers logo (left side)
+        if (timbersLogo) {
+          ctx.fillStyle = TIMBERS_WHITE;
+          ctx.beginPath();
+          ctx.arc(centerX - logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
+          ctx.fill();
+
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(centerX - logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
+          ctx.clip();
+
+          if (timbersLogo instanceof HTMLCanvasElement) {
+            ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
+          } else {
+            ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);        }
+          ctx.restore();
+        }
+
+        // Load and draw opponent logo
+        let opponentLogo;
+        if (match.logoUrl) {
+          try {
+            opponentLogo = await tryLoadImage(match.logoUrl);
+          } catch {
+            opponentLogo = createFallbackLogo(match.opponentShort);
+          }
+        } else {
+          opponentLogo = createFallbackLogo(match.opponentShort);
+        }
+
         ctx.fillStyle = TIMBERS_WHITE;
         ctx.beginPath();
-        ctx.arc(centerX - logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
+        ctx.arc(centerX + logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
         ctx.fill();
 
         ctx.save();
         ctx.beginPath();
-        ctx.arc(centerX - logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
+        ctx.arc(centerX + logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
         ctx.clip();
 
-        if (timbersLogo instanceof HTMLCanvasElement) {
-          ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
+        if (opponentLogo instanceof HTMLCanvasElement) {
+          ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
         } else {
-          ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
+          ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
         }
         ctx.restore();
-      }
-
-      // Load and draw opponent logo
-      let opponentLogo;
-      if (match.logoUrl) {
-        try {
-          opponentLogo = await tryLoadImage(match.logoUrl);
-        } catch {
-          opponentLogo = createFallbackLogo(match.opponentShort);
-        }
-      } else {
-        opponentLogo = createFallbackLogo(match.opponentShort);
-      }
-
-      ctx.fillStyle = TIMBERS_WHITE;
-      ctx.beginPath();
-      ctx.arc(centerX + logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
-      ctx.fill();
-
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(centerX + logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
-      ctx.clip();
-
-      if (opponentLogo instanceof HTMLCanvasElement) {
-        ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
-      } else {
-        ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
-      }
-      ctx.restore();
 
       // VS or @ text (center)
       // Clear any shadows before drawing VS/@
@@ -598,7 +601,7 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
-  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
+  }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
 
   // Effect to reset canvas on page unload/refresh
   useEffect(() => {
@@ -658,7 +661,7 @@ const WallpaperCanvas = ({
         generateWallpaper();
       }, 10);
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
+  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, includeMatches, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
 
   return null;
 };

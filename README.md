@@ -58,6 +58,14 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.6.3 (May 27, 2025)
+
+- Fixed missing match overlays when downloading wallpapers on desktop
+- Separated date/time rendering from match overlay rendering
+- Improved canvas rendering during download process
+- Increased timeout values to ensure complete capture of all elements
+- Added includeMatches parameter to control match display independently
+
 ### v2.6.2 (May 27, 2025)
 
 - Fixed "Invalid Date" issue in Next Matches section on iOS devices
