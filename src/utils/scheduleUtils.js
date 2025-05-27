@@ -41,8 +41,43 @@ export const getNext4Matches = () => {
     }
   });
 
-  // Sort by date and take first 4
-  upcomingFixtures.sort((a, b) => new Date(a.starting_at) - new Date(b.starting_at));
+  // Helper function to safely parse dates for sorting (iOS compatible)
+  const parseDateSafely = dateString => {
+    try {
+      if (!dateString) return new Date();
+      
+      const parts = dateString.split(' ');
+      const dateParts = parts[0].split('-');
+      
+      if (parts.length >= 2) {
+        // Has time components
+        const timeParts = parts[1].split(':');
+        return new Date(Date.UTC(
+          parseInt(dateParts[0], 10),    // year
+          parseInt(dateParts[1], 10) - 1, // month (0-based)
+          parseInt(dateParts[2], 10),    // day
+          parseInt(timeParts[0], 10),    // hour
+          parseInt(timeParts[1], 10),    // minute
+          parseInt(timeParts[2] || 0, 10) // second
+        ));
+      } else {
+        // Date only
+        return new Date(Date.UTC(
+          parseInt(dateParts[0], 10),    // year
+          parseInt(dateParts[1], 10) - 1, // month (0-based)
+          parseInt(dateParts[2], 10)     // day
+        ));
+      }
+    } catch (e) {
+      console.error('Error parsing date for sorting:', e);
+      return new Date(); // Return current date as fallback
+    }
+  };
+
+  // Sort by date using the safe parsing method
+  upcomingFixtures.sort((a, b) => 
+    parseDateSafely(a.starting_at) - parseDateSafely(b.starting_at)
+  );
 
   return upcomingFixtures.slice(0, 4).map(fixture => {
     const opponent = fixture.participants.find(p => p.id !== 607);

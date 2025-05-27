@@ -58,6 +58,14 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.6.2 (May 27, 2025)
+
+- Fixed "Invalid Date" issue in Next Matches section on iOS devices
+- Improved date parsing for cross-browser compatibility
+- Added robust date handling for iOS Safari
+- Enhanced error handling for date and time formatting
+- Fixed schedule data display in HTML interface
+
 ### v2.6.1 (May 27, 2025)
 
 - Fixed remaining iOS image background download issue
