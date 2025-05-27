@@ -564,8 +564,6 @@ const WallpaperCanvas = ({
       ctx.fillText(statusText, dateTimeX, matchY + 50);
     }
 
-
-
     // Footer
     ctx.fillStyle = TIMBERS_WHITE;
     
@@ -601,6 +599,8 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
+    // End of for loop for matches
+    }
   }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
 
   // Effect to reset canvas on page unload/refresh
