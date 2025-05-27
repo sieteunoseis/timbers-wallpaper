@@ -456,12 +456,35 @@ const WallpaperCanvas = ({
       const matchDateFont = Math.floor(width * 0.026);
       ctx.font = `bold ${matchDateFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
-      const formattedDate = match.date ? new Date(match.date + ' UTC').toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
-        timeZone: 'America/Los_Angeles',
-      }) : 'TBD';
+      
+      let formattedDate = 'TBD';
+      if (match.date) {
+        try {
+          // Handle date in a cross-browser compatible way
+          // Format: YYYY-MM-DD HH:MM:SS or YYYY-MM-DD
+          const parts = match.date.split(' ');
+          const dateParts = parts[0].split('-');
+          
+          // Create date using individual components (year, month-1, day)
+          // This approach is more compatible across browsers
+          const matchDate = new Date(Date.UTC(
+            parseInt(dateParts[0], 10),  // year
+            parseInt(dateParts[1], 10) - 1,  // month (0-based)
+            parseInt(dateParts[2], 10)   // day
+          ));
+          
+          formattedDate = matchDate.toLocaleDateString('en-US', {
+            weekday: 'short',
+            month: 'short',
+            day: 'numeric',
+            timeZone: 'America/Los_Angeles',
+          });
+        } catch (e) {
+          console.error('Error formatting match date:', e);
+          formattedDate = 'TBD';
+        }
+      }
+      
       ctx.fillText(formattedDate.replace(',', ''), dateTimeX, matchY - 20);
 
       // Match time below date
@@ -472,12 +495,42 @@ const WallpaperCanvas = ({
       const matchTimeFont = Math.floor(width * 0.024);
       ctx.font = `${matchTimeFont}px "Avenir Next"`;
       ctx.textAlign = 'left';
-      const timeText = match.time ? new Date(match.time + ' UTC').toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-        timeZone: 'America/Los_Angeles',
-      }) : 'TBD';
+      
+      let timeText = 'TBD';
+      if (match.time) {
+        try {
+          // Handle time in a cross-browser compatible way
+          // Format: YYYY-MM-DD HH:MM:SS
+          const parts = match.time.split(' ');
+          
+          if (parts.length >= 2) {
+            // Has time components
+            const dateParts = parts[0].split('-');
+            const timeParts = parts[1].split(':');
+            
+            // Create date using individual components
+            const matchDateTime = new Date(Date.UTC(
+              parseInt(dateParts[0], 10),  // year
+              parseInt(dateParts[1], 10) - 1,  // month (0-based)
+              parseInt(dateParts[2], 10),  // day
+              parseInt(timeParts[0], 10),  // hour
+              parseInt(timeParts[1], 10),  // minute
+              parseInt(timeParts[2] || 0, 10)  // second (default to 0)
+            ));
+            
+            timeText = matchDateTime.toLocaleTimeString('en-US', {
+              hour: 'numeric',
+              minute: '2-digit',
+              hour12: true,
+              timeZone: 'America/Los_Angeles',
+            });
+          }
+        } catch (e) {
+          console.error('Error formatting match time:', e);
+          timeText = 'TBD';
+        }
+      }
+      
       ctx.fillText(timeText, dateTimeX, matchY + 15);
       
       // Add home/away status below time

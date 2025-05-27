@@ -65,3 +65,8 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 - Added comprehensive canvas context reset utility
 - Improved text rendering to prevent shadow persistence
 - Added page refresh handling to ensure clean canvas state
+
+### v2.4.1 (May 27, 2025)
+
+- Fixed date/time display issues on iOS/Safari browsers
+- Improved cross-browser compatibility for match information
