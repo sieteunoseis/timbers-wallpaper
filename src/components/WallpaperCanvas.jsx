@@ -10,13 +10,14 @@ import { getThemeBackground, addThemeEffects, TIMBERS_GREEN, TIMBERS_GOLD, TIMBE
  * @param {React.RefObject} props.canvasRef - Reference to the canvas element
  * @param {string} props.selectedBackground - Selected patch image
  * @param {string} props.selectedTheme - Selected theme
+ * @param {Array} props.backgroundThemes - Available background themes from manifest
  * @param {Object} props.dimensions - Current device dimensions
  * @param {Array} props.nextMatches - Array of upcoming matches
  * @param {boolean} props.includeDateTime - Whether to include date/time on the wallpaper
  * @param {boolean} props.showPatchImage - Whether to show the patch image
  * @param {string} props.customText - Custom text to display instead of "PORTLAND TIMBERS"
  * @param {string} props.selectedFont - Font family to use for the custom text. 
- *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), or "Lethal Slime" (caps only)
+ *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), "Rose", "Urban Jungle" or "Lethal Slime" (caps only)
  * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
  * @returns {null} This component doesn't render UI elements directly
  */
@@ -24,6 +25,7 @@ const WallpaperCanvas = ({
   canvasRef, 
   selectedBackground, 
   selectedTheme, 
+  backgroundThemes = [], 
   dimensions, 
   nextMatches, 
   includeDateTime = true,
@@ -48,7 +50,7 @@ const WallpaperCanvas = ({
     ctx.fillRect(0, 0, width, height);
 
     // Apply theme-specific background
-    const themeBackground = await getThemeBackground(selectedTheme, ctx, width, height);
+    const themeBackground = await getThemeBackground(selectedTheme, ctx, width, height, backgroundThemes);
     if (themeBackground instanceof HTMLImageElement) {
       // Handle static image background (Timber Jim)
       // Scale and center the image to cover the entire canvas
@@ -83,7 +85,7 @@ const WallpaperCanvas = ({
     }
 
     // Add theme-specific effects
-    addThemeEffects(selectedTheme, ctx, width, height);
+    addThemeEffects(selectedTheme, ctx, width, height, backgroundThemes);
 
     // Draw central image area - Moved much lower towards bottom
     const logoY = Math.floor(height * 0.4); // 40% down from top
@@ -478,7 +480,7 @@ const WallpaperCanvas = ({
     ctx.shadowBlur = 0;
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 0;
-  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
+  }, [canvasRef, dimensions, includeDateTime, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
 
   useEffect(() => {
     if (canvasRef.current) {

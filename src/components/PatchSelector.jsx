@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ImageIcon } from 'lucide-react';
 import Select from 'react-select';
 
@@ -53,6 +53,24 @@ const PatchSelector = ({
         <div className="text-green-200 text-sm">Loading available images...</div>
       ) : availableImages.length > 0 ? (
         <>
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-sm font-medium text-white">Select a patch:</div>
+            <button
+              onClick={() => {
+                if (availableImages.length > 0) {
+                  const randomIndex = Math.floor(Math.random() * availableImages.length);
+                  setSelectedBackground(availableImages[randomIndex].value);
+                }
+              }}
+              className="text-sm bg-[#00482B] hover:bg-[#005733] text-white px-3 py-1 rounded-md flex items-center"
+              title="Choose a random patch"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+              </svg>
+              Random
+            </button>
+          </div>
           <Select
             value={availableImages.find(img => img.value === selectedBackground)}
             onChange={(option) => setSelectedBackground(option.value)}

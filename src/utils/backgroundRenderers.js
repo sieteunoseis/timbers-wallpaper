@@ -7,13 +7,37 @@ export const TIMBERS_WHITE = '#FFFFFF';
 
 /**
  * Generate theme-specific background for the wallpaper
- * @param {string} selectedTheme - The theme name
+ * @param {string} selectedTheme - The theme ID
  * @param {CanvasRenderingContext2D} ctx - The canvas context
  * @param {number} width - Canvas width
  * @param {number} height - Canvas height
+ * @param {Array} backgroundThemes - Array of background themes from manifest
  * @returns {Promise<HTMLImageElement|CanvasGradient>} - Image or gradient for background
  */
-export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
+export const getThemeBackground = async (selectedTheme, ctx, width, height, backgroundThemes = []) => {
+  // Find the selected theme in the backgroundThemes array
+  const theme = backgroundThemes.find(theme => theme.value === selectedTheme);
+
+  // If we found the theme in the manifest and it's an image type
+  if (theme && theme.type === 'image' && theme.filename) {
+    try {
+      const backgroundImg = await tryLoadImage(`/background/${theme.filename}`);
+      console.log(`${theme.label} background loaded successfully`);
+      return backgroundImg;
+    } catch (error) {
+      console.log(`Failed to load ${theme.label} background, falling back to classic theme:`, error);
+      // Fallback to classic theme if image fails to load
+      return createFallbackGradient(ctx, width, height);
+    }
+  } 
+  
+  // If we found the theme in the manifest and it's a gradient type
+  if (theme && theme.type === 'gradient') {
+    return createGradientFromTheme(theme, ctx, width, height);
+  }
+
+  // Legacy handler for backward compatibility with hard-coded themes
+  // This will run if the theme wasn't found in the manifest array
   switch (selectedTheme) {
     case 'timber_jim': {
       // Load and return the static Timber Jim background
@@ -23,11 +47,7 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
         return timberJimImg;
       } catch (error) {
         console.log('Failed to load Timber Jim background, falling back to classic theme:', error);
-        // Fallback to classic theme if image fails to load
-        const classicGradient = ctx.createLinearGradient(0, 0, 0, height);
-        classicGradient.addColorStop(0, '#EAE827'); // Timbers gold
-        classicGradient.addColorStop(1, '#004812'); // Timbers green
-        return classicGradient;
+        return createFallbackGradient(ctx, width, height);
       }
     }
     case 'providence': {
@@ -78,12 +98,80 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
     case 'classic':
     default: {
       // Classic theme - Timbers gold to Timbers green gradient
-      const classicGradient = ctx.createLinearGradient(0, 0, 0, height);
-      classicGradient.addColorStop(0, '#EAE827'); // Timbers gold
-      classicGradient.addColorStop(1, '#004812'); // Timbers green
-      return classicGradient;
+      return createFallbackGradient(ctx, width, height);
     }
   }
+};
+
+/**
+ * Create a gradient from theme data
+ * @param {Object} theme - Theme object from manifest
+ * @param {CanvasRenderingContext2D} ctx - Canvas context
+ * @param {number} width - Canvas width
+ * @param {number} height - Canvas height
+ * @returns {CanvasGradient} - The created gradient
+ */
+const createGradientFromTheme = (theme, ctx, width, height) => {
+  // Fallback to classic if theme is not found
+  if (!theme) {
+    return createFallbackGradient(ctx, width, height);
+  }
+
+  let gradient;
+
+  // Create the right type of gradient based on theme data
+  if (theme.gradientType === 'linear') {
+    if (theme.gradientDirection === 'vertical') {
+      gradient = ctx.createLinearGradient(0, 0, 0, height);
+    } else if (theme.gradientDirection === 'horizontal') {
+      gradient = ctx.createLinearGradient(0, 0, width, 0);
+    } else if (theme.gradientDirection === 'diagonal') {
+      gradient = ctx.createLinearGradient(0, 0, width, height);
+    } else {
+      gradient = ctx.createLinearGradient(0, 0, 0, height); // Default to vertical
+    }
+  } else if (theme.gradientType === 'radial') {
+    if (theme.gradientDirection === 'from-center') {
+      gradient = ctx.createRadialGradient(width / 2, height / 3, 0, width / 2, height, width);
+    } else if (theme.gradientDirection === 'top-center') {
+      gradient = ctx.createRadialGradient(width / 2, 0, 0, width / 2, height / 2, width);
+    } else if (theme.gradientDirection === 'top-to-bottom') {
+      gradient = ctx.createRadialGradient(width / 2, 0, 0, width / 2, height, width);
+    } else {
+      // Default radial gradient
+      gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, width);
+    }
+  } else {
+    // Default to basic linear gradient if type not specified
+    gradient = ctx.createLinearGradient(0, 0, 0, height);
+  }
+
+  // Add color stops if available
+  if (theme.colorStops && Array.isArray(theme.colorStops) && theme.colorStops.length > 0) {
+    theme.colorStops.forEach(stop => {
+      gradient.addColorStop(stop.position, stop.color);
+    });
+  } else {
+    // Default color stops if none provided
+    gradient.addColorStop(0, TIMBERS_GOLD);
+    gradient.addColorStop(1, TIMBERS_GREEN);
+  }
+
+  return gradient;
+};
+
+/**
+ * Create a fallback gradient if the selected theme fails to load
+ * @param {CanvasRenderingContext2D} ctx - Canvas context
+ * @param {number} width - Canvas width
+ * @param {number} height - Canvas height
+ * @returns {CanvasGradient} - The fallback gradient
+ */
+export const createFallbackGradient = (ctx, width, height) => {
+  const classicGradient = ctx.createLinearGradient(0, 0, 0, height);
+  classicGradient.addColorStop(0, TIMBERS_GOLD); // Timbers gold
+  classicGradient.addColorStop(1, TIMBERS_GREEN); // Timbers green
+  return classicGradient;
 };
 
 /**
@@ -92,14 +180,26 @@ export const getThemeBackground = async (selectedTheme, ctx, width, height) => {
  * @param {CanvasRenderingContext2D} ctx - The canvas context
  * @param {number} width - Canvas width
  * @param {number} height - Canvas height
+ * @param {Array} backgroundThemes - Array of background themes from manifest
  */
-export const addThemeEffects = (selectedTheme, ctx, width, height) => {
-  // Skip effects for timber_jim theme since it uses a static background
+export const addThemeEffects = (selectedTheme, ctx, width, height, backgroundThemes = []) => {
+  // Find theme in array
+  const theme = backgroundThemes.find(theme => theme.value === selectedTheme);
+  
+  // Skip effects for image backgrounds
+  if (theme && theme.type === 'image') {
+    return;
+  }
+  
+  // Legacy check for static image backgrounds
   if (selectedTheme === 'timber_jim') {
     return;
   }
+  
+  // Get effect type - use theme.effects if available, otherwise use selectedTheme
+  const effectType = theme && theme.effects ? theme.effects : selectedTheme;
 
-  switch (selectedTheme) {
+  switch (effectType) {
     case 'providence': {
       // Add stadium light flares
       ctx.globalAlpha = 0.1;

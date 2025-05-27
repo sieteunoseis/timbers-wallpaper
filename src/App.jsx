@@ -10,12 +10,14 @@ import CanvasPreview from "./components/CanvasPreview";
 import WallpaperCanvas from "./components/WallpaperCanvas";
 import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
 import useScheduleData from "./hooks/useScheduleData";
+import useBackgroundThemes from "./hooks/useBackgroundThemes";
 
 const TimbersWallpaperGenerator = () => {
   const canvasRef = useRef(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedBackground, setSelectedBackground] = useState("");
-  const [selectedTheme, setSelectedTheme] = useState("classic");
+  // Background themes now come from the hook instead of hardcoded
+  const { backgroundThemes, selectedTheme, setSelectedTheme, isLoadingBackgrounds } = useBackgroundThemes();
   const [selectediPhoneSize, setSelectediPhoneSize] = useState("iphone15");
   const [availableImages, setAvailableImages] = useState([]);
   const [isLoadingImages, setIsLoadingImages] = useState(true);
@@ -33,16 +35,7 @@ const TimbersWallpaperGenerator = () => {
     { value: "custom", label: "Custom (1080x2337)", width: 1080, height: 2337 },
   ];
 
-  // Theme options for main background
-  const themeOptions = [
-    { value: "classic", label: "Classic", description: "Traditional dark gradient" },
-    { value: "forest", label: "Forest", description: "Deep green forest vibes" },
-    { value: "night", label: "Night", description: "Midnight black with stars" },
-    { value: "providence", label: "Providence Park", description: "Stadium lights and atmosphere" },
-    { value: "rose", label: "Rose City", description: "Rose and thorn inspired" },
-    { value: "timber", label: "Timber Joey", description: "Log slab inspired pattern" },
-    { value: "timber_jim", label: "Timber Jim", description: "Static background with Timber Jim" },
-  ];
+  // Background themes now come from the useBackgroundThemes hook
 
   // Get current iPhone dimensions
   const getCurrentDimensions = () => {
@@ -113,10 +106,11 @@ const TimbersWallpaperGenerator = () => {
 
     setAvailableImages(detectedImages);
 
-    // Set first available image as default if none selected
+    // Set random image as default if none selected
     if (detectedImages.length > 0 && !selectedBackground) {
-      setSelectedBackground(detectedImages[0].value);
-      console.log(`Set default background to: ${detectedImages[0].value}`);
+      const randomIndex = Math.floor(Math.random() * detectedImages.length);
+      setSelectedBackground(detectedImages[randomIndex].value);
+      console.log(`Set random background to: ${detectedImages[randomIndex].value}`);
     }
 
     setIsLoadingImages(false);
@@ -159,6 +153,18 @@ const TimbersWallpaperGenerator = () => {
     }
   };
 
+  // Effect to select a random patch when component mounts
+  useEffect(() => {
+    // Clear the selected background so that a random one gets chosen
+    setSelectedBackground("");
+  }, []);
+
+  // Effect to select a random patch when component mounts
+  useEffect(() => {
+    // Clear the selected background so that a random one gets chosen
+    setSelectedBackground("");
+  }, []);
+
   useEffect(() => {
     // Load available images on component mount or when showPatchImage changes
     if (showPatchImage) {
@@ -185,6 +191,7 @@ const TimbersWallpaperGenerator = () => {
               canvasRef={canvasRef} 
               selectedBackground={selectedBackground} 
               selectedTheme={selectedTheme} 
+              backgroundThemes={backgroundThemes}
               dimensions={getCurrentDimensions()} 
               nextMatches={nextMatches} 
               includeDateTime={true} 
@@ -204,7 +211,12 @@ const TimbersWallpaperGenerator = () => {
             <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
 
             {/* Theme Selector */}
-            <ThemeSelector selectedTheme={selectedTheme} setSelectedTheme={setSelectedTheme} themeOptions={themeOptions} />
+            <ThemeSelector 
+              selectedTheme={selectedTheme} 
+              setSelectedTheme={setSelectedTheme} 
+              themeOptions={backgroundThemes} 
+              isLoading={isLoadingBackgrounds} 
+            />
             
             {/* Text Customizer */}
             <TextCustomizer 
