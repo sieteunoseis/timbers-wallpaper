@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React from 'react';
 import { ImageIcon } from 'lucide-react';
 import Select from 'react-select';
 
