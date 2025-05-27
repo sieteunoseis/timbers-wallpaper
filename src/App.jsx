@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Import components
 import DeviceSelector from "./components/DeviceSelector";
@@ -28,22 +28,20 @@ const TimbersWallpaperGenerator = () => {
   // Use the new hook for patch images
   const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
 
-  // Only load images once on mount
+  // Load images and set initial background
   useEffect(() => {
-    if (showPatchImage) {
-      loadAvailableImages().then(images => {
+    const initializeImages = async () => {
+      if (showPatchImage) {
+        const images = await loadAvailableImages();
         if (images.length > 0 && !selectedBackground) {
           const randomIndex = Math.floor(Math.random() * images.length);
           setSelectedBackground(images[randomIndex].value);
         }
-      });
-    }
-  }, [showPatchImage, loadAvailableImages]); // Only reload when showPatchImage changes
-
-  // Remove the old effects that were causing reloads
-  useEffect(() => {
-    setSelectedBackground("");
-  }, []); // Only run once on mount
+      }
+    };
+    
+    initializeImages();
+  }, [showPatchImage, loadAvailableImages, selectedBackground]);
 
   // iPhone size options including iPhone 16 series
   const iPhoneSizes = [
@@ -54,8 +52,6 @@ const TimbersWallpaperGenerator = () => {
     { value: "custom", label: "Custom (1080x2337)", width: 1080, height: 2337 },
   ];
 
-  // Background themes now come from the useBackgroundThemes hook
-
   // Get current iPhone dimensions
   const getCurrentDimensions = () => {
     const selected = iPhoneSizes.find((size) => size.value === selectediPhoneSize);
@@ -65,119 +61,29 @@ const TimbersWallpaperGenerator = () => {
   // Get schedule data
   const { nextMatches } = useScheduleData();
 
-  // Function to dynamically load images from patches folder using manifest
-  const loadAvailableImages = useCallback(async () => {
-    setIsLoadingImages(true);
-    const detectedImages = [];
-
-    // Skip loading if patch images are disabled
-    if (!showPatchImage) {
-      setIsLoadingImages(false);
-      return;
-    }
-
-    try {
-      debugLog("Loading patches from manifest...");
-
-      // Try to load the patches manifest file
-      const response = await fetch("/patches/patches-manifest.json");
-
-      if (response.ok) {
-        const manifest = await response.json();
-        debugLog("Manifest loaded successfully:", manifest);
-
-        // Validate and process the manifest
-        if (manifest.patches && Array.isArray(manifest.patches)) {
-          for (const patch of manifest.patches) {
-            if (patch.filename && patch.label) {
-              // Verify the image actually exists
-              try {
-                const imageResponse = await fetch(`/patches/${patch.filename}`, { method: "HEAD" });
-                if (imageResponse.ok) {
-                  detectedImages.push({
-                    value: patch.filename,
-                    label: patch.label,
-                    description: patch.description || "",
-                    id: patch.id || "",
-                  });
-                  debugLog(`✓ Found: ${patch.filename}`);
-                } else {
-                  debugWarn(`✗ Image listed in manifest but not found: ${patch.filename}`);
-                }
-              } catch (error) {
-                debugWarn(`✗ Could not verify image: ${patch.filename}`, error);
-              }
-            } else {
-              debugWarn("Invalid patch entry (missing filename or label):", patch);
-            }
-          }
-        } else {
-          debugError("Invalid manifest format: patches array not found or not an array");
-        }
-
-        debugLog(`Successfully loaded ${detectedImages.length} images from manifest`);
-      } else {
-        debugLog("No patches-manifest.json found. Please create one in /public/patches/");
-      }
-    } catch (error) {
-      debugError("Error loading patches manifest:", error);
-    }
-
-    setAvailableImages(detectedImages);
-
-    // Set random image as default if none selected
-    if (detectedImages.length > 0 && !selectedBackground) {
-      const randomIndex = Math.floor(Math.random() * detectedImages.length);
-      setSelectedBackground(detectedImages[randomIndex].value);
-      debugLog(`Set random background to: ${detectedImages[randomIndex].value}`);
-    }
-
-    setIsLoadingImages(false);
-  }, [selectedBackground, showPatchImage]);
-
-  // Download function to exclude date/time
-  const downloadWallpaper = async () => {
+  // Function to generate and download the wallpaper
+  const generateWallpaper = async () => {
     setIsGenerating(true);
-
     try {
-      setTimeout(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) {
-          debugError("Canvas not found");
-          setIsGenerating(false);
-          return;
-        }
-
-        try {
-          // Create download link
-          const link = document.createElement("a");
-          link.download = `timbers-schedule-wallpaper-${new Date().getTime()}.png`;
-          link.href = canvas.toDataURL("image/png");
-
-          // Trigger download
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-        } catch (error) {
-          debugError("Error creating download:", error);
-          alert("Unable to download wallpaper. This may be due to external image loading restrictions. Please try again or check your browser settings.");
-        }
-
-        setIsGenerating(false);
-      }, 1000);
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        console.error("Canvas not found");
+        return;
+      }
+      
+      const dataUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      link.download = "timbers-wallpaper.png";
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     } catch (error) {
-      debugError("Error generating wallpaper:", error);
-      alert("Error generating wallpaper. Please try again.");
+      console.error("Error generating wallpaper:", error);
+    } finally {
       setIsGenerating(false);
     }
   };
-
-  // Load patches on initial mount
-  useEffect(() => {
-    if (showPatchImage) {
-      loadAvailableImages();
-    }
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-900 p-4">
@@ -239,7 +145,7 @@ const TimbersWallpaperGenerator = () => {
             <SchedulePreview nextMatches={nextMatches} />
 
             {/* Download Button */}
-            <DownloadButton canvasRef={canvasRef} isGenerating={isGenerating} setIsGenerating={setIsGenerating} onDownload={downloadWallpaper} />
+            <DownloadButton canvasRef={canvasRef} isGenerating={isGenerating} setIsGenerating={setIsGenerating} onDownload={generateWallpaper} />
 
             {/* Instructions */}
             <Instructions />

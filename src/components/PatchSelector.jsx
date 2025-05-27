@@ -198,8 +198,6 @@ const PatchSelector = React.memo(({
       )}
     </div>
   );
-};
-
-})
+});
 
 export default PatchSelector;
