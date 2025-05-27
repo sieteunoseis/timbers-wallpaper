@@ -330,6 +330,7 @@ const WallpaperCanvas = ({
       drawDateAndTime(ctx, width, logoY, circleRadius);
     }
 
+    // Always include schedule section regardless of includeDateTime setting
     // Schedule section - Vertical layout below content
     // Adjust schedule position if no patch image is shown
     const scheduleStartY = showPatchImage ? logoY + 540 : logoY + 340;

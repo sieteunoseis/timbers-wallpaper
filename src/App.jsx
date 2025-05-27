@@ -158,31 +158,38 @@ const TimbersWallpaperGenerator = () => {
             // Check if this is likely due to an image background
             if (hasImageBackground) {
               alert("This image background can't be downloaded directly on iOS. Please take a screenshot or switch to a gradient background theme instead.");
-            } else if (selectedBackground) {
-              alert("The patch image may be causing download issues. Please try a different patch or take a screenshot as a workaround.");
             } else {
-              alert("Unable to download the wallpaper. As a workaround, you can take a screenshot of the preview.");
+              // Standard error for non-image backgrounds - no screenshot instructions
+              alert("There was an issue downloading the wallpaper. Please try again or use a different background theme.");
             }
             
-            // Scroll to the preview to make it easy for the user to screenshot
-            const previewElement = document.querySelector('.canvas-preview-container');
-            if (previewElement) {
-              previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // Only scroll to preview for screenshot if using image backgrounds
+            if (hasImageBackground) {
+              const previewElement = document.querySelector('.canvas-preview-container');
+              if (previewElement) {
+                previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }
             }
           } else {
             // For non-iOS browsers, show a more specific error
             alert("Unable to download the wallpaper due to security restrictions. Try using a gradient background theme instead of an image.");
           }
         }
-      }      } catch (error) {
+      } 
+    } catch (error) {
       console.error("Error generating wallpaper:", error);
       
-      // Provide more specific error messaging based on the device/browser
+      // Provide more specific error messaging based on the device/browser and background type
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      if (isIOS) {
+      // Re-check if we have an image background 
+      const hasImgBackground = backgroundThemes.some(theme => 
+        theme.value === selectedTheme && theme.type === 'image'
+      );
+      
+      if (isIOS && hasImgBackground) {
         alert("There was an issue creating your wallpaper. Please try taking a screenshot of the preview instead.");
         
-        // Still show the preview for screenshot
+        // Only show the preview for screenshot with image backgrounds
         const previewElement = document.querySelector('.canvas-preview-container');
         if (previewElement) {
           previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -192,10 +199,14 @@ const TimbersWallpaperGenerator = () => {
       }
     } finally {
       // Wait a moment before removing the generating state
-      // This ensures iOS users have time to see and take the screenshot
+      // This ensures iOS users have time to see and take the screenshot for image backgrounds
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-      if (isIOS) {
-        // Delay ending the generating state on iOS to allow time for screenshots
+      const needsScreenshot = backgroundThemes.some(theme => 
+        theme.value === selectedTheme && theme.type === 'image'
+      );
+      
+      if (isIOS && needsScreenshot) {
+        // Delay ending the generating state on iOS with image backgrounds to allow time for screenshots
         setTimeout(() => {
           setIsGenerating(false);
         }, 1500);
@@ -227,7 +238,7 @@ const TimbersWallpaperGenerator = () => {
               backgroundThemes={backgroundThemes}
               dimensions={getCurrentDimensions()} 
               nextMatches={nextMatches} 
-              includeDateTime={!isGenerating} 
+              includeDateTime={true} 
               showPatchImage={showPatchImage}
               customText={customText}
               selectedFont={selectedFont}

@@ -86,3 +86,15 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 - Fixed direct download for gradient backgrounds and patch images on iOS
 - Enhanced error messages to provide clearer instructions based on selected background type
 - Fixed date display in "Next 4 Matches" section on HTML page
+
+### v2.4.5 (May 27, 2025)
+
+- Further improved iOS download experience by removing unnecessary screenshot instructions for non-image backgrounds
+- Optimized the screenshot guidance to only appear when truly needed with image backgrounds on iOS
+- Fixed syntax issues in the wallpaper generation function
+
+### v2.5.0 (May 27, 2025)
+
+- Fixed issue where match information was missing from downloaded wallpapers with gradient backgrounds
+- Ensured schedule data is always included in the wallpaper regardless of other settings
+- Improved consistency between preview and downloaded wallpaper
