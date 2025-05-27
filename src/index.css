@@ -3,3 +3,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom styles for iOS screenshot guidance */
+.canvas-preview-container {
+  transition: all 0.3s ease;
+}
+
+.canvas-preview-container.screenshot-ready {
+  transform: scale(1.02);
+  z-index: 10;
+  position: relative;
+}
+
+/* Fix for iOS Safari canvas rendering */
+canvas {
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}

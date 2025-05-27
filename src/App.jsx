@@ -28,6 +28,34 @@ const TimbersWallpaperGenerator = () => {
   // Use the new hook for patch images
   const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
 
+  // Helper function to prepare canvas for screenshot (iOS support)
+  const prepareCanvasForScreenshot = () => {
+    // Ensure canvas is fully rendered with high quality
+    const canvas = canvasRef.current;
+    if (canvas) {
+      // Force a high-quality render for screenshot by temporarily increasing size
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        // Store current image data
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        
+        // Apply a subtle border to make the wallpaper edges more visible in screenshots
+        // This helps users see where to crop
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+        ctx.lineWidth = 8;
+        ctx.strokeRect(4, 4, canvas.width - 8, canvas.height - 8);
+        
+        // Restore image data after brief timeout to ensure it's visible
+        setTimeout(() => {
+          // Only restore if still generating (user hasn't cancelled)
+          if (isGenerating) {
+            ctx.putImageData(imageData, 0, 0);
+          }
+        }, 500);
+      }
+    }
+  };
+  
   // Load images and set initial background
   useEffect(() => {
     const initializeImages = async () => {
@@ -75,17 +103,96 @@ const TimbersWallpaperGenerator = () => {
       // when isGenerating becomes true
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      const dataUrl = canvas.toDataURL("image/png");
-      const link = document.createElement("a");
-      link.download = "timbers-wallpaper.png";
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
+      // More robust iOS detection
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+      const isIOSBrowser = isIOS || (isSafari && isIOS);
+      
+      // Check if we have an image background that might cause CORS issues
+      const hasImageBackground = backgroundThemes.some(theme => 
+        theme.value === selectedTheme && theme.type === 'image'
+      );
+      
+      // For iOS with image backgrounds, skip trying to download and go straight to screenshot instructions
+      if (isIOSBrowser && (hasImageBackground || selectedBackground)) {
+        // Optimize the canvas for screenshot
+        prepareCanvasForScreenshot();
+        
+        // Show enhanced instructions for iOS users
+        const screenshotMsg = "To save this wallpaper on your iPhone:\n\n" +
+          "1. Take a screenshot by pressing the side button + volume up\n" +
+          "2. Crop the image to remove any browser elements\n" +
+          "3. Save to your photos and set as wallpaper\n\n" +
+          "The preview has been optimized for screenshots.";
+        
+        alert(screenshotMsg);
+        
+        // Scroll to and focus the preview
+        const previewElement = document.querySelector('.canvas-preview-container');
+        if (previewElement) {
+          previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          
+          // Add a subtle highlight effect to show users where to screenshot
+          previewElement.classList.add('screenshot-ready');
+          setTimeout(() => {
+            previewElement.classList.remove('screenshot-ready');
+          }, 3000);
+        }
+      } else {
+        try {
+          // Standard download approach for non-iOS or non-image backgrounds
+          const dataUrl = canvas.toDataURL("image/png");
+          const link = document.createElement("a");
+          link.download = "timbers-wallpaper.png";
+          link.href = dataUrl;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (securityError) {
+          console.warn("Canvas security error (likely due to CORS):", securityError);
+          
+          // Fallback for unexpected security errors
+          if (isIOSBrowser) {
+            alert("To save this wallpaper on your iPhone: Take a screenshot of the preview, then crop as needed.");
+            
+            // Scroll to the preview to make it easy for the user to screenshot
+            const previewElement = document.querySelector('.canvas-preview-container');
+            if (previewElement) {
+              previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+          } else {
+            // For non-iOS browsers, show a more generic error
+            alert("Unable to download the wallpaper due to browser security restrictions. Please try a different background theme.");
+          }
+        }
+      }      } catch (error) {
       console.error("Error generating wallpaper:", error);
+      
+      // Provide more specific error messaging based on the device/browser
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIOS) {
+        alert("There was an issue creating your wallpaper. Please try taking a screenshot of the preview instead.");
+        
+        // Still show the preview for screenshot
+        const previewElement = document.querySelector('.canvas-preview-container');
+        if (previewElement) {
+          previewElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      } else {
+        alert("Failed to generate wallpaper. Please try again with a different theme or patch.");
+      }
     } finally {
-      setIsGenerating(false);
+      // Wait a moment before removing the generating state
+      // This ensures iOS users have time to see and take the screenshot
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      if (isIOS) {
+        // Delay ending the generating state on iOS to allow time for screenshots
+        setTimeout(() => {
+          setIsGenerating(false);
+        }, 1500);
+      } else {
+        setIsGenerating(false);
+      }
     }
   };
 

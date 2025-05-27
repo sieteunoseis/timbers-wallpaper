@@ -1,19 +1,61 @@
 /**
- * Helper function to load images with CORS support
+ * Helper function to load images with CORS support and iOS-specific handling
  * @param {string} src - The image source URL
  * @returns {Promise<HTMLImageElement>} - Promise resolving to the loaded image
  */
 export const tryLoadImage = src => {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    img.crossOrigin = 'anonymous'; // Enable CORS from the start
-    img.onload = () => resolve(img);
-    img.onerror = () => {
-      // If CORS fails, try without crossOrigin (but this will taint the canvas)
-      console.log(`CORS failed for ${src}, using fallback`);
-      reject(new Error(`Failed to load: ${src}`));
+    
+    // Enhanced iOS detection with Safari check
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isIOSBrowser = isIOS || (isSafari && isIOS);
+    
+    // Check if the image is local or from an external source
+    const isSameOrigin = src.startsWith('/') || src.startsWith(window.location.origin);
+    const isDataUrl = src.startsWith('data:');
+    
+    // Determine if we should attempt to use crossOrigin
+    // Do not use crossOrigin for iOS browsers, local files, or data URLs
+    if (!isIOSBrowser && !isSameOrigin && !isDataUrl) {
+      img.crossOrigin = 'anonymous';
+      console.log(`Loading with CORS: ${src}`);
+    } else if (isIOSBrowser) {
+      console.log(`Loading on iOS (without CORS): ${src}`);
+    }
+    
+    img.onload = () => {
+      console.log(`Successfully loaded: ${src}`);
+      resolve(img);
     };
-    img.src = src;
+    
+    img.onerror = () => {
+      // If loading fails and we tried with crossOrigin, try again without it
+      if (img.crossOrigin) {
+        console.log(`CORS failed for ${src}, trying without crossOrigin`);
+        const fallbackImg = new Image();
+        fallbackImg.onload = () => {
+          console.log(`Fallback loaded (tainted canvas): ${src}`);
+          resolve(fallbackImg);
+        };
+        fallbackImg.onerror = () => {
+          console.error(`Failed to load image even without CORS: ${src}`);
+          reject(new Error(`Failed to load: ${src}`));
+        };
+        fallbackImg.src = src;
+      } else {
+        console.error(`Failed to load image: ${src}`);
+        reject(new Error(`Failed to load: ${src}`));
+      }
+    };
+    
+    // Set cache-busting parameter for iOS Safari, which has aggressive caching
+    // This helps ensure we always get a fresh version of the image
+    const cacheBuster = isIOSBrowser && !isDataUrl ? 
+      (src.includes('?') ? `&_cache=${Date.now()}` : `?_cache=${Date.now()}`) : '';
+    
+    img.src = `${src}${cacheBuster}`;
   });
 };
 

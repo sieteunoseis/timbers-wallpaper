@@ -70,3 +70,12 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 - Fixed date/time display issues on iOS/Safari browsers
 - Improved cross-browser compatibility for match information
+
+### v2.4.2 (May 27, 2025)
+
+- Fixed download button functionality on iOS with image backgrounds
+- Added iOS-specific detection and handling for wallpaper downloads
+- Implemented screenshot guidance for iOS users
+- Enhanced canvas rendering for better iOS support
+- Added visual indicators for screenshot capture
+- Improved error messaging and user guidance
