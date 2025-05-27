@@ -121,9 +121,6 @@ const TimbersWallpaperGenerator = () => {
 
           {/* Controls and Info */}
           <div className="space-y-6 order-2 lg:order-2">
-            {/* iPhone Size Selector */}
-            <DeviceSelector selectediPhoneSize={selectediPhoneSize} setSelectediPhoneSize={setSelectediPhoneSize} iPhoneSizes={iPhoneSizes} />
-
             {/* Background Image Selector */}
             <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
 
@@ -147,6 +144,10 @@ const TimbersWallpaperGenerator = () => {
 
             {/* Schedule Preview */}
             <SchedulePreview nextMatches={nextMatches} />
+
+			{/* iPhone Size Selector */}
+            <DeviceSelector selectediPhoneSize={selectediPhoneSize} setSelectediPhoneSize={setSelectediPhoneSize} iPhoneSizes={iPhoneSizes} />
+
 
             {/* Download Button */}
             <DownloadButton canvasRef={canvasRef} isGenerating={isGenerating} setIsGenerating={setIsGenerating} onDownload={generateWallpaper} />

@@ -102,9 +102,18 @@ const TextCustomizer = ({
                   className={font.className}
                   style={{ 
                     fontFamily: font.value,
-                    fontSize: font.value === 'Lethal Slime' 
-                      ? '0.9rem'  // Keep Lethal Slime the same
-                      : '1.15rem', // Increase size for all other fonts
+                    fontSize: (() => {
+                      switch (font.value) {
+                        case 'Lethal Slime':
+                          return '0.9rem';
+                        case 'Another Danger':
+                          return '0.95rem';
+                        case 'Urban Jungle':
+                          return '0.95rem';
+                        default:
+                          return '1.15rem';
+                      }
+                    })(),
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis'

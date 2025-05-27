@@ -89,10 +89,10 @@ const PatchSelector = React.memo(({
               const searchValue = inputValue.toLowerCase();
               return label.includes(searchValue) || id.includes(searchValue);
             }}
-            formatOptionLabel={(option) => (
+            formatOptionLabel={(option, { context }) => (
               <div className="flex justify-between items-center">
                 <span>{option.label}</span>
-                {option.id && (
+                {option.id && context === 'menu' && (
                   <span className="text-xs bg-[#00482B] text-white px-2 py-1 rounded-full ml-2">
                     ID: {option.id}
                   </span>

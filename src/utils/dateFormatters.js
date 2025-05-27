@@ -57,28 +57,48 @@ export const formatDateForWallpaper = dateTimeString => {
 export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
   const TIMBERS_WHITE = '#FFFFFF';
   
-  const currentTime = new Date().toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  }).replace(/\s?(AM|PM)$/i, '');
+  // Save the current canvas state
+  ctx.save();
+  
+  try {
+    // Get current date/time in Pacific timezone
+    const currentDateTime = new Date().toLocaleString('en-US', {
+      timeZone: 'America/Los_Angeles'
+    });
+    const pacificDate = new Date(currentDateTime);
+    
+    const currentTime = pacificDate.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+      timeZone: 'America/Los_Angeles'
+    }).replace(/\s?(AM|PM)$/i, '');
 
-  const currentDate = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
-  });
+    const currentDate = pacificDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'America/Los_Angeles'
+    });
 
-  // Draw date
-  ctx.fillStyle = TIMBERS_WHITE;
-  const dateFont = Math.floor(width * 0.045);
-  ctx.font = `${dateFont}px -apple-system, system-ui`;
-  ctx.textAlign = 'center';
-  ctx.fillText(currentDate, width / 2, logoY - circleRadius - 400);
+    // Reset any existing canvas transformations
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    
+    // Draw date
+    ctx.fillStyle = TIMBERS_WHITE;
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'center';
+    
+    const dateFont = Math.floor(width * 0.045);
+    ctx.font = `${dateFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
+    ctx.fillText(currentDate, width / 2, logoY - circleRadius - 400);
 
-  // Draw time
-  const timeFont = Math.floor(width * 0.18);
-  ctx.font = `bold ${timeFont}px -apple-system, system-ui`;
-  ctx.textAlign = 'center';
-  ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
+    // Draw time
+    const timeFont = Math.floor(width * 0.18);
+    ctx.font = `bold ${timeFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
+    ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
+  } finally {
+    // Always restore the canvas state
+    ctx.restore();
+  }
 };
