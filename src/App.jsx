@@ -8,6 +8,7 @@ import TextCustomizer from "./components/TextCustomizer";
 import SchedulePreview from "./components/SchedulePreview";
 import CanvasPreview from "./components/CanvasPreview";
 import WallpaperCanvas from "./components/WallpaperCanvas";
+import PositionAdjuster from "./components/PositionAdjuster";
 import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
 import useScheduleData from "./hooks/useScheduleData";
 import useBackgroundThemes from "./hooks/useBackgroundThemes";
@@ -43,6 +44,10 @@ const TimbersWallpaperGenerator = () => {
   
   // Default text color (white)
   const [textColor, setTextColor] = useState("#FFFFFF");
+  
+  // Position adjustments for patch/text and match info
+  const [patchPositionY, setPatchPositionY] = useState(0.4); // Default is 40% down from top
+  const [matchPositionY, setMatchPositionY] = useState(0.26); // Default is 26% from bottom
   
   // Use the new hook for patch images
   const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
@@ -86,7 +91,7 @@ const TimbersWallpaperGenerator = () => {
       const randomIndex = Math.floor(Math.random() * backgroundThemes.length);
       setSelectedTheme(backgroundThemes[randomIndex].value);
     }
-  }, [backgroundThemes, isLoadingBackgrounds]);
+  }, [backgroundThemes, isLoadingBackgrounds, setSelectedTheme]);
 
   // Function to generate and download the wallpaper
   const generateWallpaper = async () => {
@@ -168,6 +173,8 @@ const TimbersWallpaperGenerator = () => {
               selectedFont={selectedFont}
               fontSizeMultiplier={fontSizeMultiplier}
               textColor={textColor}
+              patchPositionY={patchPositionY}
+              matchPositionY={matchPositionY}
             />
           </div>
 
@@ -194,6 +201,14 @@ const TimbersWallpaperGenerator = () => {
               setFontSizeMultiplier={setFontSizeMultiplier}
               textColor={textColor}
               setTextColor={setTextColor}
+            />
+            
+            {/* Position Adjuster */}
+            <PositionAdjuster
+              patchPositionY={patchPositionY}
+              setPatchPositionY={setPatchPositionY}
+              matchPositionY={matchPositionY}
+              setMatchPositionY={setMatchPositionY}
             />
 
             {/* Schedule Preview */}

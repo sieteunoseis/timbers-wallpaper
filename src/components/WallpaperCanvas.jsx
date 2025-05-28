@@ -23,6 +23,8 @@ import { debugLog, debugWarn } from '../utils/debug';
  *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), "Rose", "Urban Jungle" or "Lethal Slime" (caps only)
  * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
  * @param {string} props.textColor - Color to use for all text elements
+ * @param {number} props.patchPositionY - Vertical position multiplier for patch and text (0.0 to 0.8)
+ * @param {number} props.matchPositionY - Vertical position multiplier for match info (0.0 to 0.5)
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -38,7 +40,9 @@ const WallpaperCanvas = ({
   customText = "PORTLAND TIMBERS",
   selectedFont = "Arial",
   fontSizeMultiplier = 1.0,
-  textColor = "#FFFFFF"
+  textColor = "#FFFFFF",
+  patchPositionY = 0.4,
+  matchPositionY = 0.26
 }) => {
   const generateWallpaper = useCallback(async () => {
     const canvas = canvasRef.current;
@@ -50,7 +54,8 @@ const WallpaperCanvas = ({
     const height = dimensions.height;
     
     // Layout constants for vertical positioning
-    const LOGO_Y_PERCENT = 0.4; // 40% down from top
+    // Use the patchPositionY prop with limits to control patch position (0.2 to 0.8)
+    const LOGO_Y_PERCENT = Math.max(0.2, Math.min(0.8, patchPositionY)); // Constrained to 20%-80% down from top
     const LOGO_Y = Math.floor(height * LOGO_Y_PERCENT);
     const CIRCLE_RADIUS_PERCENT = 0.2; // 20% of min dimension
     const CIRCLE_RADIUS = Math.floor(Math.min(width, height) * CIRCLE_RADIUS_PERCENT);
@@ -63,11 +68,11 @@ const WallpaperCanvas = ({
     const MATCH_ROW_WIDTH_PERCENT = 0.85; // Width of match row as percentage of screen width
     // Minimum buffer space between match row bottom and footer text
     const MIN_MATCH_FOOTER_BUFFER = 300; // Minimum 300px between match row and footer text
-    // Make schedule position responsive based on screen height
-    const SCHEDULE_BOTTOM_MARGIN_PERCENT = 0.26; // 26% from bottom (responsive)
+    // Use the matchPositionY prop with limits to control match row position (0.1 to 0.4)
+    const SCHEDULE_BOTTOM_MARGIN_PERCENT = Math.max(0.1, Math.min(0.4, matchPositionY)); // Constrained to 10%-40% from bottom
     // Calculate this value considering the total match row height
     const matchRowHeightEstimate = (width * LOGO_SIZE_PERCENT) + TIME_TEXT_PADDING + 20; // Logo + text + padding
-    const SCHEDULE_BOTTOM_MARGIN = Math.max(740, Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT), 
+    const SCHEDULE_BOTTOM_MARGIN = Math.max(740, Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT * height), 
                                       FOOTER_BOTTOM_MARGIN + matchRowHeightEstimate + MIN_MATCH_FOOTER_BUFFER);
     
     // Force a complete canvas reset by resizing
@@ -559,7 +564,23 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
-  }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes, textColor]);
+  }, [
+    canvasRef, 
+    dimensions, 
+    includeDateTime, 
+    includeMatches, 
+    nextMatches, 
+    selectedBackground, 
+    selectedTheme, 
+    showPatchImage, 
+    customText, 
+    selectedFont, 
+    fontSizeMultiplier, 
+    backgroundThemes, 
+    textColor,
+    patchPositionY,
+    matchPositionY
+  ]);
 
   // Effect to reset canvas on page unload/refresh
   useEffect(() => {
@@ -586,7 +607,15 @@ const WallpaperCanvas = ({
   // Main effect to handle rendering
   useEffect(() => {
     if (canvasRef.current) {
-      debugLog('Generating wallpaper with:', { selectedBackground, selectedTheme, customText, selectedFont, fontSizeMultiplier });
+      debugLog('Generating wallpaper with:', { 
+        selectedBackground, 
+        selectedTheme, 
+        customText, 
+        selectedFont, 
+        fontSizeMultiplier,
+        patchPositionY,
+        matchPositionY
+      });
       
       // Handle resetting the canvas before redrawing
       const canvas = canvasRef.current;
@@ -619,7 +648,23 @@ const WallpaperCanvas = ({
         generateWallpaper();
       }, 10);
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, includeMatches, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier, textColor]);
+  }, [
+    selectedBackground, 
+    selectedTheme, 
+    dimensions, 
+    nextMatches, 
+    includeDateTime, 
+    includeMatches, 
+    canvasRef, 
+    generateWallpaper, 
+    showPatchImage, 
+    customText, 
+    selectedFont, 
+    fontSizeMultiplier, 
+    textColor, 
+    patchPositionY, 
+    matchPositionY
+  ]);
 
   return null;
 };

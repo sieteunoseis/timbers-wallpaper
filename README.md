@@ -58,6 +58,13 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.8.0 (May 28, 2025)
+
+- Added position adjustment sliders for patch/text and match info
+- Allow fine-tuning vertical placement of wallpaper elements
+- Improved layout customization with responsive position limits
+- Enhanced user control over wallpaper element spacing
+
 ### v2.7.9 (May 28, 2025)
 
 - Added text color customization with color picker
