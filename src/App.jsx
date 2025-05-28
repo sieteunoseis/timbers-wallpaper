@@ -22,7 +22,23 @@ const TimbersWallpaperGenerator = () => {
   const [selectediPhoneSize, setSelectediPhoneSize] = useState("iphone15");
   const [showPatchImage, setShowPatchImage] = useState(true);
   const [customText, setCustomText] = useState("PORTLAND TIMBERS");
-  const [selectedFont, setSelectedFont] = useState("Another Danger");
+  
+  // Available font options - should match those in TextCustomizer.jsx
+  const fontOptions = [
+    "Another Danger",
+    "Rose",
+    "Urban Jungle",
+    "Avenir",
+    "Verdana",
+    "Lethal Slime"
+  ];
+  
+  // Initialize with a random font instead of hardcoding
+  const [selectedFont, setSelectedFont] = useState(() => {
+    const randomIndex = Math.floor(Math.random() * fontOptions.length);
+    return fontOptions[randomIndex];
+  });
+  
   const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1.0);
   
   // Use the new hook for patch images
@@ -60,6 +76,14 @@ const TimbersWallpaperGenerator = () => {
 
   // Get schedule data
   const { nextMatches } = useScheduleData();
+  
+  // Select a random background theme on app load
+  useEffect(() => {
+    if (backgroundThemes.length > 0 && !isLoadingBackgrounds) {
+      const randomIndex = Math.floor(Math.random() * backgroundThemes.length);
+      setSelectedTheme(backgroundThemes[randomIndex].value);
+    }
+  }, [backgroundThemes, isLoadingBackgrounds]);
 
   // Function to generate and download the wallpaper
   const generateWallpaper = async () => {
@@ -152,7 +176,7 @@ const TimbersWallpaperGenerator = () => {
               themeOptions={backgroundThemes} 
               isLoading={isLoadingBackgrounds} 
             />
-            
+
             {/* Background Image Selector */}
             <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
             

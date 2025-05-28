@@ -36,17 +36,27 @@ const PatchSelector = React.memo(({
         )}
       </h3>
 
-      <div className="flex items-center mb-4">
-        <input
-          id="show-patch-toggle"
-          type="checkbox"
-          checked={showPatchImage}
-          onChange={(e) => setShowPatchImage(e.target.checked)}
-          className="w-4 h-4 text-yellow-600 bg-white/20 border-white/30 rounded focus:ring-yellow-500"
-        />
-        <label htmlFor="show-patch-toggle" className="ml-2 text-sm text-white">
+      <div className="flex items-center justify-between mb-4 bg-black/20 rounded-lg p-3">
+        <label htmlFor="show-patch-toggle" className="text-sm font-medium text-white">
           Show patch image
         </label>
+        <button
+          id="show-patch-toggle"
+          type="button"
+          onClick={() => setShowPatchImage(!showPatchImage)}
+          className={`relative inline-flex h-6 w-11 items-center rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-offset-1 focus:ring-offset-black ${
+            showPatchImage ? 'bg-[#00482B]' : 'bg-gray-700'
+          }`}
+          role="switch"
+          aria-checked={showPatchImage}
+        >
+          <span className="sr-only">Show patch image</span>
+          <span
+            className={`${
+              showPatchImage ? 'translate-x-6 bg-yellow-400' : 'translate-x-1 bg-gray-300'
+            } inline-block h-4 w-4 transform rounded-full transition`}
+          />
+        </button>
       </div>
 
       {!showPatchImage ? (

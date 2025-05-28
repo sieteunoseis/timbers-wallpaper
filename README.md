@@ -58,6 +58,12 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.7.8 (May 28, 2025)
+
+- Added randomized font and background theme selection on page load
+- Improved patch image toggle with a more noticeable toggle switch UI
+- Enhanced user experience with visual feedback for toggle interactions
+
 ### v2.7.6 (May 27, 2025)
 
 - Fixed match time display to correctly show times in Pacific Time (PT)
