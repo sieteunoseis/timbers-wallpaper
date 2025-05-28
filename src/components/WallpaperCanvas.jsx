@@ -348,23 +348,6 @@ const WallpaperCanvas = ({
     if (includeDateTime) {
       drawDateAndTime(ctx, width, logoY, circleRadius);
     }
-
-    // Schedule section - Horizontal layout in a single row
-    // Only render matches if includeMatches is true
-    if (includeMatches && nextMatches && nextMatches.length > 0) {
-      // Calculate position for the schedule row - below the main content
-      const scheduleY = showPatchImage ? logoY + 540 : logoY + 340;
-      
-      // Maximum matches to display
-      const maxMatches = Math.min(nextMatches.length, 6);
-      
-      // Calculate logo size and spacing
-      const logoSize = Math.floor(width * 0.12); // Make logos slightly bigger
-      const totalWidth = width * 0.85; // Use 85% of screen width
-      const itemWidth = totalWidth / maxMatches; // Width per match item
-      
-      // Start X position to center the entire row
-      const startX = (width - totalWidth) / 2;
       
       // Draw each opponent logo in a horizontal row
       for (let i = 0; i < maxMatches; i++) {
@@ -459,6 +442,125 @@ const WallpaperCanvas = ({
         ctx.font = `bold ${timeFont}px "Avenir Next"`;
         ctx.textAlign = 'center';
         ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + 65);
+      }
+    }
+
+    // Schedule section - Horizontal layout in a single row - positioned above footer
+    // Only render matches if includeMatches is true
+    if (includeMatches && nextMatches && nextMatches.length > 0) {
+      // Calculate position for the schedule row - just above the footer
+      const scheduleY = height - 280;
+      
+      // Maximum matches to display
+      const maxMatches = Math.min(nextMatches.length, 6);
+      
+      // Calculate logo size and spacing
+      const logoSize = Math.floor(width * 0.12); // Make logos slightly bigger
+      const totalWidth = width * 0.85; // Use 85% of screen width
+      const itemWidth = totalWidth / maxMatches; // Width per match item
+      
+      // Start X position to center the entire row
+      const startX = (width - totalWidth) / 2;
+      
+      // Draw each opponent logo in a horizontal row
+      for (let i = 0; i < maxMatches; i++) {
+        const match = nextMatches[i];
+        const itemCenterX = startX + (i * itemWidth) + (itemWidth / 2);
+        
+        // Load and draw opponent logo
+        let opponentLogo;
+        if (match.logoUrl) {
+          try {
+            opponentLogo = await tryLoadImage(match.logoUrl);
+          } catch {
+            opponentLogo = createFallbackLogo(match.opponentShort);
+          }
+        } else {
+          opponentLogo = createFallbackLogo(match.opponentShort);
+        }
+
+        // White circle background for logo
+        ctx.fillStyle = TIMBERS_WHITE;
+        ctx.beginPath();
+        ctx.arc(itemCenterX, scheduleY, logoSize / 2, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Draw opponent logo
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(itemCenterX, scheduleY, logoSize / 2 - 2, 0, 2 * Math.PI);
+        ctx.clip();
+
+        if (opponentLogo instanceof HTMLCanvasElement) {
+          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
+        } else {
+          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
+        }
+        ctx.restore();
+
+        // Format date as short format (MM/DD)
+        let shortDate = 'TBD';
+        if (match.date) {
+          try {
+            const parts = match.date.split(' ');
+            const dateParts = parts[0].split('-');
+            
+            // Create date using individual components
+            const matchDate = new Date(Date.UTC(
+              parseInt(dateParts[0], 10),
+              parseInt(dateParts[1], 10) - 1,
+              parseInt(dateParts[2], 10)
+            ));
+            
+            // Format as MM/DD
+            const month = matchDate.getMonth() + 1; // getMonth() is zero-based
+            const day = matchDate.getDate();
+            shortDate = `${month}/${day}`;
+          } catch (e) {
+            console.error('Error formatting short date:', e);
+            shortDate = 'TBD';
+          }
+        }
+        
+        // Format time in 12-hour format with AM/PM
+        let shortTime = 'TBD';
+        if (match.time) {
+          try {
+            const parts = match.time.split(' ');
+            
+            if (parts.length >= 2) {
+              const timeParts = parts[1].split(':');
+              let hour = parseInt(timeParts[0], 10);
+              const minute = timeParts[1];
+              
+              // Convert to 12-hour format
+              const ampm = hour >= 12 ? 'p' : 'a';
+              hour = hour % 12;
+              hour = hour || 12; // Convert '0' to '12'
+              
+              shortTime = `${hour}:${minute}${ampm}`;
+            }
+          } catch (e) {
+            console.error('Error formatting short time:', e);
+            shortTime = 'TBD';
+          }
+        }
+
+        // Draw date below logo with padding
+        clearTextEffects(ctx);
+        ctx.fillStyle = TIMBERS_WHITE;
+        const dateFont = Math.floor(width * 0.034);
+        ctx.font = `bold ${dateFont}px "Avenir Next"`;
+        ctx.textAlign = 'center';
+        ctx.fillText(shortDate, itemCenterX, scheduleY + logoSize/2 + 40); // Added more padding
+
+        // Draw time below date with padding
+        clearTextEffects(ctx);
+        ctx.fillStyle = TIMBERS_GOLD;
+        const timeFont = Math.floor(width * 0.028);
+        ctx.font = `bold ${timeFont}px "Avenir Next"`;
+        ctx.textAlign = 'center';
+        ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + 75); // Added more padding
       }
     }
 

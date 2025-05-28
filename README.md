@@ -58,11 +58,17 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.7.1 (May 27, 2025)
+
+- Moved match row to just above the footer for better layout balance
+- Added more padding between logos, dates, and times for improved readability
+- Converted time format to 12-hour with compact AM/PM indicators (a/p)
+- Improved vertical spacing throughout the wallpaper
+
 ### v2.7.0 (May 27, 2025)
 
 - Redesigned match display to a horizontal layout with opponent logos in a single row
 - Simplified date format to MM/DD format under each opponent logo
-- Simplified time format without AM/PM under the date
 - Removed match borders and Timbers logos for cleaner design
 - Increased size of opponent logos for better visibility
 - Updated layout to better match official Timbers schedule aesthetics
