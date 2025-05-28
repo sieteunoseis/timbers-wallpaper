@@ -117,11 +117,10 @@ export const formatDateForWallpaper = dateTimeString => {
  * @param {number} width - Canvas width
  * @param {number} logoY - Y position of the logo
  * @param {number} circleRadius - Radius of the circular logo
+ * @param {string} textColor - Color to use for text elements
  */
-export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
+export const drawDateAndTime = (ctx, width, logoY, circleRadius, textColor = '#FFFFFF') => {
   if (!ctx) return;
-  
-  const TIMBERS_WHITE = '#FFFFFF';
   
   // Get current date/time
   const now = new Date();
@@ -144,7 +143,7 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
   clearTextEffects(ctx);
   
   // Draw date
-  ctx.fillStyle = TIMBERS_WHITE;
+  ctx.fillStyle = textColor;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   
@@ -156,7 +155,7 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius) => {
   clearTextEffects(ctx);
   
   // Set up time text properties
-  ctx.fillStyle = TIMBERS_WHITE;
+  ctx.fillStyle = textColor;
   ctx.textBaseline = 'middle';
   ctx.textAlign = 'center';
   const timeFont = Math.floor(width * 0.18);

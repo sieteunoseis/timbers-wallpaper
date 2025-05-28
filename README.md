@@ -58,6 +58,13 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.7.9 (May 28, 2025)
+
+- Added text color customization with color picker
+- Updated all text elements to use consistent color
+- Implemented custom color selection with color palette
+- Improved UI for text customization options
+
 ### v2.7.8 (May 28, 2025)
 
 - Added randomized font and background theme selection on page load

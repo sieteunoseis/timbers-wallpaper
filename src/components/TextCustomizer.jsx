@@ -12,6 +12,8 @@ import { debounce } from '../utils/debounce';
  * @param {Function} props.setSelectedFont - Function to update selected font
  * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
  * @param {Function} props.setFontSizeMultiplier - Function to update font size multiplier
+ * @param {string} props.textColor - Current text color
+ * @param {Function} props.setTextColor - Function to update text color
  * @returns {JSX.Element} Text customizer component
  */
 const TextCustomizer = ({ 
@@ -20,7 +22,9 @@ const TextCustomizer = ({
   selectedFont, 
   setSelectedFont,
   fontSizeMultiplier,
-  setFontSizeMultiplier
+  setFontSizeMultiplier,
+  textColor,
+  setTextColor
 }) => {
   const MAX_LENGTH = 50;
 
@@ -160,6 +164,45 @@ const TextCustomizer = ({
             <span>Small</span>
             <span>Default</span>
             <span>Large</span>
+          </div>
+        </div>
+        
+        {/* Text Color Picker */}
+        <div>
+          <label className="block text-white mb-2 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 12h.01" />
+            </svg>
+            Text Color
+          </label>
+          <div className="grid grid-cols-6 gap-2">
+            {['#FFFFFF', '#F5F703', '#FF6B6B', '#4ECDC4', '#55A630', '#FF9F1C'].map(color => (
+              <button
+                key={color}
+                onClick={() => setTextColor(color)}
+                className={`w-10 h-10 rounded-full flex items-center justify-center ${textColor === color ? 'ring-2 ring-offset-2 ring-yellow-400' : ''}`}
+                style={{ backgroundColor: color }}
+                title={color}
+              >
+                {textColor === color && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={color === '#FFFFFF' ? '#000000' : '#FFFFFF'} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                )}
+              </button>
+            ))}
+          </div>
+          <div className="mt-3">
+            <input 
+              type="color" 
+              value={textColor} 
+              onChange={(e) => setTextColor(e.target.value)}
+              className="w-full h-8 rounded cursor-pointer"
+            />
+            <div className="text-xs text-white/60 mt-1">
+              Click to select a custom color
+            </div>
           </div>
         </div>
       </div>

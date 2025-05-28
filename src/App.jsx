@@ -41,6 +41,9 @@ const TimbersWallpaperGenerator = () => {
   
   const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1.0);
   
+  // Default text color (white)
+  const [textColor, setTextColor] = useState("#FFFFFF");
+  
   // Use the new hook for patch images
   const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
 
@@ -164,6 +167,7 @@ const TimbersWallpaperGenerator = () => {
               customText={customText}
               selectedFont={selectedFont}
               fontSizeMultiplier={fontSizeMultiplier}
+              textColor={textColor}
             />
           </div>
 
@@ -188,6 +192,8 @@ const TimbersWallpaperGenerator = () => {
               setSelectedFont={setSelectedFont}
               fontSizeMultiplier={fontSizeMultiplier}
               setFontSizeMultiplier={setFontSizeMultiplier}
+              textColor={textColor}
+              setTextColor={setTextColor}
             />
 
             {/* Schedule Preview */}

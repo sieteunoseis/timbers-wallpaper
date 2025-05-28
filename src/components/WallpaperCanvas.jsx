@@ -22,6 +22,7 @@ import { debugLog, debugWarn } from '../utils/debug';
  * @param {string} props.selectedFont - Font family to use for the custom text. 
  *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), "Rose", "Urban Jungle" or "Lethal Slime" (caps only)
  * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
+ * @param {string} props.textColor - Color to use for all text elements
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -36,7 +37,8 @@ const WallpaperCanvas = ({
   showPatchImage = true,
   customText = "PORTLAND TIMBERS",
   selectedFont = "Arial",
-  fontSizeMultiplier = 1.0
+  fontSizeMultiplier = 1.0,
+  textColor = "#FFFFFF"
 }) => {
   const generateWallpaper = useCallback(async () => {
     const canvas = canvasRef.current;
@@ -201,7 +203,7 @@ const WallpaperCanvas = ({
     // Custom text - clear all previous effects first
     clearTextEffects(ctx);
     
-    ctx.fillStyle = TIMBERS_WHITE;
+    ctx.fillStyle = textColor;
     
     // Set font size and weight based on selected font
     let fontSize, fontWeight;
@@ -343,7 +345,7 @@ const WallpaperCanvas = ({
     
     // Setup text properties
     ctx.textAlign = 'center';
-    ctx.fillStyle = TIMBERS_WHITE;
+    ctx.fillStyle = textColor;
     
     // Add text shadow for better readability
     ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
@@ -366,7 +368,7 @@ const WallpaperCanvas = ({
 
     // Include date/time if requested
     if (includeDateTime) {
-      drawDateAndTime(ctx, width, LOGO_Y, CIRCLE_RADIUS);
+      drawDateAndTime(ctx, width, LOGO_Y, CIRCLE_RADIUS, textColor);
     }
 
     // Schedule section - Horizontal layout in a single row
@@ -382,7 +384,7 @@ const WallpaperCanvas = ({
       
       // Add debug line to log positions
       const isOverlapping = spaceToFooter < MIN_MATCH_FOOTER_BUFFER;
-      console.log(`Match row position [${isOverlapping ? 'OVERLAP DETECTED' : 'GOOD SPACING'}]:`, { 
+      debugLog(`Match row position [${isOverlapping ? 'OVERLAP DETECTED' : 'GOOD SPACING'}]:`, { 
         height, 
         SCHEDULE_BOTTOM_MARGIN, 
         scheduleY: height - SCHEDULE_BOTTOM_MARGIN,
@@ -506,7 +508,7 @@ const WallpaperCanvas = ({
 
         // Draw date below logo with padding
         clearTextEffects(ctx);
-        ctx.fillStyle = TIMBERS_WHITE;
+        ctx.fillStyle = textColor;
         const dateFont = Math.floor(width * 0.034);
         ctx.font = `bold ${dateFont}px "Avenir Next"`;
         ctx.textAlign = 'center';
@@ -514,7 +516,7 @@ const WallpaperCanvas = ({
 
         // Draw time below date with padding
         clearTextEffects(ctx);
-        ctx.fillStyle = TIMBERS_GOLD;
+        ctx.fillStyle = textColor;
         const timeFont = Math.floor(width * 0.028);
         ctx.font = `bold ${timeFont}px "Avenir Next"`;
         ctx.textAlign = 'center';
@@ -523,7 +525,7 @@ const WallpaperCanvas = ({
     }
 
     // Footer
-    ctx.fillStyle = TIMBERS_WHITE;
+    ctx.fillStyle = textColor;
     
     // Set footer font to match selected font
     const footerFontSize = Math.round(24 * fontSizeMultiplier);
@@ -557,7 +559,7 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
-  }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
+  }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes, textColor]);
 
   // Effect to reset canvas on page unload/refresh
   useEffect(() => {
@@ -617,7 +619,7 @@ const WallpaperCanvas = ({
         generateWallpaper();
       }, 10);
     }
-  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, includeMatches, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier]);
+  }, [selectedBackground, selectedTheme, dimensions, nextMatches, includeDateTime, includeMatches, canvasRef, generateWallpaper, showPatchImage, customText, selectedFont, fontSizeMultiplier, textColor]);
 
   return null;
 };
