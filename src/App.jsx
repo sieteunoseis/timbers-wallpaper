@@ -145,16 +145,16 @@ const TimbersWallpaperGenerator = () => {
 
           {/* Controls and Info */}
           <div className="space-y-6 order-2 lg:order-2">
-            {/* Background Image Selector */}
-            <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
-
-            {/* Theme Selector */}
+                        {/* Theme Selector */}
             <ThemeSelector 
               selectedTheme={selectedTheme} 
               setSelectedTheme={setSelectedTheme} 
               themeOptions={backgroundThemes} 
               isLoading={isLoadingBackgrounds} 
             />
+            
+            {/* Background Image Selector */}
+            <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
             
             {/* Text Customizer */}
             <TextCustomizer 
