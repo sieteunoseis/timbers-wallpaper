@@ -349,83 +349,28 @@ const WallpaperCanvas = ({
       drawDateAndTime(ctx, width, logoY, circleRadius);
     }
 
-    // Schedule section - Vertical layout below content
+    // Schedule section - Horizontal layout in a single row
     // Only render matches if includeMatches is true
     if (includeMatches && nextMatches && nextMatches.length > 0) {
-      // Adjust schedule position if no patch image is shown
-      const scheduleStartY = showPatchImage ? logoY + 540 : logoY + 340;
-
-      // Load Portland Timbers logo with fallback
-      let timbersLogo;
-      const timbersLogoUrl = 'https://cdn.sportmonks.com/images/soccer/teams/31/607.png';
-      try {
-        timbersLogo = await tryLoadImage(timbersLogoUrl);
-        debugLog('Timbers logo loaded successfully');
-      } catch (error) {
-        debugWarn('Failed to load Timbers logo, using fallback:', error);
-        timbersLogo = createFallbackLogo('POR', true);
-      }
-
-      // Draw each match with team logos
-      const matchSpacing = Math.floor(height * 0.085); // Tight spacing
-      const logoSize = Math.floor(width * 0.095); // Size of team logos
-      const logoSpacing = Math.floor(width * 0.095); // Spacing between logos
-
-      for (let i = 0; i < Math.min(nextMatches.length, 4); i++) {
+      // Calculate position for the schedule row - below the main content
+      const scheduleY = showPatchImage ? logoY + 540 : logoY + 340;
+      
+      // Maximum matches to display
+      const maxMatches = Math.min(nextMatches.length, 6);
+      
+      // Calculate logo size and spacing
+      const logoSize = Math.floor(width * 0.12); // Make logos slightly bigger
+      const totalWidth = width * 0.85; // Use 85% of screen width
+      const itemWidth = totalWidth / maxMatches; // Width per match item
+      
+      // Start X position to center the entire row
+      const startX = (width - totalWidth) / 2;
+      
+      // Draw each opponent logo in a horizontal row
+      for (let i = 0; i < maxMatches; i++) {
         const match = nextMatches[i];
-        const matchY = scheduleStartY + i * matchSpacing;
-        const centerX = width / 2;
-
-        // Create background rectangle for each match
-        const matchBgPadding = Math.floor(width * 0.037);
-        const matchBgHeight = Math.floor(matchSpacing * 0.75);
-        const matchBgY = matchY - matchBgHeight / 2;
-        const cornerRadius = Math.floor(matchBgHeight * 0.25); // Rounded corners
-
-        // Fill rounded rectangle background
-        ctx.fillStyle = 'rgba(0, 66, 37, 0.3)';
-        ctx.beginPath();
-        ctx.roundRect(
-          matchBgPadding,
-          matchBgY,
-          width - matchBgPadding * 2,
-          matchBgHeight,
-          cornerRadius
-        );
-        ctx.fill();
-
-        // Add border with rounded corners - gold for home, green for away
-        ctx.strokeStyle = match.isHome ? 'rgba(214, 175, 59, 0.7)' : 'rgba(255, 255, 255, 0.7)';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.roundRect(
-          matchBgPadding,
-          matchBgY,
-          width - matchBgPadding * 2,
-          matchBgHeight,
-          cornerRadius
-        );
-        ctx.stroke();
-
-        // Draw Portland Timbers logo (left side)
-        if (timbersLogo) {
-          ctx.fillStyle = TIMBERS_WHITE;
-          ctx.beginPath();
-          ctx.arc(centerX - logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
-          ctx.fill();
-
-          ctx.save();
-          ctx.beginPath();
-          ctx.arc(centerX - logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
-          ctx.clip();
-
-          if (timbersLogo instanceof HTMLCanvasElement) {
-            ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
-          } else {
-            ctx.drawImage(timbersLogo, centerX - logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);        }
-          ctx.restore();
-        }
-
+        const itemCenterX = startX + (i * itemWidth) + (itemWidth / 2);
+        
         // Load and draw opponent logo
         let opponentLogo;
         if (match.logoUrl) {
@@ -438,130 +383,83 @@ const WallpaperCanvas = ({
           opponentLogo = createFallbackLogo(match.opponentShort);
         }
 
+        // White circle background for logo
         ctx.fillStyle = TIMBERS_WHITE;
         ctx.beginPath();
-        ctx.arc(centerX + logoSpacing, matchY, logoSize / 2 + 8, 0, 2 * Math.PI);
+        ctx.arc(itemCenterX, scheduleY, logoSize / 2, 0, 2 * Math.PI);
         ctx.fill();
 
+        // Draw opponent logo
         ctx.save();
         ctx.beginPath();
-        ctx.arc(centerX + logoSpacing, matchY, logoSize / 2, 0, 2 * Math.PI);
+        ctx.arc(itemCenterX, scheduleY, logoSize / 2 - 2, 0, 2 * Math.PI);
         ctx.clip();
 
         if (opponentLogo instanceof HTMLCanvasElement) {
-          ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
+          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
         } else {
-          ctx.drawImage(opponentLogo, centerX + logoSpacing - logoSize / 2, matchY - logoSize / 2, logoSize, logoSize);
+          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
         }
         ctx.restore();
 
-      // VS or @ text (center)
-      // Clear any shadows before drawing VS/@
-      clearTextEffects(ctx);
-      
-      ctx.fillStyle = TIMBERS_GOLD;
-      const vsFont = Math.floor(width * 0.026);
-      ctx.font = `bold ${vsFont}px "Avenir Next"`;
-      ctx.textAlign = 'center';
-      ctx.fillText(match.isHome ? 'VS' : '@', centerX, matchY + 8);
-
-      // Match date and time on the right side of logos
-      const dateTimeX = centerX + logoSpacing + logoSize / 2 + Math.floor(width * 0.046);
-
-      // Match date
-      // Clear any shadows before drawing match date
-      clearTextEffects(ctx);
-      
-      ctx.fillStyle = TIMBERS_WHITE;
-      const matchDateFont = Math.floor(width * 0.026);
-      ctx.font = `bold ${matchDateFont}px "Avenir Next"`;
-      ctx.textAlign = 'left';
-      
-      let formattedDate = 'TBD';
-      if (match.date) {
-        try {
-          // Handle date in a cross-browser compatible way
-          // Format: YYYY-MM-DD HH:MM:SS or YYYY-MM-DD
-          const parts = match.date.split(' ');
-          const dateParts = parts[0].split('-');
-          
-          // Create date using individual components (year, month-1, day)
-          // This approach is more compatible across browsers
-          const matchDate = new Date(Date.UTC(
-            parseInt(dateParts[0], 10),  // year
-            parseInt(dateParts[1], 10) - 1,  // month (0-based)
-            parseInt(dateParts[2], 10)   // day
-          ));
-          
-          formattedDate = matchDate.toLocaleDateString('en-US', {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            timeZone: 'America/Los_Angeles',
-          });
-        } catch (e) {
-          console.error('Error formatting match date:', e);
-          formattedDate = 'TBD';
-        }
-      }
-      
-      ctx.fillText(formattedDate.replace(',', ''), dateTimeX, matchY - 20);
-
-      // Match time below date
-      // Clear any shadows before drawing match time
-      clearTextEffects(ctx);
-      
-      ctx.fillStyle = TIMBERS_GOLD;
-      const matchTimeFont = Math.floor(width * 0.024);
-      ctx.font = `${matchTimeFont}px "Avenir Next"`;
-      ctx.textAlign = 'left';
-      
-      let timeText = 'TBD';
-      if (match.time) {
-        try {
-          // Handle time in a cross-browser compatible way
-          // Format: YYYY-MM-DD HH:MM:SS
-          const parts = match.time.split(' ');
-          
-          if (parts.length >= 2) {
-            // Has time components
+        // Format date as short format (MM/DD)
+        let shortDate = 'TBD';
+        if (match.date) {
+          try {
+            const parts = match.date.split(' ');
             const dateParts = parts[0].split('-');
-            const timeParts = parts[1].split(':');
             
             // Create date using individual components
-            const matchDateTime = new Date(Date.UTC(
-              parseInt(dateParts[0], 10),  // year
-              parseInt(dateParts[1], 10) - 1,  // month (0-based)
-              parseInt(dateParts[2], 10),  // day
-              parseInt(timeParts[0], 10),  // hour
-              parseInt(timeParts[1], 10),  // minute
-              parseInt(timeParts[2] || 0, 10)  // second (default to 0)
+            const matchDate = new Date(Date.UTC(
+              parseInt(dateParts[0], 10),
+              parseInt(dateParts[1], 10) - 1,
+              parseInt(dateParts[2], 10)
             ));
             
-            timeText = matchDateTime.toLocaleTimeString('en-US', {
-              hour: 'numeric',
-              minute: '2-digit',
-              hour12: true,
-              timeZone: 'America/Los_Angeles',
-            });
+            // Format as MM/DD
+            const month = matchDate.getMonth() + 1; // getMonth() is zero-based
+            const day = matchDate.getDate();
+            shortDate = `${month}/${day}`;
+          } catch (e) {
+            console.error('Error formatting short date:', e);
+            shortDate = 'TBD';
           }
-        } catch (e) {
-          console.error('Error formatting match time:', e);
-          timeText = 'TBD';
         }
+        
+        // Format time without AM/PM
+        let shortTime = 'TBD';
+        if (match.time) {
+          try {
+            const parts = match.time.split(' ');
+            
+            if (parts.length >= 2) {
+              const timeParts = parts[1].split(':');
+              const hour = parseInt(timeParts[0], 10);
+              const minute = timeParts[1];
+              shortTime = `${hour}:${minute}`;
+            }
+          } catch (e) {
+            console.error('Error formatting short time:', e);
+            shortTime = 'TBD';
+          }
+        }
+
+        // Draw date below logo
+        clearTextEffects(ctx);
+        ctx.fillStyle = TIMBERS_WHITE;
+        const dateFont = Math.floor(width * 0.034);
+        ctx.font = `bold ${dateFont}px "Avenir Next"`;
+        ctx.textAlign = 'center';
+        ctx.fillText(shortDate, itemCenterX, scheduleY + logoSize/2 + 30);
+
+        // Draw time below date
+        clearTextEffects(ctx);
+        ctx.fillStyle = TIMBERS_GOLD;
+        const timeFont = Math.floor(width * 0.028);
+        ctx.font = `bold ${timeFont}px "Avenir Next"`;
+        ctx.textAlign = 'center';
+        ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + 65);
       }
-      
-      ctx.fillText(timeText, dateTimeX, matchY + 15);
-      
-      // Add home/away status below time
-      // Clear any shadows before drawing status
-      clearTextEffects(ctx);
-      
-      const statusFont = Math.floor(width * 0.024);
-      ctx.font = `${statusFont}px "Avenir Next"`;
-      ctx.fillStyle = match.isHome ? 'rgba(214, 175, 59, 0.9)' : 'rgba(252, 253, 253, 0.9)';
-      const statusText = match.isHome ? 'HOME' : 'AWAY';
-      ctx.fillText(statusText, dateTimeX, matchY + 50);
     }
 
     // Footer
@@ -599,8 +497,6 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
-    // End of for loop for matches
-    }
   }, [canvasRef, dimensions, includeDateTime, includeMatches, nextMatches, selectedBackground, selectedTheme, showPatchImage, customText, selectedFont, fontSizeMultiplier, backgroundThemes]);
 
   // Effect to reset canvas on page unload/refresh
