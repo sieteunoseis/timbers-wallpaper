@@ -58,6 +58,39 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v2.7.6 (May 27, 2025)
+
+- Fixed match time display to correctly show times in Pacific Time (PT)
+- Improved match row positioning to avoid overlap with footer text
+- Added responsive layout adjustments for different screen sizes
+
+### v2.7.5 (May 27, 2025)
+
+- Increased SCHEDULE_BOTTOM_MARGIN from 280px to 340px to prevent footer overlap
+- Improved vertical spacing between match row and footer text
+- Fixed match display positioning for all device sizes
+
+### v2.7.4 (May 27, 2025)
+
+- Refactored layout with named constants for all vertical positioning
+- Added layout variables for consistent spacing and dimensions
+- Improved maintainability with centralized positioning variables
+- Standardized padding and spacing for match display elements
+
+### v2.7.3 (May 27, 2025)
+
+- Fixed match row positioning to prevent footer overlap
+- Synchronized positioning and formatting between main and alternate versions
+- Updated match row to use fixed position relative to bottom
+- Applied consistent time formatting and padding
+
+### v2.7.2 (May 27, 2025)
+
+- Fixed syntax error in match display loop
+- Fixed initialization of match section variables
+- Removed duplicate match display code
+- Ensured correct positioning of match row above footer
+
 ### v2.7.1 (May 27, 2025)
 
 - Moved match row to just above the footer for better layout balance

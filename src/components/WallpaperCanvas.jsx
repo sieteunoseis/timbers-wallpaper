@@ -46,7 +46,28 @@ const WallpaperCanvas = ({
     const ctx = canvas.getContext('2d', { alpha: false });
     const width = dimensions.width;
     const height = dimensions.height;
-
+    
+    // Layout constants for vertical positioning
+    const LOGO_Y_PERCENT = 0.4; // 40% down from top
+    const LOGO_Y = Math.floor(height * LOGO_Y_PERCENT);
+    const CIRCLE_RADIUS_PERCENT = 0.2; // 20% of min dimension
+    const CIRCLE_RADIUS = Math.floor(Math.min(width, height) * CIRCLE_RADIUS_PERCENT);
+    const PATCH_TEXT_OFFSET = 380; // Distance from logo center to text when patch is shown
+    const NO_PATCH_TEXT_OFFSET = 100; // Distance from logo center to text when no patch
+    const FOOTER_BOTTOM_MARGIN = 140; // Distance from bottom of screen to footer text
+    const DATE_TEXT_PADDING = 40; // Padding between logo and date text
+    const TIME_TEXT_PADDING = 75; // Padding between logo and time text
+    const LOGO_SIZE_PERCENT = 0.12; // Logo size as percentage of width
+    const MATCH_ROW_WIDTH_PERCENT = 0.85; // Width of match row as percentage of screen width
+    // Minimum buffer space between match row bottom and footer text
+    const MIN_MATCH_FOOTER_BUFFER = 300; // Minimum 300px between match row and footer text
+    // Make schedule position responsive based on screen height
+    const SCHEDULE_BOTTOM_MARGIN_PERCENT = 0.26; // 26% from bottom (responsive)
+    // Calculate this value considering the total match row height
+    const matchRowHeightEstimate = (width * LOGO_SIZE_PERCENT) + TIME_TEXT_PADDING + 20; // Logo + text + padding
+    const SCHEDULE_BOTTOM_MARGIN = Math.max(740, Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT), 
+                                      FOOTER_BOTTOM_MARGIN + matchRowHeightEstimate + MIN_MATCH_FOOTER_BUFFER);
+    
     // Force a complete canvas reset by resizing
     canvas.width = 1;  // First set to minimal size
     canvas.height = 1;
@@ -121,9 +142,8 @@ const WallpaperCanvas = ({
     // Add theme-specific effects
     addThemeEffects(selectedTheme, ctx, width, height, backgroundThemes);
 
-    // Draw central image area - Moved much lower towards bottom
-    const logoY = Math.floor(height * 0.4); // 40% down from top
-    const circleRadius = Math.floor(Math.min(width, height) * 0.2);
+    // Use the defined constants for central image area positioning
+    // Note: LOGO_Y and CIRCLE_RADIUS are already calculated
 
     // Load and draw the selected image in the circular area if enabled
     if (showPatchImage && selectedBackground) {
@@ -136,13 +156,13 @@ const WallpaperCanvas = ({
         // Create circular clipping path for the selected image
         ctx.save();
         ctx.beginPath();
-        ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
+        ctx.arc(width / 2, LOGO_Y, CIRCLE_RADIUS, 0, 2 * Math.PI);
         ctx.clip();
 
         // Calculate dimensions to fit image in circle while maintaining aspect ratio
         const scaleFactor = 1.0; // Adjust this value between 0 and 1 to scale the image
         const imgAspect = selectedImg.width / selectedImg.height;
-        const circleSize = circleRadius * 2;
+        const circleSize = CIRCLE_RADIUS * 2;
         const scaledCircleSize = circleSize * scaleFactor;
 
         let imgWidth, imgHeight, imgX, imgY;
@@ -152,13 +172,13 @@ const WallpaperCanvas = ({
           imgWidth = scaledCircleSize;
           imgHeight = scaledCircleSize / imgAspect;
           imgX = width / 2 - (scaledCircleSize / 2);
-          imgY = logoY - imgHeight / 2;
+          imgY = LOGO_Y - imgHeight / 2;
         } else {
           // Image is taller than wide
           imgHeight = scaledCircleSize;
           imgWidth = scaledCircleSize * imgAspect;
           imgX = width / 2 - imgWidth / 2;
-          imgY = logoY - (scaledCircleSize / 2);
+          imgY = LOGO_Y - (scaledCircleSize / 2);
         }
 
         // Draw the image
@@ -167,7 +187,7 @@ const WallpaperCanvas = ({
 
         // Add a subtle border around the circular image
         ctx.beginPath();
-        ctx.arc(width / 2, logoY, circleRadius, 0, 2 * Math.PI);
+        ctx.arc(width / 2, LOGO_Y, CIRCLE_RADIUS, 0, 2 * Math.PI);
         ctx.strokeStyle = TIMBERS_GOLD;
         ctx.lineWidth = 4;
         ctx.stroke();
@@ -298,8 +318,8 @@ const WallpaperCanvas = ({
     ctx.font = `${fontWeight} ${fontSize}px "${selectedFont}"${fallbackFonts}`;
     ctx.textAlign = 'center';
     
-    // Adjust text position if no patch image is shown
-    const textY = showPatchImage ? logoY + 380 : logoY + 100;
+    // Adjust text position if no patch image is shown - using our constants
+    const textY = showPatchImage ? LOGO_Y + PATCH_TEXT_OFFSET : LOGO_Y + NO_PATCH_TEXT_OFFSET;
     
     // Ensure text doesn't get too long and wrap
     let displayText = customText.length > 50 ? customText.substring(0, 50) : customText;
@@ -346,117 +366,40 @@ const WallpaperCanvas = ({
 
     // Include date/time if requested
     if (includeDateTime) {
-      drawDateAndTime(ctx, width, logoY, circleRadius);
-    }
-      
-      // Draw each opponent logo in a horizontal row
-      for (let i = 0; i < maxMatches; i++) {
-        const match = nextMatches[i];
-        const itemCenterX = startX + (i * itemWidth) + (itemWidth / 2);
-        
-        // Load and draw opponent logo
-        let opponentLogo;
-        if (match.logoUrl) {
-          try {
-            opponentLogo = await tryLoadImage(match.logoUrl);
-          } catch {
-            opponentLogo = createFallbackLogo(match.opponentShort);
-          }
-        } else {
-          opponentLogo = createFallbackLogo(match.opponentShort);
-        }
-
-        // White circle background for logo
-        ctx.fillStyle = TIMBERS_WHITE;
-        ctx.beginPath();
-        ctx.arc(itemCenterX, scheduleY, logoSize / 2, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // Draw opponent logo
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(itemCenterX, scheduleY, logoSize / 2 - 2, 0, 2 * Math.PI);
-        ctx.clip();
-
-        if (opponentLogo instanceof HTMLCanvasElement) {
-          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
-        } else {
-          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
-        }
-        ctx.restore();
-
-        // Format date as short format (MM/DD)
-        let shortDate = 'TBD';
-        if (match.date) {
-          try {
-            const parts = match.date.split(' ');
-            const dateParts = parts[0].split('-');
-            
-            // Create date using individual components
-            const matchDate = new Date(Date.UTC(
-              parseInt(dateParts[0], 10),
-              parseInt(dateParts[1], 10) - 1,
-              parseInt(dateParts[2], 10)
-            ));
-            
-            // Format as MM/DD
-            const month = matchDate.getMonth() + 1; // getMonth() is zero-based
-            const day = matchDate.getDate();
-            shortDate = `${month}/${day}`;
-          } catch (e) {
-            console.error('Error formatting short date:', e);
-            shortDate = 'TBD';
-          }
-        }
-        
-        // Format time without AM/PM
-        let shortTime = 'TBD';
-        if (match.time) {
-          try {
-            const parts = match.time.split(' ');
-            
-            if (parts.length >= 2) {
-              const timeParts = parts[1].split(':');
-              const hour = parseInt(timeParts[0], 10);
-              const minute = timeParts[1];
-              shortTime = `${hour}:${minute}`;
-            }
-          } catch (e) {
-            console.error('Error formatting short time:', e);
-            shortTime = 'TBD';
-          }
-        }
-
-        // Draw date below logo
-        clearTextEffects(ctx);
-        ctx.fillStyle = TIMBERS_WHITE;
-        const dateFont = Math.floor(width * 0.034);
-        ctx.font = `bold ${dateFont}px "Avenir Next"`;
-        ctx.textAlign = 'center';
-        ctx.fillText(shortDate, itemCenterX, scheduleY + logoSize/2 + 30);
-
-        // Draw time below date
-        clearTextEffects(ctx);
-        ctx.fillStyle = TIMBERS_GOLD;
-        const timeFont = Math.floor(width * 0.028);
-        ctx.font = `bold ${timeFont}px "Avenir Next"`;
-        ctx.textAlign = 'center';
-        ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + 65);
-      }
+      drawDateAndTime(ctx, width, LOGO_Y, CIRCLE_RADIUS);
     }
 
-    // Schedule section - Horizontal layout in a single row - positioned above footer
+    // Schedule section - Horizontal layout in a single row
     // Only render matches if includeMatches is true
     if (includeMatches && nextMatches && nextMatches.length > 0) {
       // Calculate position for the schedule row - just above the footer
-      const scheduleY = height - 280;
+      // Calculate the total height of the match row including text elements
+      const logoSize = Math.floor(width * LOGO_SIZE_PERCENT);
+      const dateTextY = (height - SCHEDULE_BOTTOM_MARGIN) + logoSize/2 + DATE_TEXT_PADDING;
+      const timeTextY = (height - SCHEDULE_BOTTOM_MARGIN) + logoSize/2 + TIME_TEXT_PADDING;
+      const matchRowBottomY = timeTextY;
+      const spaceToFooter = (height - FOOTER_BOTTOM_MARGIN) - matchRowBottomY;
+      
+      // Add debug line to log positions
+      const isOverlapping = spaceToFooter < MIN_MATCH_FOOTER_BUFFER;
+      console.log(`Match row position [${isOverlapping ? 'OVERLAP DETECTED' : 'GOOD SPACING'}]:`, { 
+        height, 
+        SCHEDULE_BOTTOM_MARGIN, 
+        scheduleY: height - SCHEDULE_BOTTOM_MARGIN,
+        footerY: height - FOOTER_BOTTOM_MARGIN,
+        matchRowBottomY,
+        spaceToFooter,
+        minBufferRequired: MIN_MATCH_FOOTER_BUFFER,
+        logoSize,
+        matchRowHeightEstimate,
+        dateTextY,
+        timeTextY
+      });
+      const scheduleY = height - SCHEDULE_BOTTOM_MARGIN;
       
       // Maximum matches to display
       const maxMatches = Math.min(nextMatches.length, 6);
-      
-      // Calculate logo size and spacing
-      const logoSize = Math.floor(width * 0.12); // Make logos slightly bigger
-      const totalWidth = width * 0.85; // Use 85% of screen width
+      const totalWidth = width * MATCH_ROW_WIDTH_PERCENT;
       const itemWidth = totalWidth / maxMatches; // Width per match item
       
       // Start X position to center the entire row
@@ -522,23 +465,38 @@ const WallpaperCanvas = ({
           }
         }
         
-        // Format time in 12-hour format with AM/PM
+        // Format time in 12-hour format with AM/PM in Pacific Time
         let shortTime = 'TBD';
         if (match.time) {
           try {
             const parts = match.time.split(' ');
             
             if (parts.length >= 2) {
+              const dateParts = match.date.split('-');
               const timeParts = parts[1].split(':');
-              let hour = parseInt(timeParts[0], 10);
-              const minute = timeParts[1];
               
-              // Convert to 12-hour format
-              const ampm = hour >= 12 ? 'p' : 'a';
-              hour = hour % 12;
-              hour = hour || 12; // Convert '0' to '12'
+              // Create a UTC date object first
+              const matchDateTime = new Date(Date.UTC(
+                parseInt(dateParts[0], 10),
+                parseInt(dateParts[1], 10) - 1,
+                parseInt(dateParts[2], 10),
+                parseInt(timeParts[0], 10),
+                parseInt(timeParts[1], 10),
+                0
+              ));
               
-              shortTime = `${hour}:${minute}${ampm}`;
+              // Convert to Pacific Time
+              const pacificTime = matchDateTime.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true,
+                timeZone: 'America/Los_Angeles'
+              });
+              
+              // Format as "1:30p" style
+              shortTime = pacificTime
+                .replace(':00', '') // Remove :00 for whole hours
+                .replace(/\s?(AM|PM)$/i, (match) => match.trim().toLowerCase().charAt(0));
             }
           } catch (e) {
             console.error('Error formatting short time:', e);
@@ -552,7 +510,7 @@ const WallpaperCanvas = ({
         const dateFont = Math.floor(width * 0.034);
         ctx.font = `bold ${dateFont}px "Avenir Next"`;
         ctx.textAlign = 'center';
-        ctx.fillText(shortDate, itemCenterX, scheduleY + logoSize/2 + 40); // Added more padding
+        ctx.fillText(shortDate, itemCenterX, scheduleY + logoSize/2 + DATE_TEXT_PADDING);
 
         // Draw time below date with padding
         clearTextEffects(ctx);
@@ -560,7 +518,7 @@ const WallpaperCanvas = ({
         const timeFont = Math.floor(width * 0.028);
         ctx.font = `bold ${timeFont}px "Avenir Next"`;
         ctx.textAlign = 'center';
-        ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + 75); // Added more padding
+        ctx.fillText(shortTime, itemCenterX, scheduleY + logoSize/2 + TIME_TEXT_PADDING);
       }
     }
 
@@ -591,11 +549,11 @@ const WallpaperCanvas = ({
     if (selectedTheme === 'night' || selectedTheme === 'forest') {
       ctx.strokeStyle = TIMBERS_GOLD;
       ctx.lineWidth = 1;
-      ctx.strokeText(footerText, width / 2, height - 140);
+      ctx.strokeText(footerText, width / 2, height - FOOTER_BOTTOM_MARGIN);
     }
     
     // Draw the text without shadow effects
-    ctx.fillText(footerText, width / 2, height - 140);
+    ctx.fillText(footerText, width / 2, height - FOOTER_BOTTOM_MARGIN);
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
