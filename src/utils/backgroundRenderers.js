@@ -16,6 +16,12 @@ export const TIMBERS_WHITE = '#FFFFFF';
  * @returns {Promise<HTMLImageElement|CanvasGradient>} - Image or gradient for background
  */
 export const getThemeBackground = async (selectedTheme, ctx, width, height, backgroundThemes = []) => {
+  // Handle null/undefined/empty theme - use fallback
+  if (!selectedTheme || selectedTheme === "") {
+    debugLog('No theme selected, using fallback gradient');
+    return createFallbackGradient(ctx, width, height);
+  }
+
   // Find the selected theme in the backgroundThemes array
   const theme = backgroundThemes.find(theme => theme.value === selectedTheme);
 
@@ -204,6 +210,11 @@ export const createFallbackGradient = (ctx, width, height) => {
  * @param {Array} backgroundThemes - Array of background themes from manifest
  */
 export const addThemeEffects = (selectedTheme, ctx, width, height, backgroundThemes = []) => {
+  // Handle null/undefined/empty theme - skip effects
+  if (!selectedTheme || selectedTheme === "") {
+    return;
+  }
+
   // Find theme in array
   const theme = backgroundThemes.find(theme => theme.value === selectedTheme);
   

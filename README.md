@@ -58,6 +58,19 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v3.0.0 (May 28, 2025)
+
+- Major refactoring for code organization and maintainability
+- Fixed canvas showing black screen on page load
+- Added random theme selection on initial page load
+- Fixed match position slider to allow lower positions in the wallpaper
+- Fixed download button flickering issue by implementing two-step download process
+- Restored iPhone mock time and date in preview (kept out of the downloaded image)
+- Removed test patterns that caused green/yellow squares during canvas loading
+- Reversed patch position slider to be consistent with match info slider
+- Improved UI with up/down icons on position sliders
+- Created utility modules for better code organization
+
 ### v2.8.0 (May 28, 2025)
 
 - Added position adjustment sliders for patch/text and match info

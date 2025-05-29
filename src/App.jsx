@@ -9,10 +9,26 @@ import SchedulePreview from "./components/SchedulePreview";
 import CanvasPreview from "./components/CanvasPreview";
 import WallpaperCanvas from "./components/WallpaperCanvas";
 import PositionAdjuster from "./components/PositionAdjuster";
+import AccordionPanel from "./components/AccordionPanel";
 import { DownloadButton, Instructions, Footer } from "./components/UIComponents";
 import useScheduleData from "./hooks/useScheduleData";
 import useBackgroundThemes from "./hooks/useBackgroundThemes";
 import { usePatchImages } from './hooks/usePatchImages';
+import { Paintbrush, Type, Calendar, Phone, MoveVertical, PaintBucket } from "lucide-react";
+import { debugLog } from "./utils/debug";
+import { captureCanvasToBlob, downloadBlob } from "./utils/downloadUtils";
+import { getRandomItem } from "./utils/randomUtils";
+import { 
+  DEFAULT_PATCH_POSITION_Y, 
+  DEFAULT_MATCH_POSITION_Y,
+  DEFAULT_TEXT,
+  DEFAULT_TEXT_COLOR,
+  DEFAULT_FONT_SIZE_MULTIPLIER,
+  DEFAULT_IPHONE_MODEL,
+  DEFAULT_WALLPAPER_FILENAME,
+  IPHONE_MODELS,
+  FONT_OPTIONS
+} from "./utils/constants";
 
 const TimbersWallpaperGenerator = () => {
   const canvasRef = useRef(null);
@@ -20,34 +36,23 @@ const TimbersWallpaperGenerator = () => {
   const [selectedBackground, setSelectedBackground] = useState("");
   // Background themes now come from the hook instead of hardcoded
   const { backgroundThemes, selectedTheme, setSelectedTheme, isLoadingBackgrounds } = useBackgroundThemes();
-  const [selectediPhoneSize, setSelectediPhoneSize] = useState("iphone15");
+  const [selectediPhoneSize, setSelectediPhoneSize] = useState(DEFAULT_IPHONE_MODEL);
   const [showPatchImage, setShowPatchImage] = useState(true);
-  const [customText, setCustomText] = useState("PORTLAND TIMBERS");
+  const [customText, setCustomText] = useState(DEFAULT_TEXT);
   
-  // Available font options - should match those in TextCustomizer.jsx
-  const fontOptions = [
-    "Another Danger",
-    "Rose",
-    "Urban Jungle",
-    "Avenir",
-    "Verdana",
-    "Lethal Slime"
-  ];
-  
-  // Initialize with a random font instead of hardcoding
+  // Initialize with a random font from our constant options
   const [selectedFont, setSelectedFont] = useState(() => {
-    const randomIndex = Math.floor(Math.random() * fontOptions.length);
-    return fontOptions[randomIndex];
+    return getRandomItem(FONT_OPTIONS) || FONT_OPTIONS[0];
   });
   
-  const [fontSizeMultiplier, setFontSizeMultiplier] = useState(1.0);
+  const [fontSizeMultiplier, setFontSizeMultiplier] = useState(DEFAULT_FONT_SIZE_MULTIPLIER);
   
-  // Default text color (white)
-  const [textColor, setTextColor] = useState("#FFFFFF");
+  // Default text color
+  const [textColor, setTextColor] = useState(DEFAULT_TEXT_COLOR);
   
   // Position adjustments for patch/text and match info
-  const [patchPositionY, setPatchPositionY] = useState(0.4); // Default is 40% down from top
-  const [matchPositionY, setMatchPositionY] = useState(0.26); // Default is 26% from bottom
+  const [patchPositionY, setPatchPositionY] = useState(DEFAULT_PATCH_POSITION_Y);
+  const [matchPositionY, setMatchPositionY] = useState(DEFAULT_MATCH_POSITION_Y);
   
   // Use the new hook for patch images
   const { availableImages, isLoadingImages, loadAvailableImages } = usePatchImages();
@@ -55,31 +60,23 @@ const TimbersWallpaperGenerator = () => {
   // Load images and set initial background
   useEffect(() => {
     const initializeImages = async () => {
-      if (showPatchImage) {
+      if (showPatchImage && !selectedBackground) {
         const images = await loadAvailableImages();
-        if (images.length > 0 && !selectedBackground) {
-          const randomIndex = Math.floor(Math.random() * images.length);
-          setSelectedBackground(images[randomIndex].value);
+        const randomImage = getRandomItem(images);
+        if (randomImage) {
+          setSelectedBackground(randomImage.value);
+          debugLog(`Selected random patch: ${randomImage.label}`);
         }
       }
     };
     
     initializeImages();
-  }, [showPatchImage, loadAvailableImages, selectedBackground]);
-
-  // iPhone size options including iPhone 16 series
-  const iPhoneSizes = [
-    { value: "iphone16promax", label: "iPhone 16 Pro Max", width: 1290, height: 2796 },
-    { value: "iphone16pro", label: "iPhone 16 Pro", width: 1179, height: 2556 },
-    { value: "iphone15", label: "iPhone 15/15 Pro", width: 1179, height: 2556 },
-    { value: "iphone15plus", label: "iPhone 15 Plus/Pro Max", width: 1290, height: 2796 },
-    { value: "custom", label: "Custom (1080x2337)", width: 1080, height: 2337 },
-  ];
+  }, [showPatchImage, selectedBackground, loadAvailableImages]); // Updated dependencies
 
   // Get current iPhone dimensions
   const getCurrentDimensions = () => {
-    const selected = iPhoneSizes.find((size) => size.value === selectediPhoneSize);
-    return selected || iPhoneSizes[0];
+    const selected = IPHONE_MODELS.find((size) => size.value === selectediPhoneSize);
+    return selected || IPHONE_MODELS[0];
   };
 
   // Get schedule data
@@ -87,62 +84,51 @@ const TimbersWallpaperGenerator = () => {
   
   // Select a random background theme on app load
   useEffect(() => {
-    if (backgroundThemes.length > 0 && !isLoadingBackgrounds) {
-      const randomIndex = Math.floor(Math.random() * backgroundThemes.length);
-      setSelectedTheme(backgroundThemes[randomIndex].value);
+    if (backgroundThemes.length > 0 && !isLoadingBackgrounds && !selectedTheme) {
+      const randomTheme = getRandomItem(backgroundThemes);
+      if (randomTheme) {
+        setSelectedTheme(randomTheme.value);
+        debugLog(`Selected random theme: ${randomTheme.label}`);
+      }
     }
-  }, [backgroundThemes, isLoadingBackgrounds, setSelectedTheme]);
+  }, [backgroundThemes, isLoadingBackgrounds, setSelectedTheme, selectedTheme]);
 
   // Function to generate and download the wallpaper
   const generateWallpaper = async () => {
-    setIsGenerating(true);
     try {
+      // Get canvas reference
       const canvas = canvasRef.current;
       if (!canvas) {
         console.error("Canvas not found");
         return;
       }
 
-      // To ensure match overlays are present during download, we need a small delay
-      // to allow the canvas to fully render with all elements
-      await new Promise(resolve => setTimeout(resolve, 300));
-      
-      // For iOS Safari compatibility, use blob instead of dataURL
-      canvas.toBlob(async (blob) => {
-        if (!blob) {
-          console.error("Failed to create blob from canvas");
-          setIsGenerating(false);
-          return;
-        }
+      try {
+        // First capture the canvas image without changing any state
+        // This prevents any UI flicker during capture
+        const blob = await captureCanvasToBlob(canvas, 'image/png', 1.0);
         
-        try {
-          // Create a blob URL which works better on iOS
-          const blobUrl = URL.createObjectURL(blob);
-          
-          // Create a download link
-          const link = document.createElement("a");
-          link.download = "timbers-wallpaper.png";
-          link.href = blobUrl;
-          
-          // Append, click, and clean up
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          
-          // Revoke the blob URL after a short delay to ensure download completes
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 300);
-          
-          setIsGenerating(false);
-        } catch (error) {
-          console.error("Error in blob download:", error);
-          setIsGenerating(false);
-        }
-      }, "image/png");
+        // Only now show loading indicator (after blob is created)
+        setIsGenerating(true);
+        
+        // Download the blob
+        await downloadBlob(blob, DEFAULT_WALLPAPER_FILENAME);
+      } catch (error) {
+        console.error("Error in wallpaper download process:", error);
+      } finally {
+        // Always reset generating state when done
+        setIsGenerating(false);
+      }
     } catch (error) {
-      console.error("Error generating wallpaper:", error);
+      console.error("Error in wallpaper generation:", error);
       setIsGenerating(false);
     }
   };
+
+  // Debug app initialization
+  useEffect(() => {
+    debugLog('TimbersWallpaperGenerator initialized');
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-900 via-green-800 to-green-900 p-4">
@@ -166,7 +152,7 @@ const TimbersWallpaperGenerator = () => {
               backgroundThemes={backgroundThemes}
               dimensions={getCurrentDimensions()} 
               nextMatches={nextMatches} 
-              includeDateTime={!isGenerating} 
+              includeDateTime={false} // Never include date/time in the generated image
               includeMatches={true} 
               showPatchImage={showPatchImage}
               customText={customText}
@@ -179,50 +165,82 @@ const TimbersWallpaperGenerator = () => {
           </div>
 
           {/* Controls and Info */}
-          <div className="space-y-6 order-2 lg:order-2">
-                        {/* Theme Selector */}
-            <ThemeSelector 
-              selectedTheme={selectedTheme} 
-              setSelectedTheme={setSelectedTheme} 
-              themeOptions={backgroundThemes} 
-              isLoading={isLoadingBackgrounds} 
-            />
+          <div className="space-y-4 order-2 lg:order-2">
+            {/* Theme Selector */}
+            <AccordionPanel title="Theme" defaultOpen={true} icon={<PaintBucket size={20} />}>
+              <ThemeSelector 
+                selectedTheme={selectedTheme} 
+                setSelectedTheme={setSelectedTheme} 
+                themeOptions={backgroundThemes} 
+                isLoading={isLoadingBackgrounds} 
+              />
+            </AccordionPanel>
 
             {/* Background Image Selector */}
-            <PatchSelector selectedBackground={selectedBackground} setSelectedBackground={setSelectedBackground} availableImages={availableImages} isLoadingImages={isLoadingImages} loadAvailableImages={loadAvailableImages} showPatchImage={showPatchImage} setShowPatchImage={setShowPatchImage} />
+            <AccordionPanel title="Patch Image" defaultOpen={true} icon={<Paintbrush size={20} />}>
+              <PatchSelector 
+                selectedBackground={selectedBackground} 
+                setSelectedBackground={setSelectedBackground} 
+                availableImages={availableImages} 
+                isLoadingImages={isLoadingImages} 
+                loadAvailableImages={loadAvailableImages} 
+                showPatchImage={showPatchImage} 
+                setShowPatchImage={setShowPatchImage} 
+              />
+            </AccordionPanel>
             
             {/* Text Customizer */}
-            <TextCustomizer 
-              customText={customText} 
-              setCustomText={setCustomText}
-              selectedFont={selectedFont}
-              setSelectedFont={setSelectedFont}
-              fontSizeMultiplier={fontSizeMultiplier}
-              setFontSizeMultiplier={setFontSizeMultiplier}
-              textColor={textColor}
-              setTextColor={setTextColor}
-            />
+            <AccordionPanel title="Text & Font" icon={<Type size={20} />}>
+              <TextCustomizer 
+                customText={customText} 
+                setCustomText={setCustomText}
+                selectedFont={selectedFont}
+                setSelectedFont={setSelectedFont}
+                fontSizeMultiplier={fontSizeMultiplier}
+                setFontSizeMultiplier={setFontSizeMultiplier}
+                textColor={textColor}
+                setTextColor={setTextColor}
+              />
+            </AccordionPanel>
             
             {/* Position Adjuster */}
-            <PositionAdjuster
-              patchPositionY={patchPositionY}
-              setPatchPositionY={setPatchPositionY}
-              matchPositionY={matchPositionY}
-              setMatchPositionY={setMatchPositionY}
-            />
+            <AccordionPanel title="Position Adjustments" icon={<MoveVertical size={20} />}>
+              <PositionAdjuster
+                patchPositionY={patchPositionY}
+                setPatchPositionY={setPatchPositionY}
+                matchPositionY={matchPositionY}
+                setMatchPositionY={setMatchPositionY}
+              />
+            </AccordionPanel>
 
             {/* Schedule Preview */}
-            <SchedulePreview nextMatches={nextMatches} />
+            <AccordionPanel title="Match Schedule" icon={<Calendar size={20} />}>
+              <SchedulePreview nextMatches={nextMatches} />
+            </AccordionPanel>
 
-			{/* iPhone Size Selector */}
-            <DeviceSelector selectediPhoneSize={selectediPhoneSize} setSelectediPhoneSize={setSelectediPhoneSize} iPhoneSizes={iPhoneSizes} />
+            {/* iPhone Size Selector */}
+            <AccordionPanel title="Device Size" icon={<Phone size={20} />}>
+              <DeviceSelector 
+                selectediPhoneSize={selectediPhoneSize} 
+                setSelectediPhoneSize={setSelectediPhoneSize} 
+                iPhoneSizes={IPHONE_MODELS} 
+              />
+            </AccordionPanel>
 
-
-            {/* Download Button */}
-            <DownloadButton canvasRef={canvasRef} isGenerating={isGenerating} setIsGenerating={setIsGenerating} onDownload={generateWallpaper} />
+            {/* Download Button - not in an accordion since it should always be visible */}
+            <div className="mt-6">
+              <DownloadButton 
+                canvasRef={canvasRef} 
+                isGenerating={isGenerating} 
+                setIsGenerating={setIsGenerating} 
+                onDownload={generateWallpaper} 
+              />
+            </div>
 
             {/* Instructions */}
-            <Instructions />
+            <AccordionPanel title="Instructions">
+              <Instructions />
+            </AccordionPanel>
 
             {/* Footer */}
             <Footer />

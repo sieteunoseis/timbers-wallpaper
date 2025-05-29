@@ -17,11 +17,8 @@ const DeviceSelector = ({ selectediPhoneSize, setSelectediPhoneSize, iPhoneSizes
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-        <div className="w-5 h-5 rounded bg-gray-400"></div>
-        iPhone Size
-      </h3>
+    <div>
+      {/* Title handled by AccordionPanel */}
       <select
         value={selectediPhoneSize}
         onChange={(e) => setSelectediPhoneSize(e.target.value)}

@@ -115,11 +115,12 @@ export const formatDateForWallpaper = dateTimeString => {
  * Draw current date and time on the wallpaper
  * @param {CanvasRenderingContext2D} ctx - The canvas context
  * @param {number} width - Canvas width
- * @param {number} logoY - Y position of the logo
- * @param {number} circleRadius - Radius of the circular logo
+ * @param {number} height - Canvas height
+ * @param {number} logoY - Y position of the logo (not used for positioning date/time)
+ * @param {number} circleRadius - Radius of the circular logo (not used for positioning date/time)
  * @param {string} textColor - Color to use for text elements
  */
-export const drawDateAndTime = (ctx, width, logoY, circleRadius, textColor = '#FFFFFF') => {
+export const drawDateAndTime = (ctx, width, height, logoY, circleRadius, textColor = '#FFFFFF') => {
   if (!ctx) return;
   
   // Get current date/time
@@ -142,6 +143,10 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius, textColor = '#F
   // Completely reset all text effects and context state before drawing anything
   clearTextEffects(ctx);
   
+  // Fixed positions from top of screen (not relative to logo)
+  const dateY = Math.floor(height * 0.15); // 15% from top
+  const timeY = Math.floor(height * 0.25); // 25% from top
+  
   // Draw date
   ctx.fillStyle = textColor;
   ctx.textBaseline = 'middle';
@@ -149,7 +154,7 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius, textColor = '#F
   
   const dateFont = Math.floor(width * 0.045);
   ctx.font = `${dateFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
-  ctx.fillText(currentDate, width / 2, logoY - circleRadius - 400);
+  ctx.fillText(currentDate, width / 2, dateY);
 
   // Reset effects completely before drawing the time
   clearTextEffects(ctx);
@@ -162,7 +167,7 @@ export const drawDateAndTime = (ctx, width, logoY, circleRadius, textColor = '#F
   ctx.font = `bold ${timeFont}px -apple-system, system-ui, "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif`;
   
   // Draw time
-  ctx.fillText(currentTime, width / 2, logoY - circleRadius - 200);
+  ctx.fillText(currentTime, width / 2, timeY);
   
   // Make sure all effects are cleared before we exit the function
   clearTextEffects(ctx);

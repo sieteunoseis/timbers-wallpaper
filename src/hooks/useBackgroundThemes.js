@@ -8,7 +8,7 @@ import { debugLog, debugWarn, debugError } from '../utils/debug';
 const useBackgroundThemes = () => {
   const [backgroundThemes, setBackgroundThemes] = useState([]);
   const [isLoadingBackgrounds, setIsLoadingBackgrounds] = useState(true);
-  const [selectedTheme, setSelectedTheme] = useState("classic");
+  const [selectedTheme, setSelectedTheme] = useState(null);
 
   // Function to load backgrounds from manifest
   const loadBackgroundThemes = useCallback(async () => {

@@ -13,7 +13,17 @@ export const clearTextEffects = (ctx) => {
   // Instead, explicitly reset everything we need
   
   // Reset transformation matrix to identity (this is crucial)
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // Try multiple methods with safe fallbacks for different browser implementations
+  try {
+    if (ctx.setTransform) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    } else if (ctx.resetTransform) {
+      ctx.resetTransform();
+    }
+    // If neither method is available, we'll just continue without transform reset
+  } catch (e) {
+    console.warn("Canvas transform methods not supported in this environment");
+  }
   
   // Disable shadows completely
   ctx.shadowColor = 'transparent';
@@ -49,16 +59,49 @@ export const clearTextEffects = (ctx) => {
 export const resetCanvas = (ctx, width, height) => {
   if (!ctx) return;
   
+  // Validate that we have a proper canvas context with required methods
+  if (typeof ctx.clearRect !== 'function' || typeof ctx.fillRect !== 'function') {
+    console.warn("Invalid canvas context - missing required methods");
+    return;
+  }
+  
   // Reset transformation matrix to identity (this must come first)
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  // Try multiple methods with safe fallbacks for different browser implementations
+  try {
+    if (ctx.setTransform) {
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    } else if (ctx.resetTransform) {
+      ctx.resetTransform();
+    }
+    // If neither method is available, we'll just continue without transform reset
+  } catch (e) {
+    console.warn("Canvas transform methods not supported in this environment");
+  }
   
   // Clear the entire canvas with clearRect (removes all content)
-  ctx.clearRect(0, 0, width, height);
+  try {
+    ctx.clearRect(0, 0, width, height);
+  } catch (e) {
+    console.warn("clearRect failed, trying alternative clearing method");
+    // Fallback clearing method
+    try {
+      ctx.fillStyle = '#000000';
+      ctx.fillRect(0, 0, width, height);
+    } catch (fallbackError) {
+      console.error("All canvas clearing methods failed");
+      return;
+    }
+  }
   
-  // Fill with transparent black to ensure complete clearing
-  // This can help with stubborn rendering artifacts
+  // Use a double clearing approach - sometimes helps with stubborn artifacts
+  // First with transparent black
   ctx.fillStyle = 'rgba(0, 0, 0, 0)';
   ctx.fillRect(0, 0, width, height);
+  
+  // Then with fully transparent fill (helps flush graphics buffer)
+  ctx.globalAlpha = 0;
+  ctx.fillRect(0, 0, width, height);
+  ctx.globalAlpha = 1;
   
   // Reset all context properties to defaults
   clearTextEffects(ctx);

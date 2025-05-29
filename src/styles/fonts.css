@@ -4,7 +4,7 @@
   src: url('/fonts/Lethal Slime.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -12,7 +12,7 @@
   src: url('/fonts/Another Danger.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -20,7 +20,7 @@
   src: url('/fonts/Rose.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -28,5 +28,5 @@
   src: url('/fonts/UrbanJungle.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }

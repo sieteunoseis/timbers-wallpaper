@@ -62,11 +62,8 @@ const TextCustomizer = ({
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-      <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-        <Text className="w-5 h-5" />
-        Custom Text
-      </h3>
+    <div>
+      {/* Title handled by AccordionPanel */}
       
       <div className="space-y-4">
         <div>

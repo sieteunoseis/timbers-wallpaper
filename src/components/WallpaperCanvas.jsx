@@ -1,9 +1,69 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import { tryLoadImage, createFallbackLogo } from '../utils/imageLoader';
 import { drawDateAndTime } from '../utils/dateFormatters';
 import { getThemeBackground, addThemeEffects, createFallbackGradient, TIMBERS_GREEN, TIMBERS_GOLD, TIMBERS_WHITE } from '../utils/backgroundRenderers';
 import { clearTextEffects, resetCanvas } from '../utils/textEffects';
 import { debugLog, debugWarn } from '../utils/debug';
+
+// Helper functions moved outside component to avoid recreation
+const loadFont = async (name, url) => {
+  try {
+    // Check if font is already loaded in document.fonts
+    if (Array.from(document.fonts.values()).some(font => font.family === name)) {
+      return true;
+    }
+
+    // Create new FontFace with longer timeout for slow connections
+    const font = new FontFace(name, `url(${url})`);
+    
+    // Set a timeout for font loading (10 seconds)
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Font loading timeout')), 10000);
+    });
+
+    // Wait for font to load with timeout
+    const loadedFont = await Promise.race([
+      font.load(),
+      timeoutPromise
+    ]);
+
+    // Ensure font is properly decoded before adding
+    await loadedFont.loaded;
+    
+    // Add to document fonts and force a layout to ensure it's ready
+    document.fonts.add(loadedFont);
+    
+    // Verify font is actually available
+    await document.fonts.ready;
+    const isFontAvailable = document.fonts.check(`12px "${name}"`);
+    
+    if (!isFontAvailable) {
+      throw new Error('Font loaded but not available for use');
+    }
+
+    debugLog(`Successfully loaded font: ${name}`);
+    return true;
+  } catch (error) {
+    debugWarn(`Failed to load font ${name}:`, error);
+    return false;
+  }
+};
+
+const getFontUrl = (fontName) => {
+  // Always use /fonts/ root path for public folder access
+  switch (fontName) {
+    case 'Another Danger':
+      return '/fonts/Another Danger.otf';
+    case 'Lethal Slime':
+      return '/fonts/Lethal Slime.ttf';
+    case 'Rose':
+      return '/fonts/Rose.otf';
+    case 'Urban Jungle':
+      return '/fonts/UrbanJungle.otf';
+    default:
+      return null;
+  }
+};
 
 /**
  * Component responsible for rendering the wallpaper on canvas
@@ -19,12 +79,11 @@ import { debugLog, debugWarn } from '../utils/debug';
  * @param {boolean} props.includeMatches - Whether to show match overlays (defaults to true)
  * @param {boolean} props.showPatchImage - Whether to show the patch image
  * @param {string} props.customText - Custom text to display instead of "PORTLAND TIMBERS"
- * @param {string} props.selectedFont - Font family to use for the custom text. 
- *                                      Available options: "Another Danger" (caps only), "Avenir", "Verdana" (bold), "Rose", "Urban Jungle" or "Lethal Slime" (caps only)
+ * @param {string} props.selectedFont - Font family to use for the custom text
  * @param {number} props.fontSizeMultiplier - Multiplier for font size (1.0 is default)
  * @param {string} props.textColor - Color to use for all text elements
- * @param {number} props.patchPositionY - Vertical position multiplier for patch and text (0.0 to 0.8)
- * @param {number} props.matchPositionY - Vertical position multiplier for match info (0.0 to 0.5)
+ * @param {number} props.patchPositionY - Vertical position multiplier for patch and text (0.2 to 0.8)
+ * @param {number} props.matchPositionY - Vertical position multiplier for match info margin from bottom (0.1 to 0.4)
  * @returns {null} This component doesn't render UI elements directly
  */
 const WallpaperCanvas = ({ 
@@ -44,14 +103,111 @@ const WallpaperCanvas = ({
   patchPositionY = 0.4,
   matchPositionY = 0.26
 }) => {
-  const generateWallpaper = useCallback(async () => {
+  const renderStateRef = useRef({
+    animationFrame: null,
+    lastRenderTime: 0,
+    isRendering: false,
+    hasInitialRender: false,
+    fontsLoaded: new Set()
+  });
+
+  // Canvas state management
+  const resetCanvasState = useCallback((width, height) => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas) {
+      debugWarn('resetCanvasState: Canvas ref is null');
+      return;
+    }
+
+    debugLog('resetCanvasState called with:', { width, height });
+    debugLog('Canvas element details before reset:', {
+      clientWidth: canvas.clientWidth,
+      clientHeight: canvas.clientHeight,
+      width: canvas.width,
+      height: canvas.height,
+      offsetWidth: canvas.offsetWidth,
+      offsetHeight: canvas.offsetHeight,
+      style: canvas.style.cssText,
+      classList: Array.from(canvas.classList)
+    });
+
+    const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) {
+      debugWarn('resetCanvasState: Failed to get canvas context');
+      return;
+    }
+
+    // Ensure we have valid dimensions
+    if (!width || !height || width <= 0 || height <= 0) {
+      debugWarn('resetCanvasState: Invalid dimensions', { width, height });
+      return;
+    }
+
+    canvas.width = 1;
+    canvas.height = 1;
+    ctx.clearRect(0, 0, 1, 1);
+    
+    canvas.width = width;
+    canvas.height = height;
+    
+    debugLog('Canvas dimensions set to:', { width: canvas.width, height: canvas.height });
+    
+    // Fill with black background immediately to provide clean slate
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, width, height);
+    debugLog('Canvas initialized with black background');
+    
+    resetCanvas(ctx, width, height);
+    // Safe transformation reset with fallbacks
+    try {
+      if (ctx.setTransform) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      } else if (ctx.resetTransform) {
+        ctx.resetTransform();
+      }
+    } catch {
+      console.warn("Canvas transform methods not supported in this environment");
+    }
+    ctx.beginPath();
+    
+    if (ctx.flush) ctx.flush();
+  }, [canvasRef]);
+
+  const generateWallpaper = useCallback(async () => {
+    debugLog('=== generateWallpaper START ===');
+    
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      debugWarn('Canvas ref is null - cannot generate wallpaper');
+      return;
+    }
+
+    // Debug canvas element properties
+    debugLog('Canvas element check:', {
+      canvas: !!canvas,
+      clientWidth: canvas.clientWidth,
+      clientHeight: canvas.clientHeight,
+      width: canvas.width,
+      height: canvas.height,
+      style: canvas.style.cssText
+    });
 
     // Get a fresh context with alpha false - helps with clearing
     const ctx = canvas.getContext('2d', { alpha: false });
+    if (!ctx) {
+      debugWarn('Failed to get canvas context - cannot generate wallpaper');
+      return;
+    }
+    
     const width = dimensions.width;
     const height = dimensions.height;
+    
+    if (!width || !height || width <= 0 || height <= 0) {
+      debugWarn('Invalid dimensions for wallpaper generation:', { width, height });
+      return;
+    }
+    
+    debugLog('Starting wallpaper generation with valid dimensions:', { width, height, selectedTheme, selectedBackground, showPatchImage });
     
     // Layout constants for vertical positioning
     // Use the patchPositionY prop with limits to control patch position (0.2 to 0.8)
@@ -67,37 +223,76 @@ const WallpaperCanvas = ({
     const LOGO_SIZE_PERCENT = 0.12; // Logo size as percentage of width
     const MATCH_ROW_WIDTH_PERCENT = 0.85; // Width of match row as percentage of screen width
     // Minimum buffer space between match row bottom and footer text
-    const MIN_MATCH_FOOTER_BUFFER = 300; // Minimum 300px between match row and footer text
-    // Use the matchPositionY prop with limits to control match row position (0.1 to 0.4)
-    const SCHEDULE_BOTTOM_MARGIN_PERCENT = Math.max(0.1, Math.min(0.4, matchPositionY)); // Constrained to 10%-40% from bottom
+    const MIN_MATCH_FOOTER_BUFFER = 50; // Minimum 300px between match row and footer text
+    // Use the match position directly - slider is now correctly oriented
+    // Higher value = more distance from bottom = higher position on screen
+    const SCHEDULE_BOTTOM_MARGIN_PERCENT = Math.max(0.1, Math.min(0.4, matchPositionY));
     // Calculate this value considering the total match row height
     const matchRowHeightEstimate = (width * LOGO_SIZE_PERCENT) + TIME_TEXT_PADDING + 20; // Logo + text + padding
-    const SCHEDULE_BOTTOM_MARGIN = Math.max(740, Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT * height), 
-                                      FOOTER_BOTTOM_MARGIN + matchRowHeightEstimate + MIN_MATCH_FOOTER_BUFFER);
     
-    // Force a complete canvas reset by resizing
-    canvas.width = 1;  // First set to minimal size
+    // Ensure we don't exceed the canvas height minus footer buffer
+    const calculatedMargin = Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT);
+    const minSafeMargin = FOOTER_BOTTOM_MARGIN + matchRowHeightEstimate + MIN_MATCH_FOOTER_BUFFER;
+    const SCHEDULE_BOTTOM_MARGIN = Math.max(
+      Math.min(calculatedMargin, height - minSafeMargin), // Don't go too high
+      minSafeMargin // Don't go too low
+    );
+    
+    // Enhanced canvas reset procedure to prevent ghost images
+    
+    // Step 1: Force Firefox/Safari to drop cached canvas data by temporarily destroying canvas bitmap
+    canvas.width = 1;
     canvas.height = 1;
-    canvas.width = width;  // Then set to desired dimensions
+    
+    // Step 2: Set to desired dimensions
+    canvas.width = width;
     canvas.height = height;
     
-    // Apply our thorough canvas reset utility
+    // Step 3: Clear pixel buffer with black (helps prevent ghosts)
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, width, height);
+    
+    // Step 4: Reset all context attributes and transformations
     resetCanvas(ctx, width, height);
     
-    // Ensure the transformation matrix is set to identity
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    // Step 5: Explicitly reset transformation matrix to identity
+    // Safe transformation reset with fallbacks
+    try {
+      if (ctx.setTransform) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      } else if (ctx.resetTransform) {
+        ctx.resetTransform();
+      }
+    } catch (e) {
+      console.warn("Canvas transform methods not supported in this environment");
+    }
     
-    // Fill with black to start fresh
+    // Step 6: Force buffer flush with an immediate flush command
+    ctx.flush && ctx.flush();
+    
+    // Step 5: Clear the canvas again with a black background
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, width, height);
+    
+    // Step 6: Final reset to ensure all states are default
     resetCanvas(ctx, width, height);
+    
+    // Step 7: Clear any paths that might be lingering
+    ctx.beginPath();
 
     // Create themed background
     ctx.fillStyle = '#000000';
     ctx.fillRect(0, 0, width, height);
+    debugLog('Black background filled, now loading theme background for:', selectedTheme);
 
     // Apply theme-specific background
     const themeBackground = await getThemeBackground(selectedTheme, ctx, width, height, backgroundThemes);
+    debugLog('Theme background loaded:', { 
+      type: themeBackground ? themeBackground.constructor.name : 'null',
+      isImage: themeBackground instanceof HTMLImageElement,
+      isGradient: themeBackground && themeBackground.addColorStop,
+      hasThemeBackground: !!themeBackground
+    });
     if (themeBackground instanceof HTMLImageElement) {
       try {
         // Handle static image background (Timber Jim)
@@ -373,7 +568,8 @@ const WallpaperCanvas = ({
 
     // Include date/time if requested
     if (includeDateTime) {
-      drawDateAndTime(ctx, width, LOGO_Y, CIRCLE_RADIUS, textColor);
+      // Use fixed positions by passing height parameter
+      drawDateAndTime(ctx, width, height, LOGO_Y, CIRCLE_RADIUS, textColor);
     }
 
     // Schedule section - Horizontal layout in a single row
@@ -564,6 +760,8 @@ const WallpaperCanvas = ({
     
     // Keep shadow effects disabled
     clearTextEffects(ctx);
+    
+    debugLog('=== generateWallpaper COMPLETE ===');
   }, [
     canvasRef, 
     dimensions, 
@@ -582,88 +780,241 @@ const WallpaperCanvas = ({
     matchPositionY
   ]);
 
-  // Effect to reset canvas on page unload/refresh
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      if (canvasRef.current) {
+  const queueRender = useCallback(() => {
+    debugLog('queueRender called, isRendering:', renderStateRef.current.isRendering);
+    
+    if (renderStateRef.current.isRendering) return;
+
+    const now = Date.now();
+    if (now - renderStateRef.current.lastRenderTime < 50) {
+      if (renderStateRef.current.animationFrame) {
+        cancelAnimationFrame(renderStateRef.current.animationFrame);
+      }
+      renderStateRef.current.animationFrame = requestAnimationFrame(queueRender);
+      return;
+    }
+
+    debugLog('Executing render with dimensions:', { width: dimensions.width, height: dimensions.height });
+    renderStateRef.current.lastRenderTime = now;
+    renderStateRef.current.isRendering = true;
+
+    // Reset canvas to clean slate with proper dimensions
+    resetCanvasState(dimensions.width, dimensions.height);
+
+    const executeRender = async () => {
+      try {
+        debugLog('Starting wallpaper generation...');
+        
+        // Prepare canvas with a clean black background
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d', { alpha: false });
-        if (ctx) {
-          // Force clean reset before page unloads
-          canvas.width = 1;
-          canvas.height = 1;
+        const ctx = canvas?.getContext('2d');
+        if (ctx && dimensions.width > 0 && dimensions.height > 0) {
+          debugLog('Setting initial black background...');
+          
+          // Clean simple black background without any test patterns
+          ctx.fillStyle = '#000000'; 
+          ctx.fillRect(0, 0, dimensions.width, dimensions.height);
+          
+          debugLog('Initial black background set');
+          
+          // Add a small delay then do the full render
+          setTimeout(async () => {
+            debugLog('Starting full wallpaper generation...');
+            await generateWallpaper();
+            debugLog('Full wallpaper generation completed');
+          }, 5);
+        } else {
+          debugWarn('Canvas or dimensions not available for initial render');
+        }
+      } catch (renderError) {
+        debugWarn('Error during wallpaper generation:', renderError);
+        // On error, show a red error pattern so we know something went wrong
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (ctx && dimensions.width > 0 && dimensions.height > 0) {
+          ctx.fillStyle = '#ff0000';
+          ctx.fillRect(0, 0, dimensions.width, dimensions.height);
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '48px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText('RENDER ERROR', dimensions.width / 2, dimensions.height / 2);
+        }
+      } finally {
+        renderStateRef.current.isRendering = false;
+      }
+    };
+
+    if (!renderStateRef.current.hasInitialRender) {
+      renderStateRef.current.hasInitialRender = true;
+      Promise.resolve().then(executeRender);
+    } else {
+      setTimeout(executeRender, 10);
+    }
+  }, [dimensions.width, dimensions.height, generateWallpaper, resetCanvasState, canvasRef]);
+
+  // Initialize font loading first
+  useEffect(() => {
+    let mounted = true;
+    
+    const loadFonts = async () => {
+      const fontUrl = getFontUrl(selectedFont);
+      if (!fontUrl) {
+        debugLog('No font URL for', selectedFont, '- assuming system font');
+        return true;
+      }
+
+      if (renderStateRef.current.fontsLoaded.has(selectedFont)) {
+        debugLog('Font already loaded:', selectedFont);
+        return true;
+      }
+
+      // Try multiple times with increasing delays
+      let retryCount = 0;
+      const MAX_RETRIES = 3;
+
+      while (retryCount < MAX_RETRIES && mounted) {
+        try {
+          if (await loadFont(selectedFont, fontUrl)) {
+            renderStateRef.current.fontsLoaded.add(selectedFont);
+            debugLog('Font loaded successfully after', retryCount, 'retries:', selectedFont);
+            return true;
+          }
+
+          retryCount++;
+          if (retryCount < MAX_RETRIES) {
+            debugLog('Retrying font load for', selectedFont, '- attempt', retryCount + 1);
+            await new Promise(resolve => setTimeout(resolve, retryCount * 1000));
+          }
+        } catch (error) {
+          debugWarn('Font loading error:', error);
+          retryCount++;
+          if (retryCount < MAX_RETRIES) {
+            await new Promise(resolve => setTimeout(resolve, retryCount * 1000));
+          }
         }
       }
-    };
-    
-    // Add event listener for page unloads
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [canvasRef]);
 
-  // Main effect to handle rendering
-  useEffect(() => {
-    if (canvasRef.current) {
-      debugLog('Generating wallpaper with:', { 
-        selectedBackground, 
-        selectedTheme, 
-        customText, 
-        selectedFont, 
-        fontSizeMultiplier,
-        patchPositionY,
-        matchPositionY
-      });
-      
-      // Handle resetting the canvas before redrawing
-      const canvas = canvasRef.current;
-      // Get a fresh context - this can help prevent persistent state issues
-      const ctx = canvas.getContext('2d', { alpha: false });
-      
-      if (ctx) {
-        // Store dimensions
-        const width = dimensions.width;
-        const height = dimensions.height;
-        
-        // The most reliable way to clear the canvas is to modify its dimensions
-        // This completely resets the canvas and all context states
-        canvas.width = 1;
-        canvas.height = 1;
-        canvas.width = width;
-        canvas.height = height;
-        
-        // Apply additional cleaning steps
-        resetCanvas(ctx, width, height);
-        
-        // Triple check we've cleared all transformations and paths
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        ctx.beginPath();
+      debugWarn('Failed to load font after', MAX_RETRIES, 'attempts:', selectedFont);
+      return false;
+    };
+
+    loadFonts().then((success) => {
+      if (!mounted) return;
+
+      if (success) {
+        renderStateRef.current.hasInitialRender = false;
+        // Reset the canvas and queue a new render
+        const ctx = canvasRef.current?.getContext('2d');
+        if (ctx) {
+          resetCanvas(ctx, dimensions.width, dimensions.height);
+        }
+        requestAnimationFrame(queueRender);
+      } else {
+        // If font failed to load, fall back to system font
+        debugWarn('Falling back to system font for:', selectedFont);
+        renderStateRef.current.hasInitialRender = false;
+        const ctx = canvasRef.current?.getContext('2d');
+        if (ctx) {
+          resetCanvas(ctx, dimensions.width, dimensions.height);
+        }
+        requestAnimationFrame(queueRender);
       }
-      
-      // Short timeout to ensure DOM updates before redrawing
-      // This can help prevent ghost effects during rapid changes
-      setTimeout(() => {
-        generateWallpaper();
-      }, 10);
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, [selectedFont, queueRender, canvasRef, dimensions.width, dimensions.height]);
+
+  // Force initial render on mount - this ensures canvas is never blank
+  useEffect(() => {
+    debugLog('WallpaperCanvas mounted, forcing initial render');
+    
+    // Wait a tiny bit for dimensions to be available, then force render
+    const timeoutId = setTimeout(() => {
+      if (dimensions.width > 0 && dimensions.height > 0) {
+        debugLog('Forcing initial render with dimensions:', dimensions);
+        renderStateRef.current.hasInitialRender = false;
+        const currentFrame = renderStateRef.current.animationFrame;
+        if (currentFrame) {
+          cancelAnimationFrame(currentFrame);
+        }
+        renderStateRef.current.animationFrame = requestAnimationFrame(queueRender);
+      }
+    }, 100);
+
+    return () => clearTimeout(timeoutId);
+  }, [dimensions.width, dimensions.height, queueRender]); // Fixed dependencies
+
+  // Main rendering effect - now checks font loading state
+  useEffect(() => {
+    // More lenient asset checking - allow initial render even without all assets
+    const hasMinimumAssets = dimensions.width > 0 && dimensions.height > 0;
+    
+    // Optional assets - these can be missing on initial load
+    const hasTheme = selectedTheme && selectedTheme.length > 0;
+    const hasPatchWhenNeeded = !showPatchImage || selectedBackground;
+    
+    // Check font status - but don't block rendering completely
+    const fontUrl = getFontUrl(selectedFont);
+    const fontReady = !fontUrl || renderStateRef.current.fontsLoaded.has(selectedFont);
+    
+    // Debug logging to help diagnose loading issues
+    debugLog('Canvas render check:', {
+      showPatchImage,
+      selectedBackground,
+      selectedTheme,
+      width: dimensions.width,
+      height: dimensions.height,
+      hasMinimumAssets,
+      hasTheme,
+      hasPatchWhenNeeded,
+      fontReady,
+      selectedFont,
+      fontUrl
+    });
+    
+    if (!hasMinimumAssets) {
+      debugLog('Skipping render - missing minimum assets (dimensions):', {
+        width: dimensions.width,
+        height: dimensions.height,
+        hasMinimumAssets
+      });
+      return;
     }
+    
+    // Allow rendering even without theme or patch - will use fallbacks
+    debugLog('Proceeding with render - minimum assets available');
+    
+    // Always proceed with rendering even if fonts aren't ready yet
+    // The font loading effect will trigger a re-render when fonts are loaded
+
+    // Reset render state for asset changes
+    if (selectedBackground || selectedTheme) {
+      renderStateRef.current.hasInitialRender = false;
+    }
+
+    const currentFrame = renderStateRef.current.animationFrame;
+    if (currentFrame) {
+      cancelAnimationFrame(currentFrame);
+    }
+
+    debugLog('Queueing render animation frame...');
+    renderStateRef.current.animationFrame = requestAnimationFrame(queueRender);
+
+    return () => {
+      if (currentFrame) {
+        cancelAnimationFrame(currentFrame);
+      }
+    };
   }, [
-    selectedBackground, 
-    selectedTheme, 
-    dimensions, 
-    nextMatches, 
-    includeDateTime, 
-    includeMatches, 
-    canvasRef, 
-    generateWallpaper, 
-    showPatchImage, 
-    customText, 
-    selectedFont, 
-    fontSizeMultiplier, 
-    textColor, 
-    patchPositionY, 
-    matchPositionY
+    dimensions.width,
+    dimensions.height,
+    selectedBackground,
+    selectedTheme,
+    showPatchImage,
+    selectedFont,
+    queueRender
   ]);
 
   return null;
