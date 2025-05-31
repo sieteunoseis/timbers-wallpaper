@@ -5,6 +5,56 @@ import { getThemeBackground, addThemeEffects, createFallbackGradient, TIMBERS_GR
 import { clearTextEffects, resetCanvas } from '../utils/textEffects';
 import { debugLog, debugWarn } from '../utils/debug';
 
+/**
+ * Apply a sharpening filter to an ImageData object
+ * @param {ImageData} imageData - The image data to sharpen
+ * @param {number} strength - Sharpening strength, from 0 to 1
+ * @returns {ImageData} The sharpened image data
+ */
+const sharpenImage = (imageData, strength = 0.5) => {
+  // Constrain strength to sensible values
+  strength = Math.min(Math.max(strength, 0), 1);
+  
+  // Get size of the image data
+  const width = imageData.width;
+  const height = imageData.height;
+  const data = imageData.data;
+  const buffer = new Uint8ClampedArray(data);
+  
+  // Sharpening convolution kernel
+  // [ 0, -1,  0]
+  // [-1,  5, -1] × strength + identity × (1-strength)
+  // [ 0, -1,  0]
+  
+  // Skip edge pixels to avoid boundary checks
+  for (let y = 1; y < height - 1; y++) {
+    for (let x = 1; x < width - 1; x++) {
+      // For each color channel (R,G,B)
+      for (let c = 0; c < 3; c++) {
+        const i = (y * width + x) * 4 + c;
+        
+        // Apply the kernel
+        const current = data[i];
+        const top = data[i - width * 4];
+        const bottom = data[i + width * 4];
+        const left = data[i - 4];
+        const right = data[i + 4];
+        
+        // Calculate sharpened value
+        // Central pixel gets boosted weight, neighbors get negative weights
+        const sharpened = 5 * current - top - bottom - left - right;
+        
+        // Blend with original based on strength
+        buffer[i] = Math.round(current * (1 - strength) + sharpened * strength);
+      }
+      // Don't modify the alpha channel - keep original transparency
+    }
+  }
+  
+  // Create new ImageData with the sharpened values
+  return new ImageData(buffer, width, height);
+};
+
 // Helper functions moved outside component to avoid recreation
 const loadFont = async (name, url) => {
   try {
@@ -220,7 +270,7 @@ const WallpaperCanvas = ({
     const FOOTER_BOTTOM_MARGIN = 140; // Distance from bottom of screen to footer text
     const DATE_TEXT_PADDING = 40; // Padding between logo and date text
     const TIME_TEXT_PADDING = 75; // Padding between logo and time text
-    const LOGO_SIZE_PERCENT = 0.12; // Logo size as percentage of width
+    const LOGO_SIZE_PERCENT = 0.20; // Logo size as percentage of width (increased from 0.12)
     const MATCH_ROW_WIDTH_PERCENT = 0.85; // Width of match row as percentage of screen width
     // Minimum buffer space between match row bottom and footer text
     const MIN_MATCH_FOOTER_BUFFER = 50; // Minimum 300px between match row and footer text
@@ -228,7 +278,7 @@ const WallpaperCanvas = ({
     // Higher value = more distance from bottom = higher position on screen
     const SCHEDULE_BOTTOM_MARGIN_PERCENT = Math.max(0.1, Math.min(0.4, matchPositionY));
     // Calculate this value considering the total match row height
-    const matchRowHeightEstimate = (width * LOGO_SIZE_PERCENT) + TIME_TEXT_PADDING + 20; // Logo + text + padding
+    const matchRowHeightEstimate = (width * LOGO_SIZE_PERCENT) + TIME_TEXT_PADDING + 30; // Logo + text + padding (increased padding for larger logos)
     
     // Ensure we don't exceed the canvas height minus footer buffer
     const calculatedMargin = Math.floor(height * SCHEDULE_BOTTOM_MARGIN_PERCENT);
@@ -625,22 +675,38 @@ const WallpaperCanvas = ({
           opponentLogo = createFallbackLogo(match.opponentShort);
         }
 
-        // White circle background for logo
-        ctx.fillStyle = TIMBERS_WHITE;
-        ctx.beginPath();
-        ctx.arc(itemCenterX, scheduleY, logoSize / 2, 0, 2 * Math.PI);
-        ctx.fill();
-
-        // Draw opponent logo
+        // Draw opponent logo - no background, no border, full transparent background
+        // No clipping to allow full logo to be visible
         ctx.save();
-        ctx.beginPath();
-        ctx.arc(itemCenterX, scheduleY, logoSize / 2 - 2, 0, 2 * Math.PI);
-        ctx.clip();
 
         if (opponentLogo instanceof HTMLCanvasElement) {
-          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
+          // For canvas fallback logos (text based)
+          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2, scheduleY - logoSize / 2, logoSize, logoSize);
         } else {
-          ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2 + 2, scheduleY - logoSize / 2 + 2, logoSize - 4, logoSize - 4);
+          // Apply sharpening for team logos using an offscreen canvas
+          const offscreenCanvas = document.createElement('canvas');
+          const offCtx = offscreenCanvas.getContext('2d', { willReadFrequently: true });
+          
+          // Set dimensions to match the intended logo display size
+          offscreenCanvas.width = logoSize;
+          offscreenCanvas.height = logoSize;
+          
+          // Draw the original image to the offscreen canvas
+          offCtx.drawImage(opponentLogo, 0, 0, logoSize, logoSize);
+          
+          try {
+            // Apply sharpening filter
+            const imageData = offCtx.getImageData(0, 0, logoSize, logoSize);
+            const sharpened = sharpenImage(imageData, 0.5); // Adjust strength as needed (0.3-0.7 range)
+            offCtx.putImageData(sharpened, 0, 0);
+            
+            // Draw the enhanced logo to the main canvas
+            ctx.drawImage(offscreenCanvas, itemCenterX - logoSize / 2, scheduleY - logoSize / 2, logoSize, logoSize);
+          } catch (err) {
+            // Fallback to normal drawing if sharpening fails
+            console.error('Error applying sharpening:', err);
+            ctx.drawImage(opponentLogo, itemCenterX - logoSize / 2, scheduleY - logoSize / 2, logoSize, logoSize);
+          }
         }
         ctx.restore();
 

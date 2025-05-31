@@ -29,3 +29,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Debug files
+src/debug-logos.js
+src/utils/logoDebugger.js
+src/utils/logoLoader.js
+src/utils/testLogoHelper.js

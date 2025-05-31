@@ -27,7 +27,7 @@ export const tryLoadImage = src => {
     };
     
     img.onerror = () => {
-      console.log(`Failed to load image: ${src}`);
+      console.error(`Failed to load image: ${src}`);
       reject(new Error(`Failed to load: ${src}`));
     };
     
@@ -52,8 +52,8 @@ export const createFallbackLogo = (text, isTimbers = false) => {
   fallbackCanvas.height = size;
   const fallbackCtx = fallbackCanvas.getContext('2d');
 
-  // Draw circle background
-  fallbackCtx.fillStyle = isTimbers ? TIMBERS_GREEN : '#555555';
+  // Draw circle background with transparent white
+  fallbackCtx.fillStyle = isTimbers ? TIMBERS_GREEN : 'rgba(255, 255, 255, 0.3)';
   fallbackCtx.beginPath();
   fallbackCtx.arc(size / 2, size / 2, size / 2, 0, 2 * Math.PI);
   fallbackCtx.fill();

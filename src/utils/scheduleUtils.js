@@ -1,4 +1,5 @@
 import TIMBERS_SCHEDULE from '../assets/schedule.json';
+import { getTeamLogoFromManifest } from './teamLogoHelper';
 
 /**
  * Extract next matches from schedule data
@@ -83,16 +84,44 @@ export const getNext4Matches = () => {
     const opponent = fixture.participants.find(p => p.id !== 607);
     const timbers = fixture.participants.find(p => p.id === 607);
     const isHome = timbers.meta.location === 'home';
+    const opponentName = opponent?.name || 'TBD';
+
+    // Try to get high quality logo from manifest first, fall back to API provided logo
+    let highQualityLogo;
+    
+    try {
+      // Get the opponent's short code
+      const opponentShortCode = opponent?.short_code || '';
+      
+      // Try to match by short code first (more reliable), then by name if that fails
+      highQualityLogo = opponentShortCode ? 
+        getTeamLogoFromManifest(null, opponentShortCode) :
+        getTeamLogoFromManifest(opponentName, null);
+      
+      // If short code match failed, try name match as fallback
+      if (!highQualityLogo && opponentShortCode) {
+        highQualityLogo = getTeamLogoFromManifest(opponentName, null);
+      }
+    } catch (error) {
+      console.error(`Error finding logo for team ${opponentName}:`, error);
+      highQualityLogo = null;
+    }
+    
+    // Use original API logo as fallback
+    const originalLogo = opponent?.image_path || '';
+    
+    // Use the best logo we can find
+    const logoUrl = highQualityLogo || originalLogo;
 
     return {
       date: fixture.starting_at,
       time: fixture.starting_at,
-      opponent: opponent?.name || 'TBD',
+      opponent: opponentName,
       opponentShort: opponent?.short_code || 'TBD',
       isHome: isHome,
       venue: isHome ? 'Providence Park' : 'Away',
       competition: fixture.competition || 'MLS',
-      logoUrl: opponent?.image_path || '',
+      logoUrl: logoUrl,
     };
   });
 };

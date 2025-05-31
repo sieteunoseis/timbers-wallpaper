@@ -1,0 +1,214 @@
+{
+  "logos": [
+    {
+      "name": "New England Revolution",
+      "short_code": "NER",
+      "src": "../logo/NE_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "San Jose Earthquakes",
+      "short_code": "SJE",
+      "src": "../logo/SJ_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Atlanta United FC",
+      "short_code": "ATL",
+      "src": "../logo/ATL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "St. Louis City SC",
+      "short_code": "STL",
+      "src": "../logo/STL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Toronto FC",
+      "short_code": "TOR",
+      "src": "../logo/TOR_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Austin FC",
+      "short_code": "ATX",
+      "src": "../logo/ATX_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "CF Montréal",
+      "short_code": "CFM",
+      "src": "../logo/CFM_logo_simplified_RGB.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Chicago Fire FC",
+      "short_code": "CHI",
+      "src": "../logo/CHI_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "FC Cincinnati",
+      "short_code": "CIN",
+      "src": "../logo/CIN_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Columbus Crew",
+      "short_code": "CLB",
+      "src": "../logo/CLB_Logo_PRI_FC_LTBG_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Charlotte FC",
+      "short_code": "CLT",
+      "src": "../logo/CLT_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Colorado Rapids",
+      "short_code": "COL",
+      "src": "../logo/COL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "FC Dallas",
+      "short_code": "DAL",
+      "src": "../logo/DAL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "D.C. United",
+      "short_code": "DCU",
+      "src": "../logo/DC_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Houston Dynamo FC",
+      "short_code": "HOU",
+      "src": "../logo/HOU_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Los Angeles FC",
+      "short_code": "LAFC",
+      "src": "../logo/LAFC_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "LA Galaxy",
+      "short_code": "LAG",
+      "src": "../logo/LA_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Inter Miami CF",
+      "short_code": "MIA",
+      "src": "../logo/MIA_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Minnesota United FC",
+      "short_code": "MIN",
+      "src": "../logo/MIN_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Nashville SC",
+      "short_code": "NSH",
+      "src": "../logo/NSH_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "New York City FC",
+      "short_code": "NYC",
+      "src": "../logo/NYC_Logo_PRI_FC_RGB.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Orlando City SC",
+      "short_code": "ORL",
+      "src": "../logo/ORL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Philadelphia Union",
+      "short_code": "PHI",
+      "src": "../logo/PHI_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Portland Timbers",
+      "short_code": "POR",
+      "src": "../logo/POR_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "New York Red Bulls",
+      "short_code": "RBNY",
+      "src": "../logo/RBNY_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Real Salt Lake",
+      "short_code": "RSL",
+      "src": "../logo/RSL_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "San Diego FC",
+      "short_code": "SD",
+      "src": "../logo/SD_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Seattle Sounders FC",
+      "short_code": "SEA",
+      "src": "../logo/SEA_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Sporting Kansas City",
+      "short_code": "SKC",
+      "src": "../logo/SKC_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    },
+    {
+      "name": "Vancouver Whitecaps FC",
+      "short_code": "VAN",
+      "src": "../logo/VAN_Logo_PRI_FC_RGB_800x800.png",
+      "width": 200,
+      "height": 200
+    }
+  ]
+}

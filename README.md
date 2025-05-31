@@ -58,6 +58,20 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 
 ## Version History
 
+### v3.0.2 (June 18, 2025)
+
+- Added support for higher quality team logos using logo-manifest.json
+- Implemented team name matching to use proper logos for each opponent
+- Enhanced visual appearance of opponent teams in match section
+- Improved readability of team logos against different backgrounds
+
+### v3.0.1 (June 17, 2025)
+
+- Removed white circle backgrounds from opponent team logos in match section
+- Made opponent logos display with transparent backgrounds
+- Added subtle outline around opponent logos to improve visibility
+- Enhanced team logo display across different background themes
+
 ### v3.0.0 (May 28, 2025)
 
 - Major refactoring for code organization and maintainability
@@ -184,6 +198,23 @@ Set `VITE_DEBUG_MODE=false` in your production environment to disable all debug 
 - Added comprehensive canvas context reset utility
 - Improved text rendering to prevent shadow persistence
 - Added page refresh handling to ensure clean canvas state
+
+### v3.0.4 (May 30, 2025)
+
+- Added image sharpening to team logos for crisper edges and better definition
+- Improved logo rendering quality with enhanced contrast
+
+### v3.0.3 (May 30, 2025)
+
+- Increased team logo size in match schedule display
+- Removed logo borders for cleaner appearance
+- Fixed team name/short code matching for proper logo display
+
+### v3.0.2 (May 29, 2025)
+
+- Added high-quality team logos with transparent backgrounds
+- Improved team logo matching by short code and name
+- Added support for St. Louis, Toronto, San Jose, and New England logos
 
 ### v2.4.1 (May 27, 2025)
 
